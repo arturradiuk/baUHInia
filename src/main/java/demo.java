@@ -1,5 +1,6 @@
 public class demo {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        var example = new Example();
+        System.out.println(example.getMsg());
     }
 }
