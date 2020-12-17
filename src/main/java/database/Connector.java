@@ -7,9 +7,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Connector {
-    Connection connection;
+    public Connection getConnection() throws SQLException {
 
-    public Connection getConnection() {
         Properties pomProperties = new Properties();
         try {
             pomProperties.load(Connector.class.getResourceAsStream("/pom.properties"));
@@ -22,23 +21,8 @@ public class Connector {
         dbProps.setProperty("password", pomProperties.getProperty("password"));
         dbProps.setProperty("ssl", pomProperties.getProperty("ssl"));
         String url = pomProperties.getProperty("location") + "/" + pomProperties.getProperty("dbname");
+        Connection connection = DriverManager.getConnection(url, dbProps);
+        return connection;
 
-        try {
-            this.connection = DriverManager.getConnection(url, dbProps);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            return this.connection; // todo can be null
-        }
-    }
-
-    public void close() {
-        if (this.connection != null) {
-            try {
-                this.connection.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
     }
 }

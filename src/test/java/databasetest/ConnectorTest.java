@@ -13,27 +13,28 @@ public class ConnectorTest {
     @Test
     public void getConnectionTest() {
         Connector connector = new Connector();
-        Connection connection = connector.getConnection();
-        Assert.assertNotNull(connection);
-        connector.close();
+        try (Connection connection = connector.getConnection()) {
+            Assert.assertNotNull(connection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
     @Test
     public void selectTest() {
-        Connector conn = new Connector();
-        Statement stmt = null;
-        try {
-            stmt = conn.getConnection().createStatement();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
         String sql = "select * from test where _name = 'lolek'";
+
         ResultSet rs = null;
-        try {
+        Connector connector = new Connector();
+        Statement stmt = null;
+        try (Connection connection = connector.getConnection()) {
+            stmt = connection.createStatement();
             rs = stmt.executeQuery(sql);
             rs.next();
             Assert.assertEquals("lolek", rs.getString("_name"));
             Assert.assertEquals("0000", rs.getString("phone"));
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
