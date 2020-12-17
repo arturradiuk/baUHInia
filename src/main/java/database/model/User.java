@@ -69,8 +69,8 @@ public class User {
         this.password = password;
     }
 
-    public UserType getUserType() {
-        return userType;
+    public String getUserType() {
+        return userType.toString();
     }
 
     public void setUserType(UserType userType) {
