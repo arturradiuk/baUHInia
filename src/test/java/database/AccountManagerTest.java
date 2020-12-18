@@ -1,7 +1,5 @@
-package databasetest;
+package database;
 
-import database.AccountManager;
-import database.Connector;
 import database.model.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -51,5 +49,15 @@ public class AccountManagerTest {
         Assert.assertEquals(true, accountManager.deleteUser(user));
     }
 
-
+    @Test
+    public void updateUserTest() {
+        AccountManager accountManager = new AccountManager(new Connector());
+        User user = accountManager.getUser("lolek@gmail.com", "12345");
+        user.setEmail("lol@gmail.com");
+        accountManager.updateUser(user);
+        Assert.assertEquals(user,accountManager.getUser("lol@gmail.com","12345"));
+        user.setEmail("lolek@gmail.com");
+        accountManager.updateUser(user);
+        Assert.assertEquals(user,accountManager.getUser("lolek@gmail.com","12345"));
+    }
 }

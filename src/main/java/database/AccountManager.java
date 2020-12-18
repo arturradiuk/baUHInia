@@ -84,4 +84,25 @@ public class AccountManager implements IAccountData {
             return false;
         }
     }
+
+    @Override
+    public boolean updateUser(User user) {
+        String sqlQuery = "update users set firstName = ?, lastName = ?, email = ?, password = ?, userType = ? where id =?";
+
+        try (Connection connection = this.connector.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sqlQuery);
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getPassword());
+            ps.setString(5, user.getUserType());
+            ps.setInt(6, user.getId());
+            ps.execute();
+            return true;  // even if there is no such user in db return true
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
 }

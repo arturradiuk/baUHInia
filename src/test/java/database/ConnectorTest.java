@@ -1,6 +1,5 @@
-package databasetest;
+package database;
 
-import database.Connector;
 import org.junit.Assert;
 import org.junit.Test;
 
