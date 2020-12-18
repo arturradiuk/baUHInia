@@ -1,11 +1,16 @@
 package database;
 
-import database.model.ObiektUmieszczalny;
+import database.model.PlacableObject;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface IDaneAdministratora {
-    List<ObiektUmieszczalny> pobierzObiekty();
+public interface IAdminData {
+    List<PlacableObject> getObjects();
 
-    void dodajObiekt(ObiektUmieszczalny obj);
+    void addObject(PlacableObject obj);
+
+    void removeObject(UUID objectID);
+
+    void updateObject(UUID objectID, PlacableObject obj);
 }

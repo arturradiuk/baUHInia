@@ -1,32 +1,50 @@
 package database.model;
 
-import java.util.Dictionary;
-import java.util.UUID;
+import netscape.javascript.JSObject;
 
-public class ObiektUmieszczalny {
-    UUID idObiektu;
-    String nazwa;
-    Dictionary<String ,String> zestawParametrow;
+import java.util.*;
 
-    public ObiektUmieszczalny(UUID idObiektu, String nazwa, Dictionary<String, String> zestawParametrow) {
-        this.idObiektu = idObiektu;
-        this.nazwa = nazwa;
-        this.zestawParametrow = zestawParametrow;
+public class PlacableObject {
+    UUID id;
+    String name;
+    Dictionary<String ,String> parametersSet;
+
+    public PlacableObject(UUID id, String name, Dictionary<String, String> parametersSet) {
+        this.id = id;
+        this.name = name;
+        this.parametersSet = parametersSet;
     }
 
-    public void setNazwa(String nazwa) {
-        this.nazwa = nazwa;
+    public UUID getId() {
+        return id;
     }
 
-    public void setZestawParametrow(Dictionary<String, String> zestawParametrow) {
-        this.zestawParametrow = zestawParametrow;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getNazwa() {
-        return nazwa;
+    public void setParametersSet(Dictionary<String, String> parametersSet) {
+        this.parametersSet = parametersSet;
     }
 
-    public Dictionary<String, String> getZestawParametrow() {
-        return zestawParametrow;
+    public String getName() {
+        return name;
+    }
+
+    public Dictionary<String, String> getParametersSet() {
+        return parametersSet;
+    }
+
+    public Dictionary<String,String> getInfo(){
+        Dictionary<String,String> output = new Hashtable<>();
+        output.put("id",id.toString());
+        output.put("name",name);
+        Enumeration<String> keys = parametersSet.keys();
+        while (keys.hasMoreElements())
+        {
+            String key = keys.nextElement();
+            output.put(key,parametersSet.get(key));
+        }
+        return output;
     }
 }
