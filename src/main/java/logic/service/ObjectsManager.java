@@ -18,7 +18,7 @@ public class ObjectsManager implements IObjectsService {
     public void addObject(String name, Dictionary<String, String> parameterSet) throws RepositoryException {
         PlacableObject obj = new PlacableObject(UUID.randomUUID(), name, parameterSet);
         if(cachedObjects.contains(obj)){
-            throw new RepositoryException(RepositoryException.EXIST);
+            throw new RepositoryException(obj.toString(), RepositoryException.EXIST);
         }
         adminData.addObject(obj);
         cacheObjects();
@@ -32,7 +32,7 @@ public class ObjectsManager implements IObjectsService {
             cacheObjects();
         }
         else
-            throw new RepositoryException(RepositoryException.NOT_EXIST);
+            throw new RepositoryException(objectID.toString(), RepositoryException.NOT_EXIST);
 
     }
 
@@ -43,10 +43,11 @@ public class ObjectsManager implements IObjectsService {
         {
             if(o.getId() == objectID){
                 obj = o;
+                break;
             }
         }
         if(obj == null)
-            throw new RepositoryException(RepositoryException.NOT_EXIST);
+            throw new RepositoryException(objectID.toString(), RepositoryException.NOT_EXIST);
         obj.setParametersSet(newParametersSet);
         adminData.updateObject(objectID, obj);
         cacheObjects();

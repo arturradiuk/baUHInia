@@ -6,7 +6,7 @@ public class RepositoryException extends Throwable {
     public RepositoryException() {
     }
 
-    public RepositoryException(String message) {
-        super(message);
+    public RepositoryException(String objInfo, String message) {
+        super(objInfo + " " + message);
     }
 }

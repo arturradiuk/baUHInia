@@ -1,5 +1,6 @@
 package database;
 
+import database.model.MapObject;
 import database.model.PlacableObject;
 
 import java.util.List;
@@ -13,4 +14,12 @@ public interface IAdminData {
     void removeObject(UUID objectID);
 
     void updateObject(UUID objectID, PlacableObject obj);
+
+    List<MapObject> getMaps();
+
+    void addMap();
+
+    void removeMap(UUID mapID);
+
+    void updateMap(UUID mapID, MapObject map);
 }
