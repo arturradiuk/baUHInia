@@ -1,19 +1,19 @@
 package database;
 
 import database.model.MapObject;
-import database.model.PlacableObject;
+import database.model.PlaceableObject;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface IAdminData {
-    List<PlacableObject> getObjects();
+    List<PlaceableObject> getObjects();
 
-    void addObject(PlacableObject obj);
+    void addObject(PlaceableObject obj);
 
     void removeObject(UUID objectID);
 
-    void updateObject(UUID objectID, PlacableObject obj);
+    void updateObject(UUID objectID, PlaceableObject obj);
 
     List<MapObject> getMaps();
 
