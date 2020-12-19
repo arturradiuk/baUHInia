@@ -2,6 +2,7 @@ package database.model;
 
 import java.awt.*;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class MapObject {
@@ -40,13 +41,33 @@ public class MapObject {
     public void setPermissionsSet(Map<String, String> newPermissionsSet) {
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "MapObject{\n" +
-                "permissionsSet=" + permissionsSet +"\n"+
-                ", objectsSet=" + objectsSet +"\n"+
-                ", name='" + name +"\n"+
+                "permissionsSet=" + permissionsSet + "\n" +
+                ", objectsSet=" + objectsSet + "\n" +
+                ", name='" + name + "\n" +
                 ", ID=" + ID +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MapObject mapObject = (MapObject) o;
+        return Objects.equals(permissionsSet, mapObject.permissionsSet) &&
+                Objects.equals(objectsSet, mapObject.objectsSet) &&
+                Objects.equals(name, mapObject.name) &&
+                Objects.equals(ID, mapObject.ID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(permissionsSet, objectsSet, name, ID);
     }
 }
