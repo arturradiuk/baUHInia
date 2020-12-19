@@ -46,9 +46,10 @@ create table permissions_set
 create table objects_set
 (
     mo_id  varchar not null,
-    _key   varchar not null,
-    _value point   not null,
+    _key   point not null,
+    _value varchar   not null,
     foreign key (mo_id) references map_objects (id),
+    foreign key (_value) references placeable_objects (id),
     unique (mo_id, _key, _value)
 )
 ------------------------------------------------------------------
