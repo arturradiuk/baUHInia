@@ -39,4 +39,14 @@ public class MapObject {
 
     public void setPermissionsSet(Map<String, String> newPermissionsSet) {
     }
+
+    @Override
+    public String toString() {
+        return "MapObject{\n" +
+                "permissionsSet=" + permissionsSet +"\n"+
+                ", objectsSet=" + objectsSet +"\n"+
+                ", name='" + name +"\n"+
+                ", ID=" + ID +
+                '}';
+    }
 }
