@@ -10,25 +10,29 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-public class LoginController implements Initializable {
-    
+public class CitizenGameController implements Initializable {
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-    
+
     @FXML
-    public void login() throws IOException {
-        if(authenticate()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("scenes/citizen_game.fxml"));
-            Parent root = loader.load();
-            Main.setWindowDraggable(root);
-            Main.stage.setScene(new Scene(root));
-        }
+    public void importMap() {
+
     }
-    
-    private boolean authenticate() {
-        return true;
+
+    @FXML
+    public void saveMap() {
+        
+    }
+
+    @FXML
+    public void logOff() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("scenes/login.fxml"));
+        Parent root = loader.load();
+        Main.setWindowDraggable(root);
+        Main.stage.setScene(new Scene(root));
     }
 
     @FXML
