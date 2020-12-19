@@ -1,8 +1,7 @@
 package database;
 
-
 import database.model.MapObject;
-import org.junit.jupiter.api.Disabled;
+import database.model.PlaceableObject;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -13,28 +12,66 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 public class AdminManagerTest {
+
     private AdminManager adminManager = new AdminManager(new Connector());
 
-    @Disabled
     @Test
-    public void testGetObjects() {
+    public void getObjectTest() {
+        PlaceableObject obj = new PlaceableObject(UUID.randomUUID(), "boisko", new HashMap<>() {{
+            put("key1", "value1");
+        }});
+        adminManager.addObject(obj);
+        List<PlaceableObject> objects = adminManager.getObjects();
+        assertEquals(4, objects.size());
+        adminManager.removeObject(obj.getId());
     }
 
-    @Disabled
     @Test
-    public void testAddObject() {
+    public void addObjectTest() {
+        UUID id = UUID.randomUUID();
+        PlaceableObject obj = new PlaceableObject(id, "boisko", new HashMap<>() {{
+            put("key1", "value1");
+        }});
+        adminManager.addObject(obj);
+
+        List<PlaceableObject> objects = adminManager.getObjects();
+        assertEquals(4, objects.size());
+        adminManager.removeObject(id);
     }
 
-    @Disabled
     @Test
-    public void testRemoveObject() {
+    public void deleteObjectTest() {
+        PlaceableObject obj = new PlaceableObject(UUID.randomUUID(), "boisko", new HashMap<>() {{
+            put("key1", "value1");
+            put("key2", "value2");
+        }});
+        adminManager.addObject(obj);
+        List<PlaceableObject> objects = adminManager.getObjects();
+        assertEquals(4, objects.size());
+
+        adminManager.removeObject(obj.getId());
+        objects = adminManager.getObjects();
+        assertEquals(3, objects.size());
     }
 
-    @Disabled
     @Test
-    public void testUpdateObject() {
+    public void updateObjectTest() {
+        PlaceableObject obj = new PlaceableObject(UUID.randomUUID(), "boisko", new HashMap<>() {{
+            put("key1", "value1");
+            put("key2", "value2");
+        }});
+        adminManager.addObject(obj);
+        List<PlaceableObject> objects = adminManager.getObjects();
+        assertEquals(4, objects.size());
+
+        obj.setName("park");
+        adminManager.updateObject(obj.getId(), obj);
+        objects = adminManager.getObjects();
+        PlaceableObject actual = objects.stream().filter(o -> o.getId().toString().equals(obj.getId().toString())).findAny().get();
+        assertEquals("park", actual.getName());
+
+        adminManager.removeObject(obj.getId());
     }
 
     @Test

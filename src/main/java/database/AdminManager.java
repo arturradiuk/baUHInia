@@ -2,43 +2,131 @@ package database;
 
 import database.model.MapObject;
 import database.model.PlaceableObject;
-import database.model.User;
 import org.postgresql.geometric.PGpoint;
 
+import java.util.*;
+import java.util.List;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
-import java.util.List;
 
 public class AdminManager implements IAdminData {
-    @Override
-    public List<PlaceableObject> getObjects() {
-        return null;
-    }
-
-    @Override
-    public void addObject(PlaceableObject obj) {
-
-    }
-
-    @Override
-    public void removeObject(UUID objectID) {
-
-    }
-
-    @Override
-    public void updateObject(UUID objectID, PlaceableObject obj) {
-
-    }
+    private Connector connector;
 
     public AdminManager(Connector connector) {
         this.connector = connector;
     }
 
-    private Connector connector;
+    @Override
+    public List<PlaceableObject> getObjects() {
+        List<PlaceableObject> placeableObjects = new ArrayList<>();
+        String sqlQueryPlaceableObject = "select * from placeable_objects";
+        String sqlQueryParametersSet = "select * from parameters_set where po_id = ?";
+
+        ResultSet resultSet;
+
+        try (Connection connection = this.connector.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sqlQueryPlaceableObject);
+
+            resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String name = resultSet.getString("name");
+
+                Map<String, String> parametersSet = new HashMap<>();
+
+                ps = connection.prepareStatement(sqlQueryParametersSet);
+                ps.setString(1, id);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    parametersSet.put(rs.getString("_key"), rs.getString("_value"));
+                }
+
+                placeableObjects.add( new PlaceableObject(UUID.fromString(id), name, parametersSet));
+            }
+            return placeableObjects;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public void addObject(PlaceableObject obj) {
+        String sqlQueryPlaceableObjects = "insert into placeable_objects(id, name) values (?, ?);";
+        String sqlQueryParametersSet = "insert into parameters_set(_key, _value, po_id) values (?, ?, ?);";
+
+        try (Connection connection = this.connector.getConnection()) {
+
+            PreparedStatement ps = connection.prepareStatement(sqlQueryPlaceableObjects);
+            ps.setString(1, obj.getId().toString());
+            ps.setString(2, obj.getName());
+            ps.execute();
+
+            for (Map.Entry<String, String> set : obj.getParametersSet().entrySet()) {
+                ps = connection.prepareStatement(sqlQueryParametersSet);
+                ps.setString(1, set.getKey());
+                ps.setString(2, set.getValue());
+                ps.setString(3, obj.getId().toString());
+                ps.execute();
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    @Override
+    public void removeObject(UUID objectID) {
+        String sqlQueryPlaceableObjects = "delete from placeable_objects where id = ?;";
+        String sqlQueryParametersSet = "delete from parameters_set where po_id = ?";
+
+        try (Connection connection = this.connector.getConnection()) {
+
+            PreparedStatement ps = connection.prepareStatement(sqlQueryParametersSet);
+            ps.setString(1, objectID.toString());
+            ps.execute();
+
+            ps = connection.prepareStatement(sqlQueryPlaceableObjects);
+            ps.setString(1, objectID.toString());
+            ps.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateObject(UUID objectID, PlaceableObject obj) {
+        String sqlQueryUpdateName = "update placeable_objects set name = ? where id = ?";
+        String sqlQueryDeleteParameters = "delete from parameters_set where po_id = ?";
+        String sqlQueryAddParametersSet = "insert into parameters_set(_key, _value, po_id) values (?, ?, ?);";
+
+        try (Connection connection = this.connector.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sqlQueryUpdateName);
+            ps.setString(1, obj.getName());
+            ps.setString(2, objectID.toString());
+            ps.execute();
+
+            ps = connection.prepareStatement(sqlQueryDeleteParameters);
+            ps.setString(1, objectID.toString());
+            ps.execute();
+
+            for (Map.Entry<String, String> set : obj.getParametersSet().entrySet()) {
+                ps = connection.prepareStatement(sqlQueryAddParametersSet);
+                ps.setString(1, set.getKey());
+                ps.setString(2, set.getValue());
+                ps.setString(3, obj.getId().toString());
+                ps.execute();
+            };
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     @Override
     public List<MapObject> getMaps() {
