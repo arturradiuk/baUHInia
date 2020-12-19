@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 public class LoginController implements Initializable {
     
@@ -22,8 +21,7 @@ public class LoginController implements Initializable {
         if(authenticate()) {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("scenes/citizen_game.fxml"));
             Parent root = loader.load();
-            Main.setWindowDraggable(root);
-            Main.stage.setScene(new Scene(root));
+            Main.setView(root);
         }
     }
     

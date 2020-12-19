@@ -9,11 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 
-public class CitizenGameController implements Initializable {
-
+public class AdminGameController implements Initializable {
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        
     }
 
     @FXML
@@ -23,7 +23,7 @@ public class CitizenGameController implements Initializable {
 
     @FXML
     public void saveMap() {
-        
+
     }
 
     @FXML

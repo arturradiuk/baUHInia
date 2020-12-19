@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appGUI.CitizenGameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appGUI.AdminGameController">
     <right>
-        <AnchorPane minWidth="-Infinity" prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: #70af85;" BorderPane.alignment="CENTER">
+        <AnchorPane minWidth="-Infinity" prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: #aa8976;" BorderPane.alignment="CENTER">
             <children>
 
                 <Button cancelButton="true" graphicTextGap="0.0" layoutX="147.0" layoutY="14.0" minWidth="38.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="38.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="TRANSPARENT" textOverrun="CLIP">
@@ -31,22 +31,22 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </padding>
                     <children>
-                        <Button fx:id="importBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#importMap" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Importuj" textAlignment="CENTER" textFill="#f0e2d0">
+                        <Button fx:id="importBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#importMap" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: #aa8976; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Importuj" textAlignment="CENTER" textFill="#f0e2d0">
                             <font>
                                 <Font name="Roboto Light" size="24.0" />
                             </font>
                         </Button>
-                        <Button fx:id="saveBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#saveMap" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Zapisz" textAlignment="CENTER" textFill="#f0e2d0">
+                        <Button fx:id="saveBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#saveMap" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: #aa8976; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Zapisz" textAlignment="CENTER" textFill="#f0e2d0">
                             <font>
                                 <Font name="Roboto Light" size="24.0" />
                             </font>
                         </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Button" textAlignment="CENTER" textFill="#f0e2d0">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: #aa8976; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Button" textAlignment="CENTER" textFill="#f0e2d0">
                             <font>
                                 <Font name="Roboto Light" size="24.0" />
                             </font>
                         </Button>
-                        <Button fx:id="logOffBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logOff" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Wyloguj się" textAlignment="CENTER" textFill="#f0e2d0">
+                        <Button fx:id="logOffBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logOff" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: #aa8976; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Wyloguj się" textAlignment="CENTER" textFill="#f0e2d0">
                             <font>
                                 <Font name="Roboto Light" size="22.0" />
                             </font>

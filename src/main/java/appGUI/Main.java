@@ -27,11 +27,10 @@ public class Main extends Application {
                     Objects.requireNonNull(
                             getClass().getClassLoader().getResource("scenes/login.fxml"))
             );
-            primaryStage.setScene(new Scene(root));
+            
+            setView(root);
+            
             primaryStage.initStyle(StageStyle.UNDECORATED);
-            
-            setWindowDraggable(root);
-            
             primaryStage.setOnCloseRequest((WindowEvent we) -> System.exit(0));
             primaryStage.show();
         } catch (Exception e) {
@@ -39,7 +38,12 @@ public class Main extends Application {
         }
     }
     
-    static void setWindowDraggable(Parent root) {
+    public static void setView(Parent root) {
+        setWindowDraggable(root);
+        stage.setScene(new Scene(root));
+    }
+    
+    private static void setWindowDraggable(Parent root) {
         root.setOnMousePressed(mouseEvent -> {
             xOffset = mouseEvent.getSceneX();
             yOffset = mouseEvent.getSceneY();
