@@ -9,11 +9,11 @@ import java.util.UUID;
 public interface IAdminData {
     List<PlaceableObject> getObjects();
 
-    boolean addObject(PlaceableObject obj);
+    void addObject(PlaceableObject obj);
 
-    boolean removeObject(UUID objectID);
+    void removeObject(UUID objectID);
 
-    boolean updateObject(UUID objectID, PlaceableObject obj);
+    void updateObject(UUID objectID, PlaceableObject obj);
 
     List<MapObject> getMaps();
 
