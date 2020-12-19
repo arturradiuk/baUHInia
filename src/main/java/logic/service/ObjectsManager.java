@@ -1,12 +1,12 @@
 package logic.service;
 
 import database.IAdminData;
-import database.model.PlacableObject;
+import database.model.PlaceableObject;
 
 import java.util.*;
 
 public class ObjectsManager implements IObjectsService {
-    private List<PlacableObject> cachedObjects;
+    private List<PlaceableObject> cachedObjects;
     private IAdminData adminData;
 
     public ObjectsManager() {
@@ -15,8 +15,8 @@ public class ObjectsManager implements IObjectsService {
     }
 
     @Override
-    public void addObject(String name, Dictionary<String, String> parameterSet) throws RepositoryException {
-        PlacableObject obj = new PlacableObject(UUID.randomUUID(), name, parameterSet);
+    public void addObject(String name, Map<String, String> parameterSet) throws RepositoryException {
+        PlaceableObject obj = new PlaceableObject(UUID.randomUUID(), name, parameterSet);
         if(cachedObjects.contains(obj)){
             throw new RepositoryException(obj.toString(), RepositoryException.EXIST);
         }
@@ -26,7 +26,7 @@ public class ObjectsManager implements IObjectsService {
 
     @Override
     public void removeObject(UUID objectID) throws RepositoryException {
-        PlacableObject obj = new PlacableObject(objectID,null,null);
+        PlaceableObject obj = new PlaceableObject(objectID,null,null);
         if(cachedObjects.contains(obj)) {
             adminData.removeObject(objectID);
             cacheObjects();
@@ -37,9 +37,9 @@ public class ObjectsManager implements IObjectsService {
     }
 
     @Override
-    public void updateParameters(UUID objectID, Dictionary<String, String> newParametersSet) throws RepositoryException {
-        PlacableObject obj = null;
-        for(PlacableObject o : cachedObjects)
+    public void updateParameters(UUID objectID, Map<String, String> newParametersSet) throws RepositoryException {
+        PlaceableObject obj = null;
+        for(PlaceableObject o : cachedObjects)
         {
             if(o.getId() == objectID){
                 obj = o;
@@ -54,9 +54,9 @@ public class ObjectsManager implements IObjectsService {
     }
 
     @Override
-    public List<Dictionary<String, String>> getInfo() {
-        List<Dictionary<String,String>> output = new ArrayList<>();
-        for(PlacableObject o : cachedObjects){
+    public List<Map<String, String>> getAllObjectsInfo() {
+        List<Map<String,String>> output = new ArrayList<>();
+        for(PlaceableObject o : cachedObjects){
             output.add(o.getInfo());
         }
         return output;
