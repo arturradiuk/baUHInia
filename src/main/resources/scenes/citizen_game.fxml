@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appGUI.CitizenGameController">
+    <right>
+        <AnchorPane minWidth="-Infinity" prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: #70af85;" BorderPane.alignment="CENTER">
+            <children>
+
+                <Button cancelButton="true" graphicTextGap="0.0" layoutX="147.0" layoutY="14.0" minWidth="38.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="38.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="TRANSPARENT" textOverrun="CLIP">
+                    <font>
+                        <Font size="1.0" />
+                    </font>
+               <graphic>
+                      <FontAwesomeIcon fx:id="exit" fill="#aa8976" glyphName="CLOSE" onMouseClicked="#quitApplication" selectionFill="#ff000000" size="18" strokeDashOffset="10.0" strokeWidth="10.0" />
+               </graphic>
+                </Button>
+                
+                    <FontAwesomeIcon fill="#f0e2d0" glyphName="BUILDING" layoutX="68.0" layoutY="526.0" size="75" />
+                    <Text fill="#f0e2d0" layoutX="47.0" layoutY="564.0" strokeType="OUTSIDE" strokeWidth="0.0" text="baUHInia" textAlignment="CENTER">
+                        <font>
+                            <Font name="System Bold" size="24.0" />
+                        </font>
+                    </Text>
+            <VBox layoutY="63.0" prefHeight="382.0" prefWidth="200.0" spacing="20.0">
+               <padding>
+                  <Insets left="20.0" right="20.0" top="40.0" />
+               </padding>
+               <children>
+                  <Button fx:id="importBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#importMap" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: #aa8976; -fx-border-color: #f0e2d0; -fx-border-width: 2;" text="Importuj" textAlignment="CENTER" textFill="#f0e2d0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="saveBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#saveMap" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: #aa8976; -fx-border-color: #f0e2d0; -fx-border-width: 2;" text="Zapisz" textAlignment="CENTER" textFill="#f0e2d0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: #aa8976; -fx-border-color: #f0e2d0; -fx-border-width: 2;" text="Button" textAlignment="CENTER" textFill="#f0e2d0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="logOffBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logOff" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: #aa8976; -fx-border-color: #f0e2d0; -fx-border-width: 2;" text="Wyloguj się" textAlignment="CENTER" textFill="#f0e2d0">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+               </children></VBox>
+            </children>
+        </AnchorPane>
+    </right>
+   <left>
+      <AnchorPane prefHeight="900.0" prefWidth="1000.0" style="-fx-background-color: #f0e2d0;" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>
