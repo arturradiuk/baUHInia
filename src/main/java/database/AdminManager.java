@@ -22,7 +22,7 @@ public class AdminManager implements IAdminData {
     @Override
     public List<PlaceableObject> getObjects() {
         List<PlaceableObject> placeableObjects = new ArrayList<>();
-        String sqlQueryPlaceableObject = "select * from placeable_object";
+        String sqlQueryPlaceableObject = "select * from placeable_objects";
         String sqlQueryParametersSet = "select * from parameters_set where po_id = ?";
 
         ResultSet resultSet;
@@ -55,59 +55,55 @@ public class AdminManager implements IAdminData {
     }
 
     @Override
-    public boolean addObject(PlaceableObject obj) {
-        String sqlQueryPlaceableObjects = "insert into placeable_objects(id, name) values (?,?);";
-        String sqlQueryParametersSet = "insert into placeable_objects(_key, _value, po_id), values (?, ?, ?);";
+    public void addObject(PlaceableObject obj) {
+        String sqlQueryPlaceableObjects = "insert into placeable_objects(id, name) values (?, ?);";
+        String sqlQueryParametersSet = "insert into parameters_set(_key, _value, po_id) values (?, ?, ?);";
 
         try (Connection connection = this.connector.getConnection()) {
 
-            PreparedStatement psPlaceableObjects = connection.prepareStatement(sqlQueryPlaceableObjects);
-            psPlaceableObjects.setString(1, obj.getId().toString());
-            psPlaceableObjects.setString(2, obj.getName());
-            psPlaceableObjects.execute();
-            obj.getParametersSet().forEach((k, v) -> {
-                try {
-                    PreparedStatement psParametersSet = connection.prepareStatement(sqlQueryParametersSet);
-                    psParametersSet.setString(1, k);
-                    psParametersSet.setString(2, v);
-                    psParametersSet.setString(3, obj.getId().toString());
-                    psParametersSet.execute();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-
-            });
-            return true;
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean removeObject(UUID objectID) {
-        String sqlQuery = "delete from placeable_objects where id = ?; delete from parameters_set where po_id = ?";
-
-        try (Connection connection = this.connector.getConnection()) {
-
-            PreparedStatement ps = connection.prepareStatement(sqlQuery);
-            ps.setString(1, objectID.toString());
-            ps.setString(2, objectID.toString());
+            PreparedStatement ps = connection.prepareStatement(sqlQueryPlaceableObjects);
+            ps.setString(1, obj.getId().toString());
+            ps.setString(2, obj.getName());
             ps.execute();
-            return true;
+
+            for (Map.Entry<String, String> set : obj.getParametersSet().entrySet()) {
+                ps = connection.prepareStatement(sqlQueryParametersSet);
+                ps.setString(1, set.getKey());
+                ps.setString(2, set.getValue());
+                ps.setString(3, obj.getId().toString());
+                ps.execute();
+            }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
     @Override
-    public boolean updateObject(UUID objectID, PlaceableObject obj) {
+    public void removeObject(UUID objectID) {
+        String sqlQueryPlaceableObjects = "delete from placeable_objects where id = ?;";
+        String sqlQueryParametersSet = "delete from parameters_set where po_id = ?";
+
+        try (Connection connection = this.connector.getConnection()) {
+
+            PreparedStatement ps = connection.prepareStatement(sqlQueryParametersSet);
+            ps.setString(1, objectID.toString());
+            ps.execute();
+
+            ps = connection.prepareStatement(sqlQueryPlaceableObjects);
+            ps.setString(1, objectID.toString());
+            ps.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateObject(UUID objectID, PlaceableObject obj) {
         String sqlQueryUpdateName = "update placeable_objects set name = ? where id = ?";
         String sqlQueryDeleteParameters = "delete from parameters_set where po_id = ?";
-        String sqlQueryAddParametersSet = "insert into placeable_objects(_key, _value, po_id), values (?, ?, ?);";
+        String sqlQueryAddParametersSet = "insert into parameters_set(_key, _value, po_id) values (?, ?, ?);";
 
         try (Connection connection = this.connector.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sqlQueryUpdateName);
@@ -119,23 +115,16 @@ public class AdminManager implements IAdminData {
             ps.setString(1, objectID.toString());
             ps.execute();
 
-            obj.getParametersSet().forEach((k, v) -> {
-                try {
-                    PreparedStatement psParametersSet = connection.prepareStatement(sqlQueryAddParametersSet);
-                    psParametersSet.setString(1, k);
-                    psParametersSet.setString(2, v);
-                    psParametersSet.setString(3, objectID.toString());
-                    psParametersSet.execute();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-
-            });
-            return true;
+            for (Map.Entry<String, String> set : obj.getParametersSet().entrySet()) {
+                ps = connection.prepareStatement(sqlQueryAddParametersSet);
+                ps.setString(1, set.getKey());
+                ps.setString(2, set.getValue());
+                ps.setString(3, obj.getId().toString());
+                ps.execute();
+            };
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
