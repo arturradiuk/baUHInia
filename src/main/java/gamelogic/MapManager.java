@@ -123,7 +123,7 @@ public class MapManager implements IMapHandler {
      * @param point coordinates of field
      * @return true if can be placed, false otherwise
      */
-    private boolean isFieldAvailable(Point point){
-        return false;
+    private boolean isFieldAvailable(Point point) throws ExecutionControl.NotImplementedException {
+        throw new ExecutionControl.NotImplementedException("method not implemented");
     }
 }
