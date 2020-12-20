@@ -4,7 +4,7 @@ import database.model.User;
 
 import java.sql.*;
 
-public class AccountManager implements IAccountData {
+public class AccountManager implements IAccountData { // todo uuid can't be updated
     private Connector connector;
 
     public AccountManager(Connector connector) {
@@ -69,7 +69,7 @@ public class AccountManager implements IAccountData {
     }
 
     @Override
-    public boolean deleteUser(User user) {
+    public boolean deleteUser(User user) { // todo before delete all user's maps
         String sqlQuery = "delete from users where email = ?";
 
         try (Connection connection = this.connector.getConnection()) {
