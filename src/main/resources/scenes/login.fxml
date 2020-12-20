@@ -8,56 +8,55 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-            prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="appGUI.LoginController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appGUI.LoginController">
     <left>
-        <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #70af85;"
-                    BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #70af85;" BorderPane.alignment="CENTER">
             <children>
-                <FontAwesomeIcon fill="#f0e2d0" glyphName="BUILDING" layoutX="132.0" layoutY="242.0" size="100"/>
-                <Text fill="#f0e2d0" layoutX="105.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="baUHInia" textAlignment="CENTER">
+                <FontAwesomeIcon fill="#f0e2d0" glyphName="BUILDING" layoutX="132.0" layoutY="242.0" size="100" />
+                <Text fill="#f0e2d0" layoutX="105.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="baUHInia" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="32.0"/>
+                        <Font name="System Bold" size="32.0" />
                     </font>
                 </Text>
             </children>
         </AnchorPane>
     </left>
     <right>
-        <AnchorPane prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #f0e2d0;"
-                    BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #f0e2d0;" BorderPane.alignment="CENTER">
             <children>
-                <TextField layoutX="115.0" layoutY="206.0" promptText="E-mail"
-                           style="-fx-background-color: transparent; -fx-border-color: #70af85; -fx-border-width: 0px 0px 2px 0px;"/>
-                <PasswordField layoutX="115.0" layoutY="267.0" promptText="Hasło"
-                               style="-fx-background-color: transparent; -fx-border-color: #70af85; -fx-border-width: 0px 0px 2px 0px;"/>
-                <FontAwesomeIcon fill="#70af85" glyphName="USER" layoutX="87.0" layoutY="226.0" selectionStart="1"
-                                 size="20px"/>
-                <FontAwesomeIcon fill="#70af85" glyphName="KEY" layoutX="85.0" layoutY="287.0" size="20px"/>
-                <Button layoutX="148.0" layoutY="330.0" mnemonicParsing="false" onMouseClicked="#login"
-                        prefHeight="35.0" prefWidth="82.0" style="-fx-background-color: #70af85;" text="Zaloguj"
-                        textFill="WHITE"/>
-                <FontAwesomeIcon fill="#70af85" glyphName="USERS" layoutX="170.0" layoutY="124.0" size="35"/>
-                <Text fill="#70af85" layoutX="136.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="Logowanie" textAlignment="CENTER">
+                <TextField fx:id="emailField" layoutX="115.0" layoutY="206.0" promptText="E-mail" style="-fx-background-color: transparent; -fx-border-color: #70af85; -fx-border-width: 0px 0px 2px 0px;" />
+                <PasswordField fx:id="passwordField" layoutX="115.0" layoutY="267.0" promptText="Hasło" style="-fx-background-color: transparent; -fx-border-color: #70af85; -fx-border-width: 0px 0px 2px 0px;" />
+                <FontAwesomeIcon fill="#70af85" glyphName="USER" layoutX="87.0" layoutY="226.0" selectionStart="1" size="20px" />
+                <FontAwesomeIcon fill="#70af85" glyphName="KEY" layoutX="85.0" layoutY="287.0" size="20px" />
+                <Button alignment="CENTER" defaultButton="true" layoutX="148.0" layoutY="330.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="35.0" prefWidth="82.0" style="-fx-background-color: #70af85;" text="Zaloguj" textFill="WHITE" />
+                <FontAwesomeIcon fill="#70af85" glyphName="USERS" layoutX="170.0" layoutY="124.0" size="35" />
+                <Text fill="#70af85" layoutX="136.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logowanie" textAlignment="CENTER">
                     <font>
-                        <Font size="22.0"/>
+                        <Font size="22.0" />
                     </font>
                 </Text>
-                <Button cancelButton="true" graphicTextGap="0.0" layoutX="282.0" layoutY="14.0" minWidth="38.0"
-                        mnemonicParsing="false" prefHeight="32.0" prefWidth="38.0"
-                        style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="TRANSPARENT"
-                        textOverrun="CLIP">
+                <Button cancelButton="true" graphicTextGap="0.0" layoutX="282.0" layoutY="14.0" minWidth="38.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="38.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="TRANSPARENT" textOverrun="CLIP">
                     <font>
-                        <Font size="1.0"/>
+                        <Font size="1.0" />
                     </font>
                     <graphic>
-                        <FontAwesomeIcon fx:id="exit" fill="#70af85" glyphName="CLOSE" onMouseClicked="#quitApplication"
-                                         selectionFill="#ff000000" size="18"/>
+                        <FontAwesomeIcon fx:id="exit" fill="#70af85" glyphName="CLOSE" onMouseClicked="#quitApplication" selectionFill="#ff000000" size="18" />
                     </graphic>
                 </Button>
+            <Button fx:id="registrationButton" alignment="CENTER" layoutX="45.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#goToRegistration" style="-fx-background-color: transparent;" text="Zarejestruj się" textAlignment="CENTER" textFill="#70af85">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon fill="#70af85" glyphName="PLUS" />
+               </graphic>
+            </Button>
+            <Text fx:id="warningText" fill="#ff0303" layoutX="64.0" layoutY="400.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="250.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
             </children>
         </AnchorPane>
     </right>
