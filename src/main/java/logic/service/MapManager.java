@@ -39,15 +39,7 @@ public class MapManager implements IMapService {
 
     @Override
     public void updateMap(UUID mapID, Map<Point, UUID> newObjectSet) throws RepositoryException {
-        MapObject map = null;
-        for (MapObject m : cachedMaps) {
-            if (m.getId() == mapID) {
-                map = m;
-                break;
-            }
-        }
-        if (map == null)
-            throw new RepositoryException(mapID.toString(), RepositoryException.NOT_EXIST);
+        MapObject map = getMapObject(mapID);
         map.setObjectsSet(newObjectSet);
         adminData.updateMap(mapID, map);
         cacheMaps();
@@ -55,15 +47,7 @@ public class MapManager implements IMapService {
 
     @Override
     public void updatePermissions(UUID mapID, Map<String, String> newPermissionsSet) throws RepositoryException {
-        MapObject map = null;
-        for (MapObject m : cachedMaps) {
-            if (m.getId() == mapID) {
-                map = m;
-                break;
-            }
-        }
-        if (map == null)
-            throw new RepositoryException(mapID.toString(), RepositoryException.NOT_EXIST);
+        MapObject map = getMapObject(mapID);
         map.setPermissionsSet(newPermissionsSet);
         adminData.updateMap(mapID, map);
         cacheMaps();
@@ -85,5 +69,18 @@ public class MapManager implements IMapService {
 
     private void cacheMaps() {
         cachedMaps = adminData.getMaps();
+    }
+
+    private MapObject getMapObject(UUID mapID) throws RepositoryException {
+        MapObject map = null;
+        for (MapObject m : cachedMaps) {
+            if (m.getId() == mapID) {
+                map = m;
+                break;
+            }
+        }
+        if (map == null)
+            throw new RepositoryException(mapID.toString(), RepositoryException.NOT_EXIST);
+        return map;
     }
 }
