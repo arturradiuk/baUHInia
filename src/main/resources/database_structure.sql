@@ -53,3 +53,28 @@ create table objects_set
     unique (mo_id, _key, _value)
 )
 ------------------------------------------------------------------
+
+-- user maps
+
+create table user_map_objects_set
+(
+    user_id int     not null,
+    mo_id   varchar not null,
+    _key    point   not null,
+    _value  varchar not null,
+    foreign key (mo_id) references map_objects (id),
+    foreign key (_value) references placeable_objects (id),
+    foreign key (user_id) references users (id),
+    unique (mo_id, _value)
+);
+
+create table user_map_permissions_set -- todo should we drop this table, because permissions are common for all users?
+(
+    user_id int     not null,
+    mo_id   varchar not null,
+    _key    varchar not null,
+    _value  varchar not null,
+    foreign key (mo_id) references map_objects (id),
+    foreign key (user_id) references users (id),
+    unique (mo_id, _key, _value)
+);

@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AdminManager implements IAdminData {
+public class AdminManager implements IAdminData { // todo uuid can't be updated
     private Connector connector;
 
     public AdminManager(Connector connector) {
