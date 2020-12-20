@@ -138,12 +138,68 @@ public class ClientManager implements IClientData { // todo uuid can't be update
 
     @Override
     public void updateMapForTheUser(MapObject mapObject, int userId) {
+        String sqlQueryDeleteUserPermissions = "delete from user_map_permissions_set where user_id = ? and mo_id = ?";
+        String sqlQueryDeleteUserObjects = "delete from user_map_objects_set where user_id = ? and mo_id = ?";
+        String sqlQueryAddUserPermissions = "insert into user_map_permissions_set(user_id, mo_id, _key, _value) values (?, ?, ?, ?)";
+        String sqlQueryAddUserObjects = "insert into user_map_objects_set (user_id, mo_id, _key, _value) values (?, ?, ?, ?)";
 
+        try (Connection connection = this.connector.getConnection()) {
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement(sqlQueryDeleteUserPermissions);
+            ps.setInt(1, userId);
+            ps.setString(2, mapObject.getId().toString());
+            ps.execute();
+
+            ps = connection.prepareStatement(sqlQueryDeleteUserObjects);
+            ps.setInt(1, userId);
+            ps.setString(2, mapObject.getId().toString());
+            ps.execute();
+
+            for (Map.Entry<String, String> s : mapObject.getPermissionsSet().entrySet()) {
+                ps = connection.prepareStatement(sqlQueryAddUserPermissions);
+                ps.setInt(1, userId);
+                ps.setString(2, mapObject.getId().toString());
+                ps.setString(3, s.getKey());
+                ps.setString(4, s.getValue());
+                ps.execute();
+            }
+
+            for (Map.Entry<Point, UUID> s : mapObject.getObjectsSet().entrySet()) {
+                ps = connection.prepareStatement(sqlQueryAddUserObjects);
+                ps.setInt(1, userId);
+                ps.setString(2, mapObject.getId().toString());
+                ps.setObject(3, new PGpoint(s.getKey().x, s.getKey().y));
+                ps.setString(4, s.getValue().toString());
+                ps.execute();
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
     public void removeMapForTheUser(MapObject mapObject, int userId) {
+        String sqlQueryDeleteUserPermissions = "delete from user_map_permissions_set where user_id = ? and mo_id = ?";
+        String sqlQueryDeleteUserObjects = "delete from user_map_objects_set where user_id = ? and mo_id = ?";
 
+        try (Connection connection = this.connector.getConnection()) {
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement(sqlQueryDeleteUserPermissions);
+            ps.setInt(1, userId);
+            ps.setString(2, mapObject.getId().toString());
+            ps.execute();
+
+            ps = connection.prepareStatement(sqlQueryDeleteUserObjects);
+            ps.setInt(1, userId);
+            ps.setString(2, mapObject.getId().toString());
+            ps.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
