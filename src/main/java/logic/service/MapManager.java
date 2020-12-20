@@ -23,7 +23,7 @@ public class MapManager implements IMapService {
         if (cachedMaps.contains(map)) {
             throw new RepositoryException(map.toString(), RepositoryException.EXIST);
         }
-        adminData.addMap();
+        adminData.addMap(map);
         cacheMaps();
     }
 
