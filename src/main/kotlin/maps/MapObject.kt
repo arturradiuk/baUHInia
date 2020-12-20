@@ -4,8 +4,9 @@ import com.google.common.collect.ImmutableList
 
 class MapObject(
         points: List<Float>,
-        val name: String
-) {
-    val points: ImmutableList<Float> = ImmutableList.copyOf(points)
+        override val name: String,
+        override val type: ObjectType
+): IMapObject {
+    override val points: ImmutableList<Float> = ImmutableList.copyOf(points)
 
 }
