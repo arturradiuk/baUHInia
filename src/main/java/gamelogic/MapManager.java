@@ -1,5 +1,6 @@
 package gamelogic;
 
+import database.ClientManager;
 import database.IClientData;
 import database.model.MapObject;
 import database.model.PlaceableObject;
@@ -18,8 +19,8 @@ public class MapManager implements IMapHandler {
     private int userID;
     private boolean newMap;
 
-    public MapManager(IClientData clientData, ISimulation simulation,int userID) {
-        this.clientData = clientData;
+    public MapManager( ISimulation simulation,int userID) {
+        this.clientData = new ClientManager();
         this.simulation = simulation;
         this.userID=userID;
     }
