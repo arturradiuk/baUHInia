@@ -4,6 +4,7 @@ import database.IClientData;
 import database.model.MapObject;
 import database.model.PlaceableObject;
 import jdk.jshell.spi.ExecutionControl;
+import simulationlogic.ISimulation;
 
 import java.awt.*;
 import java.util.Dictionary;
@@ -13,7 +14,12 @@ import java.util.UUID;
 public class MapManager implements IMapHandler {
     private MapObject map;
     private IClientData clientData;
+    private ISimulation simulation;
 
+    public MapManager(IClientData clientData, ISimulation simulation) {
+        this.clientData = clientData;
+        this.simulation = simulation;
+    }
 
     @Override
     public void placeObjectOnMap(UUID objectID, Point point) throws Exception {
@@ -81,7 +87,7 @@ public class MapManager implements IMapHandler {
 
     @Override
     public void startSimulation() {
-
+        simulation.runSimulation();
     }
 
     @Override
