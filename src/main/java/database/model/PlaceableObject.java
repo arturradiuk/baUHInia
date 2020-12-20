@@ -43,4 +43,8 @@ public class PlaceableObject {
         output.putAll(parametersSet);
         return output;
     }
+
+    public PlaceableObject copyObject(UUID newID) { //copying current object with new ID
+        return new PlaceableObject(newID, this.name, this.parametersSet);
+    }
 }

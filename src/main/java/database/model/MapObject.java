@@ -41,6 +41,25 @@ public class MapObject {
     public void setPermissionsSet(Map<String, String> newPermissionsSet) {
     }
 
+    public void addObject(UUID objectID, Point point) {
+        if(containsPoint(point)) throw new RuntimeException("Point is already occupied in map");
+        objectsSet.put(point, objectID);
+    }
+
+    public void removeObject(Point point) {
+        if(!containsPoint(point)) throw new RuntimeException("Point does not exist in map");
+        objectsSet.remove(point);
+    }
+
+    public void updateObject(Point point, UUID newObjectID) {
+        if(!containsPoint(point)) throw new RuntimeException("Point does not exist in map");
+        objectsSet.put(point, newObjectID);
+    }
+
+    public boolean containsPoint(Point point) {
+        return objectsSet.containsKey(point);
+    }
+
     public void setName(String name) {
         this.name = name;
     }
