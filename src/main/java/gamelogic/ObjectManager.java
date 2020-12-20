@@ -13,7 +13,7 @@ public class ObjectManager implements IObjectHandler{
 
     @Override
     public List<Dictionary<String, String>> displayObjectProperties(UUID objectID) {
-       List<PlaceableObject> placeableObjects = clientData.getObjects();
+       List<PlaceableObject> placeableObjects = clientData.getAllObjects();
         List<Dictionary<String, String>> properties = new LinkedList<Dictionary<String, String>>();
        for(PlaceableObject object : placeableObjects)
        {

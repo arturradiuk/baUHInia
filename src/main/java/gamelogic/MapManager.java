@@ -15,10 +15,13 @@ public class MapManager implements IMapHandler {
     private MapObject map;
     private IClientData clientData;
     private ISimulation simulation;
+    private int userID;
+    private boolean newMap;
 
-    public MapManager(IClientData clientData, ISimulation simulation) {
+    public MapManager(IClientData clientData, ISimulation simulation,int userID) {
         this.clientData = clientData;
         this.simulation = simulation;
+        this.userID=userID;
     }
 
     @Override
@@ -54,7 +57,12 @@ public class MapManager implements IMapHandler {
         {
             throw new Exception("No map loaded");
         }
-        clientData.updateMap(map.getId(),map);
+        if(newMap)
+        {
+            clientData.addMapForTheUser(map,userID);
+            return;
+        }
+        clientData.updateMapForTheUser(map,userID);
     }
 
     @Override
@@ -68,15 +76,28 @@ public class MapManager implements IMapHandler {
 
     @Override
     public void loadMap(UUID mapID) throws Exception {
-        List<MapObject> maps=clientData.getMaps();
+        List<MapObject> maps=clientData.getAllMapsForTheUser(userID);
+        map=null;
         for(MapObject mapObject : maps)
         {
             if(mapObject.getId()==mapID)
             {
                 map=mapObject;
+                newMap=false;
                 return;
             }
         }
+         maps=clientData.getAllMaps();
+        for(MapObject mapObject : maps)
+        {
+            if(mapObject.getId()==mapID)
+            {
+                map=mapObject;
+                newMap=true;
+                return;
+            }
+        }
+
         throw new Exception("map not found");
     }
 
@@ -92,7 +113,7 @@ public class MapManager implements IMapHandler {
 
     @Override
     public List<MapObject> getAllAvailableMaps() {
-        return clientData.getMaps();
+        return clientData.getAllMaps();
     }
 
 
