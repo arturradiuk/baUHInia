@@ -58,6 +58,8 @@ public class MapObject {
 
     public boolean containsPoint(Point point) {
         return objectsSet.containsKey(point);
+    }
+
     public void setName(String name) {
         this.name = name;
     }
