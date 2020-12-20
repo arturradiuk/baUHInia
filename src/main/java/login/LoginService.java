@@ -17,7 +17,7 @@ public class LoginService implements IAuthentication {
 
     public static LoginService getInstance() {
         if (instance == null) {
-            return new LoginService();
+            instance = new LoginService();
         }
         return instance;
     }
@@ -54,7 +54,7 @@ public class LoginService implements IAuthentication {
             throw new IncorrectDataException("Email wrong!");
         }
         if (password.length() <= 5) {
-            throw new IncorrectDataException("Password lenght must be greater than 5");
+            throw new IncorrectDataException("Password length must be greater than 5");
         }
     }
 }
