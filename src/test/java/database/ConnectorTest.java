@@ -1,7 +1,8 @@
 package database;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ public class ConnectorTest {
     public void getConnectionTest() {
         Connector connector = new Connector();
         try (Connection connection = connector.getConnection()) {
-            Assert.assertNotNull(connection);
+            assertNotNull(connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -31,8 +32,8 @@ public class ConnectorTest {
             stmt = connection.createStatement();
             rs = stmt.executeQuery(sql);
             rs.next();
-            Assert.assertEquals("lolek", rs.getString("_name"));
-            Assert.assertEquals("0000", rs.getString("phone"));
+            assertEquals("lolek", rs.getString("_name"));
+            assertEquals("0000", rs.getString("phone"));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
