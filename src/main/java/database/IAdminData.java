@@ -17,7 +17,7 @@ public interface IAdminData {
 
     List<MapObject> getMaps();
 
-    void addMap();
+    void addMap(MapObject mapObject);
 
     void removeMap(UUID mapID);
 
