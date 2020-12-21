@@ -14,7 +14,7 @@ class MapsService(
         }
     }
 
-    override fun getMap(id: UUID): Map {
+    override fun getMap(id: UUID): Map? {
         return mapsProvider.get(id)
     }
 
