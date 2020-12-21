@@ -10,6 +10,7 @@ import simulationlogic.ISimulation;
 import java.awt.*;
 import java.util.Dictionary;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class MapManager implements IMapHandler {
@@ -26,18 +27,14 @@ public class MapManager implements IMapHandler {
     }
 
     @Override
-    public void placeObjectOnMap(UUID objectID, Point point) throws Exception {
-        if(isFieldAvailable(point)){
-            map.getObjectsSet().put(point,objectID);
-            return;
-        }
-        throw new Exception("cannot move object to this field");
+    public void placeObjectOnMap(UUID objectID, Point point){
+            map.addObject(objectID,point);
 
     }
 
     @Override
     public void deleteObjectFromMap(Point point) {
-        map.getObjectsSet().put(point,null);
+        map.removeObject(point);
     }
 
     @Override
@@ -67,7 +64,7 @@ public class MapManager implements IMapHandler {
     }
 
     @Override
-    public Dictionary<Point,UUID> getObjectsFromMap() throws Exception {
+    public Map<Point,UUID> getObjectsFromMap() throws Exception {
         if(map==null)
         {
             throw new Exception("No map loaded");

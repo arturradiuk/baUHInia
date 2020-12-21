@@ -8,11 +8,11 @@ import java.util.*;
  * This is temporary PlaceableObject class and should be replaced
  */
 public class PlaceableObject {
-    UUID id;
-    String name;
-    Dictionary<String ,String> parametersSet;
+    private final UUID id;
+    private String name;
+    private Map<String, String> parametersSet;
 
-    public PlaceableObject(UUID id, String name, Dictionary<String, String> parametersSet) {
+    public PlaceableObject(UUID id, String name, Map<String, String> parametersSet) {
         this.id = id;
         this.name = name;
         this.parametersSet = parametersSet;
@@ -26,7 +26,7 @@ public class PlaceableObject {
         this.name = name;
     }
 
-    public void setParametersSet(Dictionary<String, String> parametersSet) {
+    public void setParametersSet(Map<String, String> parametersSet) {
         this.parametersSet = parametersSet;
     }
 
@@ -34,20 +34,19 @@ public class PlaceableObject {
         return name;
     }
 
-    public Dictionary<String, String> getParametersSet() {
+    public Map<String, String> getParametersSet() {
         return parametersSet;
     }
 
-    public Dictionary<String,String> getInfo(){
-        Dictionary<String,String> output = new Hashtable<>();
-        output.put("id",id.toString());
-        output.put("name",name);
-        Enumeration<String> keys = parametersSet.keys();
-        while (keys.hasMoreElements())
-        {
-            String key = keys.nextElement();
-            output.put(key,parametersSet.get(key));
-        }
+    public Map<String, String> getInfo() {
+        Map<String, String> output = new HashMap<>();
+        output.put("id", id.toString());
+        output.put("name", name);
+        output.putAll(parametersSet);
         return output;
+    }
+
+    public PlaceableObject copyObject(UUID newID) { //copying current object with new ID
+        return new PlaceableObject(newID, this.name, this.parametersSet);
     }
 }

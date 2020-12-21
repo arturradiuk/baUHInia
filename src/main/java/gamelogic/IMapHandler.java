@@ -7,6 +7,7 @@ import database.model.PlaceableObject;
 import java.awt.*;
 import java.util.Dictionary;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface IMapHandler {
@@ -16,7 +17,7 @@ public interface IMapHandler {
      * @param objectID Id of object to be placed
      * @param point coordinates of field to place the object on
      */
-    void placeObjectOnMap(UUID objectID, Point point) throws Exception;
+    void placeObjectOnMap(UUID objectID, Point point);
 
     /**
      * removes object from the specified field of map
@@ -40,7 +41,7 @@ public interface IMapHandler {
      * returns all objects that are currently placed on map
      * @return all objects that are currently placed on map
      */
-    Dictionary<Point,UUID> getObjectsFromMap() throws Exception;
+    Map<Point,UUID> getObjectsFromMap() throws Exception;
     void loadMap(UUID mapID) throws Exception;
     MapObject getMap();
     void startSimulation();
