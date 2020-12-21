@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="1000" stylesheets="/scenes/simulation_view.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameGUI.SimulationController">
+
+   <top>
+      <HBox fx:id="topControls" alignment="CENTER_LEFT" prefHeight="45.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <Button mnemonicParsing="false" style="-fx-background-color: #70af85; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Symuluj" textAlignment="CENTER" textFill="#f0e2d0">
+            <font>
+               <Font name="Roboto Light" size="16.0" />
+            </font>
+         </Button>
+         <Label text="Przybliżenie:">
+            <HBox.margin>
+               <Insets left="40.0" />
+            </HBox.margin>
+            <font>
+               <Font name="Roboto Light" size="16.0" />
+            </font>
+         </Label>
+         <Button fx:id="buttonZoom" mnemonicParsing="false" style="-fx-background-color: #70af85; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Domyślne" textAlignment="CENTER" textFill="#f0e2d0">
+            <font>
+               <Font name="Roboto Light" size="16.0" />
+            </font>
+         </Button>
+         <Slider fx:id="sliderZoom" blockIncrement="1.0" majorTickUnit="5.0" max="25.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" value="17.0" HBox.hgrow="ALWAYS" />
+      </HBox>
+   </top>
+   <left>
+      <TitledPane fx:id="leftControls" alignment="CENTER" animated="false" collapsible="false" contentDisplay="TOP" maxHeight="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" text="Obiekty" BorderPane.alignment="TOP_LEFT" textFill="#f0e2d0">
+         <content>
+            <ScrollPane>
+              <content>
+                <AnchorPane fx:id="anchorScroll" minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="190.0">
+                     <children>
+                        <VBox fx:id="vbox" alignment="TOP_CENTER" layoutX="-1.0" prefHeight="607.0" prefWidth="179.0" spacing="10.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding></VBox>
+                     </children></AnchorPane>
+              </content>
+            </ScrollPane>
+         </content>
+      </TitledPane>
+   </left>
+   <center>
+      <AnchorPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

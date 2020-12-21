@@ -1,0 +1,7 @@
+.titled-pane > .title
+{
+    -fx-font-family:"Roboto Light";
+    -fx-font-size:16px;
+    -fx-background-color: #70af85;
+}
+

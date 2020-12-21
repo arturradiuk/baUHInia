@@ -39,7 +39,7 @@ public class Main extends Application {
     }
     
     public static void setView(Parent root) {
-        setWindowDraggable(root);
+        //setWindowDraggable(root);
         stage.setScene(new Scene(root));
     }
     
