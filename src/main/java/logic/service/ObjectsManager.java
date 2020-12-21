@@ -14,7 +14,7 @@ public class ObjectsManager implements IObjectsService {
 
     public ObjectsManager() {
         // todo adminData = x
-        cacheObjects();
+        //cacheObjects();
     }
 
     @Override
@@ -49,9 +49,9 @@ public class ObjectsManager implements IObjectsService {
     @Override
     public List<Map<String, String>> getAllObjectsInfo() {
         List<Map<String, String>> output = new ArrayList<>();
-        for (PlaceableObject o : cachedObjects) {
-            output.add(o.getInfo());
-        }
+        //for (PlaceableObject o : cachedObjects) {
+         //   output.add(o.getInfo());
+        //}
         return output;
     }
 
