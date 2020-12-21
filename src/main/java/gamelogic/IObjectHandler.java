@@ -2,6 +2,7 @@ package gamelogic;
 
 import java.util.Dictionary;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface IObjectHandler {
@@ -10,5 +11,5 @@ public interface IObjectHandler {
      * @param objectID object which properties are being returned
      * @return dictionary of properties of chosen object
      */
-    List<Dictionary<String,String>>displayObjectProperties(UUID objectID);
+    List<Map<String,String>>displayObjectProperties(UUID objectID);
 }
