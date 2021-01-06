@@ -11,6 +11,9 @@ public class demo {
     public static final String PATH = "F:\\root";
 
     public static void main(String[] args) {
+        ExampleClass a = new ExampleClass();
+        a.elo();
+
         var provider = new FilesystemMapsProvider(PATH);
         var map = new Map("ELO", null, null);
         var id = map.getId();

@@ -10,8 +10,6 @@ public class demo {
         var example = new Example();
         System.out.println(example.getMsg());
 
-        var map = new Map("ELO");
-
         try {
             var fin = new FileInputStream("F:\\map.osm");
             OsmIterator iterator = new OsmXmlIterator(fin, true);
