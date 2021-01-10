@@ -1,13 +1,24 @@
 package logic.service;
 
+import kotlin.Pair;
+import maps.api.Cell;
+import maps.api.CellType;
+import maps.api.MapObject;
+
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public interface IObjectsService {
-    void addObject(String name, Map<String,String> parameterSet) throws RepositoryException;
-    void removeObject(UUID objectID) throws RepositoryException;
-    void updateParameters(UUID objectID, Map<String,String> newParametersSet) throws RepositoryException;
-    List<Map<String,String>> getAllObjectsInfo();
+    void addObject(String name, CellType type, int width, int height) throws RepositoryException;
+
+    void removeObject(MapObject object) throws RepositoryException;
+
+    void removeObject(UUID ID) throws RepositoryException;
+
+    public void updateObject(MapObject object, List<Pair<String, String>> newParameters) throws RepositoryException;
+
+    public void updateObject(MapObject object, List<Pair<String, String>> newParameters, List<Cell> newCells) throws RepositoryException;
+    List<String> getAllObjectsInfo();
 
 }

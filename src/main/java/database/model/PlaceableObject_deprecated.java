@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class PlaceableObject {
+public class PlaceableObject_deprecated {
     private final UUID id;
     private String name;
     private Map<String, String> parametersSet;
 
-    public PlaceableObject(UUID id, String name, Map<String, String> parametersSet) {
+    public PlaceableObject_deprecated(UUID id, String name, Map<String, String> parametersSet) {
         this.id = id;
         this.name = name;
         this.parametersSet = parametersSet;
@@ -44,7 +44,7 @@ public class PlaceableObject {
         return output;
     }
 
-    public PlaceableObject copyObject(UUID newID) { //copying current object with new ID
-        return new PlaceableObject(newID, this.name, this.parametersSet);
+    public PlaceableObject_deprecated copyObject(UUID newID) { //copying current object with new ID
+        return new PlaceableObject_deprecated(newID, this.name, this.parametersSet);
     }
 }

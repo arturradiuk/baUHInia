@@ -1,10 +1,17 @@
 package maps.api
 
+import java.util.*
+import kotlin.collections.ArrayList
+
 class MapObject (
-    val name: String,
-    val type: CellType,
-    val width: Int,
-    val height: Int
+    var name: String,
+    var type: CellType,
+    var width: Int,
+    var height: Int,
+    val ID: UUID
     ){
     var cells = ArrayList<Cell>()
+    override fun toString(): String {
+        return "MapObject(name='$name', type=$type, width=$width, height=$height, cells=$cells)"
+    }
 }
