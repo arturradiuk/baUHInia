@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class MapObject {
+public class MapObject_deprecated {
     private Map<String, String> permissionsSet;
     private Map<Point, UUID> objectsSet;
     private String name;
@@ -15,7 +15,7 @@ public class MapObject {
         this.objectsSet = objectsSet;
     }
 
-    public MapObject(UUID mapID, String name, Map<Point, UUID> objectsSet, Map<String, String> permissionsSet) {
+    public MapObject_deprecated(UUID mapID, String name, Map<Point, UUID> objectsSet, Map<String, String> permissionsSet) {
         this.ID = mapID;
         this.name = name;
         this.objectsSet = objectsSet;
@@ -78,7 +78,7 @@ public class MapObject {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MapObject mapObject = (MapObject) o;
+        MapObject_deprecated mapObject = (MapObject_deprecated) o;
         return Objects.equals(permissionsSet, mapObject.permissionsSet) &&
                 Objects.equals(objectsSet, mapObject.objectsSet) &&
                 Objects.equals(name, mapObject.name) &&
