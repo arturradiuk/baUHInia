@@ -1,7 +1,7 @@
 package database;
 
-import database.model.MapObject_deprecated;
-import database.model.PlaceableObject_deprecated;
+import database.model.MapObject;
+import database.model.PlaceableObject;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -18,11 +18,11 @@ public class AdminManagerTest {
 
     @Test
     public void getObjectTest() {
-        PlaceableObject_deprecated obj = new PlaceableObject_deprecated(UUID.randomUUID(), "boisko", new HashMap<>() {{
+        PlaceableObject obj = new PlaceableObject(UUID.randomUUID(), "boisko", new HashMap<>() {{
             put("key1", "value1");
         }});
         adminManager.addObject(obj);
-        List<PlaceableObject_deprecated> objects = adminManager.getObjects();
+        List<PlaceableObject> objects = adminManager.getObjects();
         assertEquals(4, objects.size());
         adminManager.removeObject(obj.getId());
     }
@@ -30,24 +30,24 @@ public class AdminManagerTest {
     @Test
     public void addObjectTest() {
         UUID id = UUID.randomUUID();
-        PlaceableObject_deprecated obj = new PlaceableObject_deprecated(id, "boisko", new HashMap<>() {{
+        PlaceableObject obj = new PlaceableObject(id, "boisko", new HashMap<>() {{
             put("key1", "value1");
         }});
         adminManager.addObject(obj);
 
-        List<PlaceableObject_deprecated> objects = adminManager.getObjects();
+        List<PlaceableObject> objects = adminManager.getObjects();
         assertEquals(4, objects.size());
         adminManager.removeObject(id);
     }
 
     @Test
     public void deleteObjectTest() {
-        PlaceableObject_deprecated obj = new PlaceableObject_deprecated(UUID.randomUUID(), "boisko", new HashMap<>() {{
+        PlaceableObject obj = new PlaceableObject(UUID.randomUUID(), "boisko", new HashMap<>() {{
             put("key1", "value1");
             put("key2", "value2");
         }});
         adminManager.addObject(obj);
-        List<PlaceableObject_deprecated> objects = adminManager.getObjects();
+        List<PlaceableObject> objects = adminManager.getObjects();
         assertEquals(4, objects.size());
 
         adminManager.removeObject(obj.getId());
@@ -57,18 +57,18 @@ public class AdminManagerTest {
 
     @Test
     public void updateObjectTest() {
-        PlaceableObject_deprecated obj = new PlaceableObject_deprecated(UUID.randomUUID(), "boisko", new HashMap<>() {{
+        PlaceableObject obj = new PlaceableObject(UUID.randomUUID(), "boisko", new HashMap<>() {{
             put("key1", "value1");
             put("key2", "value2");
         }});
         adminManager.addObject(obj);
-        List<PlaceableObject_deprecated> objects = adminManager.getObjects();
+        List<PlaceableObject> objects = adminManager.getObjects();
         assertEquals(4, objects.size());
 
         obj.setName("park");
         adminManager.updateObject(obj.getId(), obj);
         objects = adminManager.getObjects();
-        PlaceableObject_deprecated actual = objects.stream().filter(o -> o.getId().toString().equals(obj.getId().toString())).findAny().get();
+        PlaceableObject actual = objects.stream().filter(o -> o.getId().toString().equals(obj.getId().toString())).findAny().get();
         assertEquals("park", actual.getName());
 
         adminManager.removeObject(obj.getId());
@@ -86,10 +86,10 @@ public class AdminManagerTest {
         objectsSet.put(new Point(3, 3), UUID.fromString("26a3afda-6722-4dc0-aaa4-17ab9d86252f"));
         objectsSet.put(new Point(4, 4), UUID.fromString("36a3afda-6722-4dc0-aaa4-17ab9d86252f"));
 
-        MapObject_deprecated mapObject = new MapObject_deprecated(UUID.fromString("46a3afda-6722-4dc0-aaa4-17ab9d86252f"), "new_map_object", objectsSet, permissionsSet);
+        MapObject mapObject = new MapObject(UUID.fromString("46a3afda-6722-4dc0-aaa4-17ab9d86252f"), "new_map_object", objectsSet, permissionsSet);
         this.adminManager.addMap(mapObject);
 
-        List<MapObject_deprecated> map = this.adminManager.getMaps();
+        List<MapObject> map = this.adminManager.getMaps();
         assertEquals(3, map.size());
         this.adminManager.removeMap(mapObject.getId());
     }
@@ -106,12 +106,12 @@ public class AdminManagerTest {
         objectsSet.put(new Point(3, 3), UUID.fromString("26a3afda-6722-4dc0-aaa4-17ab9d86252f"));
         objectsSet.put(new Point(4, 4), UUID.fromString("36a3afda-6722-4dc0-aaa4-17ab9d86252f"));
 
-        MapObject_deprecated mapObject = new MapObject_deprecated(UUID.fromString("46a3afda-6722-4dc0-aaa4-17ab9d86252f"), "new_map_object", objectsSet, permissionsSet);
+        MapObject mapObject = new MapObject(UUID.fromString("46a3afda-6722-4dc0-aaa4-17ab9d86252f"), "new_map_object", objectsSet, permissionsSet);
         this.adminManager.addMap(mapObject);
 
-        List<MapObject_deprecated> map = this.adminManager.getMaps();
+        List<MapObject> map = this.adminManager.getMaps();
         assertEquals(3, map.size());
-        MapObject_deprecated actual = map.stream().filter(m -> m.getId().toString().equals("46a3afda-6722-4dc0-aaa4-17ab9d86252f")).findAny().get();
+        MapObject actual = map.stream().filter(m -> m.getId().toString().equals("46a3afda-6722-4dc0-aaa4-17ab9d86252f")).findAny().get();
         assertEquals(mapObject, actual);
         this.adminManager.removeMap(mapObject.getId());
     }
@@ -128,12 +128,12 @@ public class AdminManagerTest {
         objectsSet.put(new Point(3, 3), UUID.fromString("26a3afda-6722-4dc0-aaa4-17ab9d86252f"));
         objectsSet.put(new Point(4, 4), UUID.fromString("36a3afda-6722-4dc0-aaa4-17ab9d86252f"));
 
-        MapObject_deprecated mapObject = new MapObject_deprecated(UUID.fromString("46a3afda-6722-4dc0-aaa4-17ab9d86252f"), "new_map_object", objectsSet, permissionsSet);
+        MapObject mapObject = new MapObject(UUID.fromString("46a3afda-6722-4dc0-aaa4-17ab9d86252f"), "new_map_object", objectsSet, permissionsSet);
         this.adminManager.addMap(mapObject);
 
-        List<MapObject_deprecated> map = this.adminManager.getMaps();
+        List<MapObject> map = this.adminManager.getMaps();
         assertEquals(3, map.size());
-        MapObject_deprecated actual = map.stream().filter(m -> m.getId().toString().equals("46a3afda-6722-4dc0-aaa4-17ab9d86252f")).findAny().get();
+        MapObject actual = map.stream().filter(m -> m.getId().toString().equals("46a3afda-6722-4dc0-aaa4-17ab9d86252f")).findAny().get();
         assertEquals(mapObject, actual);
         this.adminManager.removeMap(mapObject.getId());
         map = this.adminManager.getMaps();
@@ -153,12 +153,12 @@ public class AdminManagerTest {
         objectsSet.put(new Point(3, 3), UUID.fromString("26a3afda-6722-4dc0-aaa4-17ab9d86252f"));
         objectsSet.put(new Point(4, 4), UUID.fromString("36a3afda-6722-4dc0-aaa4-17ab9d86252f"));
 
-        MapObject_deprecated mapObject = new MapObject_deprecated(UUID.fromString("46a3afda-6722-4dc0-aaa4-17ab9d86252f"), "new_map_object", objectsSet, permissionsSet);
+        MapObject mapObject = new MapObject(UUID.fromString("46a3afda-6722-4dc0-aaa4-17ab9d86252f"), "new_map_object", objectsSet, permissionsSet);
         this.adminManager.addMap(mapObject);
 
-        List<MapObject_deprecated> map = this.adminManager.getMaps();
+        List<MapObject> map = this.adminManager.getMaps();
         assertEquals(3, map.size());
-        MapObject_deprecated actual = map.stream().filter(m -> m.getId().toString().equals("46a3afda-6722-4dc0-aaa4-17ab9d86252f")).findAny().get();
+        MapObject actual = map.stream().filter(m -> m.getId().toString().equals("46a3afda-6722-4dc0-aaa4-17ab9d86252f")).findAny().get();
         assertEquals(mapObject, actual);
 
         mapObject.setName("new name");
