@@ -1,64 +1,61 @@
 package logic.service;
 
-import database.IAdminData;
-import database.model.MapObject;
+import maps.MapsService;
+import maps.api.Map;
+import maps.api.MapObject;
+import org.apache.commons.lang3.NotImplementedException;
 
-import java.awt.*;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class MapManager implements IMapService {
-    private List<MapObject> cachedMaps;
-    private IAdminData adminData;
+    private List<maps.api.Map> cachedMaps;
+    private MapsService mapsService;
+    //private IAdminData adminData;
 
     public MapManager() {
-        //todo adminData = x;
+        // todo adminData = x;
+
+        // todo how to create mapsServiece instance???
+        //mapsService = new MapsService();
         cacheMaps();
     }
 
     @Override
-    public void addMap(String name, Map<Point, UUID> objectsSet, Map<String, String> permissionsSet) throws RepositoryException {
-        MapObject map = new MapObject(UUID.randomUUID(), name, objectsSet, permissionsSet);
-        if (cachedMaps.contains(map)) {
-            throw new RepositoryException(map.toString(), RepositoryException.EXIST);
+    public void addMap(String name, int size, List<MapObject> objects) {
+        // todo update constructor with 'name' property
+        Map map = Map.init(size);
+        for (MapObject obj : objects) {
+            map.place(obj);
         }
-        adminData.addMap(map);
-        cacheMaps();
+        mapsService.saveMap(map);
     }
 
     @Override
-    public void removeMap(UUID mapID) throws RepositoryException {
-        MapObject map = new MapObject(mapID, null, null, null);
-        if (cachedMaps.contains(map)) {
-            adminData.removeMap(mapID);
-            cacheMaps();
-        } else
-            throw new RepositoryException(mapID.toString(), RepositoryException.NOT_EXIST);
+    public void removeMap(UUID mapID) {
+        mapsService.deleteMap(mapID);
     }
 
     @Override
-    public void updateMap(UUID mapID, Map<Point, UUID> newObjectSet) throws RepositoryException {
-        MapObject map = getMapObject(mapID);
-        map.setObjectsSet(newObjectSet);
-        adminData.updateMap(mapID, map);
-        cacheMaps();
+    public void updateMap(UUID mapID, List<MapObject> newObjects) {
+        Map oldMap = mapsService.getMap(mapID);
+        Map newMap = Map.init(oldMap.getCells().size());
+        for (MapObject obj : newObjects) {
+            newMap.place(obj);
+        }
+        mapsService.updateMap(mapID, newMap);
+
     }
 
     @Override
-    public void updatePermissions(UUID mapID, Map<String, String> newPermissionsSet) throws RepositoryException {
-        MapObject map = getMapObject(mapID);
-        map.setPermissionsSet(newPermissionsSet);
-        adminData.updateMap(mapID, map);
-        cacheMaps();
+    public void updatePermissions(UUID mapID, java.util.Map<String, String> newPermissionsSet) {
+        throw new NotImplementedException("Not implemented");
     }
 
     @Override
     public String getInfo() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (MapObject m : cachedMaps) {
-            stringBuilder.append(m.toString());
-        }
+        // todo getAll() from mapsService
         return stringBuilder.toString();
     }
 
@@ -68,19 +65,6 @@ public class MapManager implements IMapService {
     }
 
     private void cacheMaps() {
-        cachedMaps = adminData.getMaps();
-    }
-
-    private MapObject getMapObject(UUID mapID) throws RepositoryException {
-        MapObject map = null;
-        for (MapObject m : cachedMaps) {
-            if (m.getId() == mapID) {
-                map = m;
-                break;
-            }
-        }
-        if (map == null)
-            throw new RepositoryException(mapID.toString(), RepositoryException.NOT_EXIST);
-        return map;
+        // todo cachedMaps = mapsService.getAll();
     }
 }
