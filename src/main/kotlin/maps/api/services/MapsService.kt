@@ -6,6 +6,7 @@ import maps.api.State
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.reflect.KMutableProperty
+import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 
 
@@ -36,11 +37,11 @@ class MapsService(
     }
 
     private fun setState(map: Map, state: State){
-        // todo fix
-//        map::state.let {
-//            it.isAccessible = true
-//            it as KMutableProperty<*>
-//            it.setter.call(state)
-//        }
+        val prop = map::class.memberProperties.find { it.name == "state" }!!
+        prop.let {
+            it.isAccessible = true
+            it as KMutableProperty<*>
+            it.setter.call(map, state)
+        }
     }
 }
