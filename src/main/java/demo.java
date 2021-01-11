@@ -9,7 +9,7 @@ public class demo {
     public static void main(String[] args) {
         var example = new Example();
         System.out.println(example.getMsg());
-
+        
         try {
             var fin = new FileInputStream("F:\\map.osm");
             OsmIterator iterator = new OsmXmlIterator(fin, true);
