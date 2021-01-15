@@ -22,7 +22,7 @@ public class MapManager implements IMapService {
     }
 
     @Override
-    public void addMap(String name, int size, List<MapObject> objects) {
+    public void addMap(int size, List<MapObject> objects) {
         // todo update constructor with 'name' property
         Map map = Map.init(size);
         for (MapObject obj : objects) {

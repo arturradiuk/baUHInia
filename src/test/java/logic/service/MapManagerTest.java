@@ -1,4 +1,5 @@
 package logic.service;
+
 import maps.api.CellType;
 import maps.api.MapObject;
 import org.junit.jupiter.api.*;
@@ -17,25 +18,27 @@ public class MapManagerTest {
 
     @Test
     @BeforeAll
-    public void init(){
+    public void init() {
         // TEST DATA
-        mapObjectList.add(new MapObject("Test Object1", CellType.Green, 1,1));
-        mapObjectList.add(new MapObject("Test Object2", CellType.Green, 1,2));
-        mapObjectList.add(new MapObject("Test Object3", CellType.Road, 2,1));
+        mapObjectList.add(new MapObject("Test Object1", CellType.Green, 1, 1, UUID.randomUUID()));
+        mapObjectList.add(new MapObject("Test Object2", CellType.Green, 1, 2, UUID.randomUUID()));
+        mapObjectList.add(new MapObject("Test Object3", CellType.Road, 2, 1, UUID.randomUUID()));
         Assertions.assertEquals(3, mapObjectList.size());
-    }
-    @Test
-    public void addingMap(){
-        mapManager.addMap("Test Map1", 10, mapObjectList);
     }
 
     @Test
-    public void removingMap(){
+    public void addingMap() {
+        mapManager.addMap(10, mapObjectList);
+    }
+
+    @Test
+    public void removingMap() {
         mapManager.removeMap(tmpUUID);
     }
+
     @Test
-    public void updatingMap(){
-        mapObjectList.add(new MapObject("Test Object4", CellType.Building, 2,2));
-        mapManager.updateMap(tmpUUID,mapObjectList);
+    public void updatingMap() {
+        mapObjectList.add(new MapObject("Test Object4", CellType.Building, 2, 2, UUID.randomUUID()));
+        mapManager.updateMap(tmpUUID, mapObjectList);
     }
 }
