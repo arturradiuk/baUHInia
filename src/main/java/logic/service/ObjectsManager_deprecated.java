@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ObjectsManager implements IObjectsService {
+public class ObjectsManager_deprecated implements IObjectsService_deprecated {
     private List<MapObject> cachedObjects;
     private IAdminData adminData;
 
-    public ObjectsManager() {
+    public ObjectsManager_deprecated() {
         // todo adminData = x
         cacheObjects();
     }
