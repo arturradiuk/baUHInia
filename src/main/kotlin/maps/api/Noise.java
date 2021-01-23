@@ -17,18 +17,6 @@ public class Noise {
         var noise = new Noise();
         double gridSize = 24;
 
-//        gridSize = 20;
-//        for (int i = 0; i < w; i++) {
-//            for (int j = 0; j < w; j++) {
-//                var val = (int)Math.floor((noise.turbulence(i/gridSize,j/gridSize,(i+j)/gridSize, w) + 1) * 127);
-//                if(val > 100){
-//                    canvas.drawPoint(i,j, new Paint().setColor(0xFF1f2226).setStrokeWidth(1.5f));
-//                }
-//                else {
-//                    canvas.drawPoint(i,j, new Paint().setColor(0xFF7cfc00));
-//                }
-//            }
-//        }
         gridSize = 20;
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < w; j++) {

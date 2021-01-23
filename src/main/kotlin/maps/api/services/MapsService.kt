@@ -16,7 +16,11 @@ class MapsService(
     var tracked = ArrayList<ITrackable>()
     private val defaultMapSize = 50;
 
-    fun generateMap(): Map {
+    override fun emptyMap(): Map{
+        return Map.empty(defaultMapSize);
+    }
+
+    override fun generateMap(): Map {
         return Map.fromNoise(defaultMapSize)
     }
 
