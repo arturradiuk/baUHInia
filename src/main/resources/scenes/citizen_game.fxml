@@ -30,19 +30,19 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </padding>
                     <children>
-                        <Button fx:id="importBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#importMap" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Importuj" textAlignment="CENTER" textFill="#f0e2d0">
+                        <Button fx:id="newGameBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Nowa gra" textAlignment="CENTER" textFill="#f0e2d0">
                             <font>
-                                <Font name="Roboto Light" size="24.0" />
+                                <Font name="Roboto Light" size="22.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="importBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#importMap" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Wczytaj grę" textAlignment="CENTER" textFill="#f0e2d0">
+                            <font>
+                                <Font name="Roboto Light" size="22.0" />
                             </font>
                         </Button>
                         <Button fx:id="saveBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#saveMap" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Zapisz" textAlignment="CENTER" textFill="#f0e2d0">
                             <font>
-                                <Font name="Roboto Light" size="24.0" />
-                            </font>
-                        </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Button" textAlignment="CENTER" textFill="#f0e2d0">
-                            <font>
-                                <Font name="Roboto Light" size="24.0" />
+                                <Font name="Roboto Light" size="22.0" />
                             </font>
                         </Button>
                         <Button fx:id="logOffBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logOff" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Wyloguj się" textAlignment="CENTER" textFill="#f0e2d0">
@@ -57,7 +57,9 @@
     </right>
     <left>
         <AnchorPane prefHeight="900.0" prefWidth="1000.0" style="-fx-background-color: #f0e2d0;" BorderPane.alignment="CENTER">
-            <fx:include source="/scenes/simulation_view.fxml" />
+            <fx:include fx:id="game_view" source="/scenes/game_view.fxml" />
+            <fx:include fx:id="new_game_view" source="/scenes/new_game_view.fxml" visible="false" managed="false"/>
+
         </AnchorPane>
     </left>
 </BorderPane>
