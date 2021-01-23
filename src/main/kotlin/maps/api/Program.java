@@ -4,6 +4,7 @@ package maps.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.kotlin.KotlinModule;
 import common.enums.ObjectType;
+import kotlin.Unit;
 import maps.api.services.FilesystemMapsProvider;
 import maps.api.services.MapsService;
 import maps.api.utils.GuidKt;
@@ -31,27 +32,13 @@ public class Program {
         if(loadedMap.getSize() == map.getSize()) System.out.println("Good #5");
         if(loadedMap.getName().equals(map.getName())) System.out.println("Good #6");
 
-        var obj = new MapObject("Monopolowy", UUID.randomUUID(), 3, 4, 100, ObjectType.CONCRETE);
-        loadedMap.place(3, 4, obj);
+        // kotlin lambdas must return Unit.INSTANCE in java
+        // iterating over map
+        loadedMap.iterate((cell, x, y) -> Unit.INSTANCE);
 
-//        var registry = new TerrainTypesRegistry();
-//        registry.register(new TerrainType("Beton"));
-//        registry.register(new TerrainType("Trawa"));
-//
-//        var map = Map.init("Mapa", 10, registry);
-//        var building = new MapObject("Shop", UUID.randomUUID(), 3, 1, new TerrainType[] { registry.get("Beton") });
-//        map.place(building);
-//
-//
-//        var service = new MapsService(new FilesystemMapsProvider("F:\\root"));
-//        service.saveMap(map);
+        // uncommented because it throws sometimes
+//        var obj = new MapObject("Monopolowy", UUID.randomUUID(), 3, 4, 100, ObjectType.CONCRETE);
+//        loadedMap.place(3, 4, obj);
 
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.registerModule(new KotlinModule());
-//        objectMapper.writeValue(new File("F:\\plik.json"), map);
-
-//        var desMap = objectMapper.readValue(new File("F:\\plik.json"), Map.class);
-
-//        map.remove(building);
     }
 }
