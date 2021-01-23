@@ -1,5 +1,7 @@
-package database;
+package database.managers;
 
+import database.Connector;
+import database.IAccountData;
 import database.model.User;
 
 import java.sql.*;
@@ -9,6 +11,10 @@ public class AccountManager implements IAccountData {
 
     public AccountManager(Connector connector) {
         this.connector = connector;
+    }
+
+    public AccountManager(){
+        this.connector = new Connector();
     }
 
     @Override
