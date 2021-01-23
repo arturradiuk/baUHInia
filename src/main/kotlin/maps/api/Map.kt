@@ -74,7 +74,7 @@ class Map constructor() : ITrackable() {
                 action(i,j)
     }
 
-    private fun iterate(action: (cell: Cell, i: Int, j: Int) -> Unit){
+    fun iterate(action: (cell: Cell, i: Int, j: Int) -> Unit){
         for (i in 0 until size)
             for(j in 0 until size)
                 action(this[i,j], i,j)
