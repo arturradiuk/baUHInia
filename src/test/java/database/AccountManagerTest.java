@@ -1,5 +1,6 @@
 package database;
 
+import database.managers.AccountManager;
 import database.model.User;
 import org.junit.Assert;
 import org.junit.Test;
