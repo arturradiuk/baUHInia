@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <Text layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Witaj w grze baUHInia" textAlignment="CENTER" wrappingWidth="1000.0">
+           <font>
+               <Font name="Roboto Light" size="41.0" />
+           </font>
+       </Text>
+       <Text layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Twoim zadaniem jest przeprowadzenie symulacji cieplnej" textAlignment="CENTER" wrappingWidth="1000.0">
+           <font>
+               <Font name="Roboto Light" size="24.0" />
+           </font>
+       </Text>
+       <Text layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="W tym celu musisz nanieść odpowiednie obiekty na mapę," textAlignment="CENTER" wrappingWidth="1000.0">
+           <font>
+               <Font name="Roboto Light" size="24.0" />
+           </font>
+       </Text>
+       <Text layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="a następnie rozpocząć symulację cieplną" textAlignment="CENTER" wrappingWidth="1000.0">
+           <font>
+               <Font name="Roboto Light" size="24.0" />
+           </font>
+       </Text>
+
+      <Text layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aby rozpocząć grę wybierz jedną z dostępnych map na panelu bocznym." textAlignment="CENTER" wrappingWidth="1000.0">
+          <font>
+              <Font name="Roboto Light" size="24.0" />
+          </font>
+      </Text>
+
+
+
+   </children>
+</AnchorPane>

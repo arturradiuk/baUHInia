@@ -25,7 +25,7 @@ public class Main extends Application {
             stage = primaryStage;
             Parent root = FXMLLoader.load(
                     Objects.requireNonNull(
-                            getClass().getClassLoader().getResource("scenes/login.fxml"))
+                            getClass().getClassLoader().getResource("scenes/citizen_game.fxml"))
             );
             
             setView(root);
