@@ -85,6 +85,14 @@ class Map constructor() : ITrackable() {
         private const val GRID_SIZE = 20
 
         @JvmStatic
+        fun empty(size: Int): Map{
+            val map = Map(size){
+                _, _ -> CellType.None
+            }
+            return map
+        }
+
+        @JvmStatic
         fun fromNoise(size: Int): Map {
             val noise = Noise()
             val map = Map(size){
