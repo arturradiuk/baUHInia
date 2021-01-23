@@ -2,14 +2,17 @@ package login;
 
 public enum UserType {
     Administrator,
-    General;
+    General,
+    Unauthorized;
 
     public static UserType fromString(String string) {
         switch (string) {
             case "Administrator":
                 return Administrator;
-            default:
+            case "General":
                 return General;
+            default:
+                return Unauthorized;
         }
     }
 }
