@@ -19,7 +19,7 @@
         <db.password>passwordforthebauhiniauser</db.password>
         <db.location>jdbc:postgresql://iobauhiniaserver.postgres.database.azure.com:5432</db.location>
         <db.dbname>bauhiniadb</db.dbname>
-        <db.ssl>true</db.ssl>
+        <db.ssl>false</db.ssl>
     </properties>
 
     <repositories>
