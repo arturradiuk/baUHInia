@@ -1,4 +1,4 @@
-package maps
+package maps.api.przydatny.syf
 
 import java.io.ByteArrayInputStream
 import java.io.File
@@ -29,7 +29,7 @@ class FilesystemMapsProvider(path: String) : AbstractMapsProvider() {
         file.delete()
     }
 
-    private fun find(id: UUID): maps.MapInfo{
+    private fun find(id: UUID): maps.api.przydatny.syf.MapInfo {
         return Files.walk(root)
                 .filter { x ->
                     val result = regex.matchEntire(x.toString()) ?: return@filter false
@@ -54,7 +54,7 @@ class FilesystemMapsProvider(path: String) : AbstractMapsProvider() {
         return map
     }
 
-    private fun mapPathToInfo(path: Path): maps.MapInfo{
+    private fun mapPathToInfo(path: Path): maps.api.przydatny.syf.MapInfo {
         val result = regex.matchEntire(path.toString()) ?: throw Exception()
         return MapInfo(
                 result.groupValues[1],
@@ -63,7 +63,7 @@ class FilesystemMapsProvider(path: String) : AbstractMapsProvider() {
         )
     }
 
-    override fun index(id: UUID): Stream<maps.MapInfo>? {
+    override fun index(id: UUID): Stream<maps.api.przydatny.syf.MapInfo>? {
         val regex = Regex("^.+\\\\(.+)-([a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12})\\.osm")
         return Files.walk(root)
                 .filter { x -> regex.matches(x.toString()) }

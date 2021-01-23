@@ -1,9 +1,5 @@
-package maps;
+package maps.api.przydatny.syf;
 
-import de.topobyte.osm4j.core.access.OsmIterator;
-import de.topobyte.osm4j.xml.dynsax.OsmXmlIterator;
-
-import java.io.FileInputStream;
 import java.util.UUID;
 
 public class demo {

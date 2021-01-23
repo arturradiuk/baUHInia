@@ -1,9 +1,7 @@
-package maps
+package maps.api.przydatny.syf
 
-import java.nio.file.Path
 import java.util.*
 import java.util.stream.Stream
-import kotlin.collections.ArrayList
 
 interface IMapsProvider {
     fun add(map: Map)

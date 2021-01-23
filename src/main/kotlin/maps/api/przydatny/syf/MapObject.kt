@@ -1,4 +1,4 @@
-package maps
+package maps.api.przydatny.syf
 
 import com.google.common.collect.ImmutableList
 

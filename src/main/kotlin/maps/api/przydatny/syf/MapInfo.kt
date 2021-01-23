@@ -1,4 +1,4 @@
-package maps
+package maps.api.przydatny.syf
 
 import java.nio.file.Path
 import java.util.*
