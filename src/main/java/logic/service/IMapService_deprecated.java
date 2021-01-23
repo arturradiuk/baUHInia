@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.List;
 
-public interface IMapService {
+public interface IMapService_deprecated {
     //void addMap(String name, Map<Point, UUID> objectsSet, Map<String,String> permissionsSet) throws RepositoryException;
     void addMap(int size, List<MapObject> objects);
     void removeMap(UUID mapID) throws RepositoryException;

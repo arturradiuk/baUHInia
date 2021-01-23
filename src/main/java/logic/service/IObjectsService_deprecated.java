@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public interface IObjectsService {
+public interface IObjectsService_deprecated {
     void addObject(String name, CellType type, int width, int height) throws RepositoryException;
 
     void removeObject(MapObject object) throws RepositoryException;
