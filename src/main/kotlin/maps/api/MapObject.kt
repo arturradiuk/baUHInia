@@ -25,4 +25,7 @@ class MapObject (
 
     // todo to remove
     var cells = ArrayList<Cell>()
+    override fun toString(): String {
+        return "MapObject(name='$name', type=$type, width=$width, height=$height, cells=$cells)"
+    }
 }

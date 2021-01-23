@@ -1,6 +1,9 @@
 package maps.api.przydatny.syf
 
 import java.util.*
+import maps.api.Map;
+
+
 
 class MapsService(
         private val mapsProvider: IMapsProvider
