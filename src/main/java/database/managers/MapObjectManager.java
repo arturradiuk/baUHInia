@@ -56,14 +56,16 @@ public class MapObjectManager implements IMapObject {
 
     private MapObject extractMapObjectFromResultSet(ResultSet resultSet) throws SQLException {
         String guid = resultSet.getString(1);
-        Integer length = resultSet.getInt(2);
-        Integer height = resultSet.getInt(3);
-        String terrainType = resultSet.getString(4);
-        String objectType = resultSet.getString(5);
-        double price = resultSet.getDouble(6);
-        double heatFactor = resultSet.getDouble(7);
-        String name = resultSet.getString(8);
-        Integer width = resultSet.getInt(9);
+        String name = resultSet.getString(2);
+        double price = resultSet.getDouble(3);
+        double heatFactor = resultSet.getDouble(4);
+
+        Integer length = resultSet.getInt(5);
+        Integer width = resultSet.getInt(6);
+        Integer height = resultSet.getInt(7);
+
+        String terrainType = resultSet.getString(8);
+        String objectType = resultSet.getString(9);
 
         MapObject mapObject = new MapObject(name, UUID.fromString(guid), width, length, height, ObjectType.valueOf(objectType));
         mapObject.setPrice((int) price);
