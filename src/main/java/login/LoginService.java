@@ -10,6 +10,8 @@ import login.exceptions.UserNotFoundException;
 public class LoginService implements IAuthentication {
     private IAccountData dataBase;
     private static LoginService instance;
+    private UserData loggedUser;
+
 
     private LoginService() {
         this.dataBase = new AccountManager(new Connector());
@@ -23,6 +25,11 @@ public class LoginService implements IAuthentication {
     }
 
     @Override
+    public UserType getCurrentUserType() {
+        return loggedUser == null ? UserType.Unauthorized : loggedUser.getType() ;
+    }
+
+    @Override
     public UserType login(String email, String password) throws UserNotFoundException, IncorrectDataException {
         checkDataCorrectness(email, password);
 
@@ -30,8 +37,16 @@ public class LoginService implements IAuthentication {
         if (user == null) {
             throw new UserNotFoundException();
         }
-        return UserType.fromString(user.getUserType());
+        loggedUser = new UserData(user.getFirstName(),
+                                  user.getLastName(),
+                                  user.getEmail(),
+                                  user.getPassword(),
+                                  UserType.fromString(user.getUserType()));
+
+        return loggedUser.getType();
     }
+
+
 
     @Override
     public boolean register(UserData userData) throws IncorrectDataException {
@@ -51,7 +66,7 @@ public class LoginService implements IAuthentication {
 
     private static void checkDataCorrectness(String email, String password) throws IncorrectDataException {
         if (!email.matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}")) {
-            throw new IncorrectDataException("Email wrong!");
+            throw new IncorrectDataException("Wrong email!");
         }
         if (password.length() <= 5) {
             throw new IncorrectDataException("Password length must be greater than 5");
