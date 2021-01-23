@@ -1,4 +1,8 @@
-package maps.api;
+package maps.api.przydatny.syf;
+
+import org.jetbrains.skija.*;
+
+import java.io.IOException;
 
 public class ClassicNoise { // Classic Perlin noise in 3D, for comparison
     private static int grad3[][] = {{1, 1, 0}, {-1, 1, 0}, {1, -1, 0}, {-1, -1, 0},
@@ -131,14 +135,36 @@ public class ClassicNoise { // Classic Perlin noise in 3D, for comparison
         }
     }
 
-    public static void main(String[] args){
-        double w = 10;
+    public static void main(String[] args) throws IOException {
+        double w = 300;
+        var surface = Surface.makeRasterN32Premul(300, 300);
+        var canvas = surface.getCanvas();
+//        var noise = classis
+
+        var paint = new Paint().setColor(Color.makeRGB(0,0,0)).setStrokeWidth(1);
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < w; j++) {
+                var val = (ClassicNoise.trubulence(i/w,j/w,0, w) + 1) * 127;
+//                canvas.drawPoint(i,j, paint.setARGB(255, val, val, val));
+            }
+        }
+
         var grid = new double[(int) w][(int) w];
         for(int i = 0;i < grid.length;i++) {
             for(int j = 0;j < grid[0].length;j++) {
-                grid[i][j] = ClassicNoise.trubulence(i/w,j/w,0, w);
+//                grid[i][j] =
             }
         }
-        printAsCSV(grid);
+
+//        printAsCSV(grid);
+
+
+
+        canvas.clear(0xFFFFFFFF);
+
+
+
+        byte[] pngBytes = surface.makeImageSnapshot().encodeToData().getBytes();
+        java.nio.file.Files.write(java.nio.file.Path.of("F:\\io\\output.png"), pngBytes);
     }
 }

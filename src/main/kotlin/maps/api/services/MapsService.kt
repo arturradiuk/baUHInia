@@ -14,12 +14,21 @@ class MapsService(
         private val mapsProvider: FilesystemMapsProvider
 ) : IMapsService {
     var tracked = ArrayList<ITrackable>()
+    private val defaultMapSize = 50;
+
+    fun generateMap(): Map {
+        return Map.fromNoise(defaultMapSize)
+    }
 
     override fun saveMap(map: Map) {
         if(map.state == State.UNCHANGED) return
-        if(tracked.contains(map)) // replacing
-            mapsProvider.replace(map)
-        else mapsProvider.add(map) // adding new
+        if(tracked.contains(map))
+            mapsProvider.replace(map) // replacing
+
+        else {
+            map.guid = UUID.randomUUID()
+            mapsProvider.add(map) // adding new
+        }
         setState(map, State.UNCHANGED)
     }
 

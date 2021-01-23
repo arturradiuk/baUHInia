@@ -1,4 +1,4 @@
-package maps
+package maps.api.przydatny.syf
 
 import de.topobyte.osm4j.core.model.iface.EntityContainer
 import de.topobyte.osm4j.xml.dynsax.OsmXmlIterator
@@ -10,7 +10,7 @@ class Map(
         override val name: String,
         override val id: UUID,
         stream: InputStream
-) : IMap{
+) : IMap {
 
     private val entities = ArrayList<EntityContainer>()
 

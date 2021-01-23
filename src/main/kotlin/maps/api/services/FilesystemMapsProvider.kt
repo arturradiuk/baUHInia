@@ -15,7 +15,7 @@ class FilesystemMapsProvider(rootPath: String) : IFilesystemMapsProvider {
 
     private val root: Path = Paths.get(rootPath)
 //    private val regex = Regex("^.+\\\\(.+)-([a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12})\\.osm")
-    private val regex = Regex("^.+\\\\([a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12})\\.json")
+    private val regex = Regex("^([a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12})\\.json")
     private val serializer: ObjectMapper = ObjectMapper().apply {
         registerModule(KotlinModule())
     }
@@ -42,7 +42,7 @@ class FilesystemMapsProvider(rootPath: String) : IFilesystemMapsProvider {
     private fun find(id: UUID): MapInfo {
         return Files.walk(root)
                 .filter { x ->
-                    val result = regex.matchEntire(x.toString()) ?: return@filter false
+                    val result = regex.matchEntire(x.fileName.toString()) ?: return@filter false
                     val guid = UUID.fromString(result.groupValues[1])
                     guid == id
                 }.map(this::mapPathToInfo)
@@ -63,10 +63,11 @@ class FilesystemMapsProvider(rootPath: String) : IFilesystemMapsProvider {
     }
 
     private fun mapPathToInfo(path: Path): MapInfo {
-        val result = regex.matchEntire(path.toString()) ?: throw Exception()
+        var name = path.fileName.toString()
+        val result = regex.matchEntire(name) ?: throw Exception()
         return MapInfo(
-                result.groupValues[1],
-                UUID.fromString(result.groupValues[2]),
+                "",
+                UUID.fromString(result.groupValues[1]),
                 path,
         )
     }
