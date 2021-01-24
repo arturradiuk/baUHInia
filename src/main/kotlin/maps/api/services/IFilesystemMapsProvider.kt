@@ -1,14 +1,14 @@
-package maps
+package maps.api.services
 
-import java.nio.file.Path
+import maps.api.Map
+import maps.api.MapInfo
 import java.util.*
 import java.util.stream.Stream
-import kotlin.collections.ArrayList
 
-interface IMapsProvider {
+interface IFilesystemMapsProvider {
     fun add(map: Map)
+    fun replace(map: Map)
     fun delete(id: UUID)
-    fun update(map: Map, id: UUID)
     fun get(id: UUID): Map?
     fun index(id: UUID): Stream<MapInfo>?
 }
