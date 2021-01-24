@@ -26,7 +26,7 @@ public class AdminManager implements IAdminData {
     }
 
     @Override
-    public List<MapObject> getObjects() {
+    public List<MapObject> getObjects() throws DataBaseException {
         return new MapObjectManager().getAllObjects();
     }
 
