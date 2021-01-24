@@ -12,7 +12,7 @@ class Cell(
         var type: CellType,
 ){
 
-    var placedObject: MapObject? = null
+    var placedObjectMetadata: MapObjectMetadata? = null
 
     // dla logiki
     var lockedByAdmin: Boolean = false

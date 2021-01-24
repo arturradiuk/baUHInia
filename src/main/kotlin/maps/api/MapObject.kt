@@ -22,7 +22,4 @@ class MapObject (
     var allowedTerrainType: CellType = CellType.None
     var price: Int = 0
     var heatFactor: Double = 0.0
-
-    // todo to remove
-    var cells = ArrayList<Cell>()
 }
