@@ -1,4 +1,4 @@
-package maps
+package maps.api
 
 import java.nio.file.Path
 import java.util.*
