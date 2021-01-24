@@ -33,4 +33,6 @@ public interface IGameLogic {
 
     void saveMap();
 
+    void removeUserMap(UUID mapID);
+
 }

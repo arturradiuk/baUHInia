@@ -90,4 +90,9 @@ public class GameLogic implements IGameLogic {
     public void saveMap(){
         mapsService.saveMap(map);
     }
+
+    @Override
+    public void removeUserMap(UUID mapID) {
+        clientData.removeMapForTheUser(map, userID);
+    }
 }
