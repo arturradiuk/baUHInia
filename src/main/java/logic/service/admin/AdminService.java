@@ -1,10 +1,11 @@
 package logic.service.admin;
 
+import common.enums.ObjectType;
 import database.IAdminData;
 import database.DataBaseException;
-import maps.MapsService;
+import maps.api.services.MapsService;
 import maps.api.Cell;
-import maps.api.CellType;
+import common.enums.CellType;
 import maps.api.Map;
 import maps.api.MapObject;
 import org.joda.time.DateTime;
@@ -29,7 +30,7 @@ public class AdminService implements IAdminLogic {
 
     @Override
     public void addNewMap() {
-        Map newMap = Map.init(MAP_SIZE);
+        Map newMap = mapsService.generateMap();
         // todo Catch exception from DataBase?
         DateTime currentDateTime = DateTime.now();
         adminDataBase.addMap(currentDateTime, currentDateTime, null);
@@ -70,11 +71,11 @@ public class AdminService implements IAdminLogic {
     }
 
     @Override
-    public void addNewMapObject(String name, CellType type, int length, int width, int height) throws AdminException {
+    public void addNewMapObject(String name, ObjectType type, int length, int width, int height) throws AdminException {
         // todo change MapObject constructor
-        MapObject newMapObject = new MapObject(name, type, length, width, height);
+        MapObject newMapObject = new MapObject(name, UUID.randomUUID(), width, length, height, type);
         // todo can it throw an exception?
-        adminDataBase.addObject(name, type, length, width, height);
+        adminDataBase.addObject(newMapObject);
     }
 
     @Override
