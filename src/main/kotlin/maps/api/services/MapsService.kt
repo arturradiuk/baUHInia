@@ -40,6 +40,12 @@ class MapsService(
         }
     }
 
+    override fun fromTemplate(guid: UUID): Map? {
+        val map = mapsProvider.get(guid)
+        map?.guid = UUID.fromString("00000000-0000-0000-0000-000000000000")
+        return map
+    }
+
     override fun getMap(id: UUID): Map? {
         val map = mapsProvider.get(id) ?: return null
         tracked.add(map)
