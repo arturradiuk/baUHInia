@@ -13,12 +13,12 @@ import java.util.UUID;
 public interface IAdminLogic {
 
     void createNewMapTemplate();
-    List<Map> getMapTemplates();
-    List<Map> getAllMaps();
-    List<MapObject> getAllObjects();
+    List<Map> getMapTemplates() throws AdminException;
+    List<Map> getAllMaps() throws AdminException;
+    List<MapObject> getAllObjects() throws AdminException;
     void removeMap(UUID mapID) throws AdminException;
     // bierze template, naklada obiekty, przypisuje user
-    void createMap(UUID mapTemplateID, UUID userID, List<MapObjectInfo> objectInfos) throws AdminException;
+    void createMap(UUID mapTemplateID, int userID, List<MapObjectInfo> objectInfos) throws AdminException;
     void addNewMapObject(String name, int width, int length, int height,
                          ObjectType type, CellType allowedTerrainType,
                          int price, double heatFactor) throws AdminException;
