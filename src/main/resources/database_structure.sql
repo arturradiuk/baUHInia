@@ -12,20 +12,25 @@ create table users
 create table objects_templates
 (
     id           varchar primary key not null,
+    name         varchar             not null,
+    price        double precision    not null,
+    heat_factor  double precision    not null,
+
     length       int                 not null,
+    width        int                 not null,
     height       int                 not null,
+
     terrain_type varchar             not null,
-    object_type  varchar             not null,
-    price        varchar             not null,
-    heat_factor  float               not null
+    object_type  varchar             not null
 );
 
 
 create table maps_metadata
 (
     id            varchar primary key not null,
-    last_modified date                not null,
-    created       date                not null,
+    name          varchar             not null,
+    last_modified timestamp             not null,
+    created       timestamp                not null,
     user_id       int, -- if null then template
     foreign key (user_id) references users (id)
 );
