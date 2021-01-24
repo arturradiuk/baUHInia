@@ -57,8 +57,8 @@ public class GameLogic implements IGameLogic {
     }
 
     @Override
-    public MapObject returnMapItem(UUID itemID) {
-        return null;
+    public List<MapObject> returnAvailableObjects(UUID itemID) {
+        return clientData.getAllObjects();
     }
 
     @Override
@@ -73,7 +73,7 @@ public class GameLogic implements IGameLogic {
 
     @Override
     public void loadExistingUserMap(UUID mapID) {
-        mapsService.getMap(mapID);
+        mapObject = mapsService.getMap(mapID);
 
     }
 

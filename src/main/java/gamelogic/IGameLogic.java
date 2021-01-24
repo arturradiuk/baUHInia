@@ -15,7 +15,7 @@ public interface IGameLogic {
     public void removeObject(Point point);
     ArrayList<ArrayList<Integer>> returnHeatMap();
     Map returnMap();
-    MapObject returnMapItem(UUID itemID);
+    List<MapObject> returnAvailableObjects(UUID itemID);
     List<Map> returnExistingUserMaps();
     List<Map> returnAvailableUserMaps();
     void loadExistingUserMap(UUID mapID);
