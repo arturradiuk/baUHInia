@@ -16,7 +16,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import logic.service.ObjectsManager;
+import logic.service.admin.AdminException;
+import logic.service.admin.AdminService;
+import maps.api.MapObject;
 
 import java.net.URL;
 import java.util.*;
@@ -36,13 +38,13 @@ public class SimulationController implements Initializable {
     private GridPane grid;
 
     private final ObservableList<Button> buttons = FXCollections.observableArrayList();
-    private ObjectsManager objectsManager;
+    private AdminService adminService;
     private double orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
     private String[] colors = {"#00CCFF", "#66FF99"};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        objectsManager = new ObjectsManager();
+        adminService = new AdminService();
         Button bu = new Button("Obiekt");
         //grid.add(bu,0,0);
         for(int i=0; i<30; i++) {
@@ -59,7 +61,12 @@ public class SimulationController implements Initializable {
         }
         //grid.add(rec,0,0);
 
-        List<Map<String, String>> test = objectsManager.getAllObjectsInfo();
+        List<MapObject> test = null;
+        try {
+            test = adminService.getAllObjects();
+        } catch (AdminException e) {
+            e.printStackTrace();
+        }
         for(int i=0; i<test.size()+1; i++) {
             Button b = new Button("Obiekt " + (i+1));
             b.setCursor(Cursor.HAND);

@@ -1,6 +1,6 @@
 package login;
 
-import database.AccountManager;
+import database.managers.AccountManager;
 import database.Connector;
 import database.IAccountData;
 import database.model.User;
