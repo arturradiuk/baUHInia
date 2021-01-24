@@ -14,7 +14,7 @@ class MapObject (
         var width: Int, // x dim
         var length: Int, // y dim
         var height: Int,
-        var type: ObjectType,
+        var type: ObjectType
     ){
 
 

@@ -6,6 +6,6 @@ import java.util.*
 data class MapInfo(
         val name: String,
         val id: UUID,
-        val path: Path?,
+        val path: Path?
 )
 
