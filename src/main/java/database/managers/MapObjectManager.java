@@ -101,4 +101,24 @@ public class MapObjectManager implements IMapObject {
         }
 
     }
+
+    @Override
+    public MapObject getObjectByUuid(UUID objectUuid) {
+        String sqlQuery = "select * from objects_templates where id = ?";
+
+        try (Connection connection = this.connector.getConnection()) {
+
+            PreparedStatement ps = connection.prepareStatement(sqlQuery);
+            ps.setString(1, objectUuid.toString());
+            ResultSet rs =  ps.executeQuery();
+            if(rs.next()){
+                return this.extractMapObjectFromResultSet(rs);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
+    }
 }
