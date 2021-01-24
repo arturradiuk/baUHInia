@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -29,51 +30,76 @@ public class AdminService implements IAdminLogic {
     private MapsService mapsService;
 
     @Override
-    public void addNewMap() {
+    public void createNewMapTemplate() {
         Map newMap = mapsService.generateMap();
+        DateTime creationTime = DateTime.now();
+        newMap.setCreated(creationTime);
+        newMap.setModified(creationTime);
         // todo Catch exception from DataBase?
-        DateTime currentDateTime = DateTime.now();
-        adminDataBase.addMap(currentDateTime, currentDateTime, null);
+        adminDataBase.addMap(newMap);
         mapsService.saveMap(newMap);
+    }
+
+    @Override
+    public List<Map> getMapTemplates() {
+        return null;
+    }
+
+    @Override
+    public List<Map> getAllMaps() {
+        return null;
+    }
+
+    @Override
+    public List<MapObject> getAllObjects() {
+        return null;
     }
 
     @Override
     public void removeMap(UUID mapID) throws AdminException {
         try {
+            Map deletedMap = adminDataBase.getMap(mapID);
             adminDataBase.removeMap(mapID);
+            mapsService.deleteMap(deletedMap);
         } catch (DataBaseException ex) {
             if (ex.getMessage().equals(DataBaseException.NOT_FOUND)) {
                 throw new AdminException(ex);
             }
         }
-        mapsService.deleteMap(mapID);
     }
 
     @Override
-    public void updateMap(UUID mapID, Dictionary<Cell, UUID> cellMapObjectID) throws AdminException {
-        try {
-            adminDataBase.getMap(mapID);
-        } catch (DataBaseException ex) {
-            if (ex.getMessage().equals(DataBaseException.NOT_FOUND)) {
-                throw new AdminException(ex);
-            }
-        }
-        Map updatedMap = Map.init(MAP_SIZE);
-        Enumeration<Cell> cells = cellMapObjectID.keys();
-
-        // todo check that loop logic !!! for uniqueness of objects in updatedMap.objects
-        while (cells.hasMoreElements()) {
-            Cell currentCell = cells.nextElement();
-            if (currentCell.getObjects() != null) {
-                updatedMap.place(currentCell.getObjects());
-            }
-        }
+    public void createMap(UUID mapTemplateID, UUID userID,
+                          List<MapObjectInfo> objectInfos) throws AdminException {
+//        try {
+//            adminDataBase.getMap(mapID);
+//        } catch (DataBaseException ex) {
+//            if (ex.getMessage().equals(DataBaseException.NOT_FOUND)) {
+//                throw new AdminException(ex);
+//            }
+//        }
+//        Map updatedMap = Map.init(MAP_SIZE);
+//        Enumeration<Cell> cells = cellMapObjectID.keys();
+//
+//        // todo check that loop logic !!! for uniqueness of objects in updatedMap.objects
+//        while (cells.hasMoreElements()) {
+//            Cell currentCell = cells.nextElement();
+//            if (currentCell.getObjects() != null) {
+//                updatedMap.place(currentCell.getObjects());
+//            }
+//        }
     }
 
     @Override
-    public void addNewMapObject(String name, ObjectType type, int length, int width, int height) throws AdminException {
+    public void addNewMapObject(String name, int width, int length, int height,
+                                ObjectType type, CellType allowedTerrainType,
+                                int price, double heatFactor) throws AdminException {
         // todo change MapObject constructor
-        MapObject newMapObject = new MapObject(name, UUID.randomUUID(), width, length, height, type);
+        MapObject newMapObject =
+                new MapObject(name, UUID.randomUUID(), width, length, height, type);
+        newMapObject.setAllowedTerrainType(allowedTerrainType);
+        newMapObject.setPrice(price);
+        newMapObject.setHeatFactor(heatFactor);
         // todo can it throw an exception?
         adminDataBase.addObject(newMapObject);
     }
@@ -82,9 +108,8 @@ public class AdminService implements IAdminLogic {
     public void removeMapObject(UUID mapObjectID) throws AdminException {
         try {
             adminDataBase.removeObject(mapObjectID);
-        }
-        catch (DataBaseException ex) {
-            if(ex.getMessage().equals(DataBaseException.NOT_FOUND)) {
+        } catch (DataBaseException ex) {
+            if (ex.getMessage().equals(DataBaseException.NOT_FOUND)) {
                 throw new AdminException(ex);
             }
         }
@@ -92,17 +117,45 @@ public class AdminService implements IAdminLogic {
     }
 
     @Override
-    public void updateMapObject(UUID mapObjectID, String name, CellType type, int length, int width, int height) throws AdminException {
+    public void updateMapObject(UUID mapObjectID, String name, int height,
+                                ObjectType type, CellType allowedTerrainType,
+                                int price, double heatFactor) throws AdminException {
         try {
-            adminDataBase.getObject(mapObjectID);
-        }
-        catch (DataBaseException ex) {
-            if(ex.getMessage().equals(DataBaseException.NOT_FOUND)) {
+            MapObject updatedMapObject =  adminDataBase.getObject(mapObjectID);
+            updatedMapObject.setName(name);
+            updatedMapObject.setHeight(height);
+            updatedMapObject.setType(type);
+            updatedMapObject.setAllowedTerrainType(allowedTerrainType);
+            updatedMapObject.setPrice(price);
+            updatedMapObject.setHeatFactor(heatFactor);
+
+        } catch (DataBaseException ex) {
+            if (ex.getMessage().equals(DataBaseException.NOT_FOUND)) {
                 throw new AdminException(ex);
             }
         }
-        MapObject updatedMapObject = new MapObject(name, type, length, width, height);
         adminDataBase.updateObject(mapObjectID, updatedMapObject);
         // todo Notify map component??
     }
+
+    @Override
+    public void switchLockCell(UUID mapID, int cellX, int cellY) throws AdminException {
+        Map updatedMap = mapsService.getMap(mapID);
+        try {
+            Cell modifiedCell = updatedMap.get(cellX, cellY);
+            modifiedCell.setLockedByAdmin(!modifiedCell.getLockedByAdmin());
+            updatedMap.setModified(DateTime.now());
+            adminDataBase.updateMap(mapID, updatedMap);
+            mapsService.saveMap(updatedMap);
+        } catch (NullPointerException ex) {
+            throw new AdminException(AdminException.NOT_EXIST);
+        }
+
+    }
+
+    @Override
+    public void updateCellType(UUID mapID, int cellX, int cellY, CellType cellType) throws AdminException {
+
+    }
+
 }

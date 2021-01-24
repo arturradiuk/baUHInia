@@ -9,12 +9,12 @@ import kotlin.collections.ArrayList
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "guid")
 class MapObject (
-        val name: String,
+        var name: String,
         var guid: UUID = UUID.randomUUID(),
-        val width: Int, // x dim
-        val length: Int, // y dim
-        val height: Int,
-        val type: ObjectType,
+        var width: Int, // x dim
+        var length: Int, // y dim
+        var height: Int,
+        var type: ObjectType,
     ){
 
 

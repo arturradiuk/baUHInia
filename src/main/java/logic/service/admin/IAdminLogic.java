@@ -23,7 +23,7 @@ public interface IAdminLogic {
                          ObjectType type, CellType allowedTerrainType,
                          int price, double heatFactor) throws AdminException;
     void removeMapObject(UUID mapObjectID) throws AdminException;
-    void updateMapObject(UUID mapObjectID, String name, int width, int length, int height,
+    void updateMapObject(UUID mapObjectID, String name, int height,
                          ObjectType type, CellType allowedTerrainType,
                          int price, double heatFactor) throws AdminException;
     void switchLockCell(UUID mapID, int cellX, int cellY) throws AdminException;

@@ -14,4 +14,8 @@ public class AdminException extends Throwable{
     public AdminException(String objInfo, String message) {
         super(objInfo + " " + message);
     }
+
+    public AdminException(String message) {
+        super(message);
+    }
 }

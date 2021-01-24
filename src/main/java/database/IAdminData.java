@@ -24,9 +24,9 @@ public interface IAdminData {
     // in DB map table looks like:
     // Map (id, modify_datetime, creationDT, user_id?)
     // new Class MapInfo?
-    void getMap(UUID mapID) throws DataBaseException;
+    Map getMap(UUID mapID) throws DataBaseException;
 
-    void addMap(DateTime modificationDateTime, DateTime creationDateTime, UUID userID);
+    void addMap(Map map);
 
     void removeMap(UUID mapID) throws DataBaseException;;
 
