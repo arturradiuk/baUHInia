@@ -13,6 +13,13 @@
         <maven.compiler.target>11</maven.compiler.target>
         <kotlin.version>1.4.21</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+
+        <!--        properties necessary for database connection-->
+        <db.user>bauhiniauser@iobauhiniaserver</db.user>
+        <db.password>passwordforthebauhiniauser</db.password>
+        <db.location>jdbc:postgresql://iobauhiniaserver.postgres.database.azure.com:5432</db.location>
+        <db.dbname>bauhiniadb</db.dbname>
+        <db.ssl>false</db.ssl>
     </properties>
 
     <repositories>
@@ -80,6 +87,39 @@
             <groupId>org.jetbrains.skija</groupId>
             <artifactId>skija-windows</artifactId>
             <version>0.6.68</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.18</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>15-ea+3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>15-ea+3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>15-ea+3</version>
+        </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.2</version>
         </dependency>
     </dependencies>
 
