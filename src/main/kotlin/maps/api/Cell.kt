@@ -9,7 +9,7 @@ import common.enums.CellType
 class Cell(
         val x: Int,
         val y: Int,
-        var type: CellType,
+        var type: CellType
 ){
 
     var placedObject: MapObject? = null
