@@ -25,7 +25,7 @@ public class Main extends Application {
             stage = primaryStage;
             Parent root = FXMLLoader.load(
                     Objects.requireNonNull(
-                            getClass().getClassLoader().getResource("scenes/login.fxml"))
+                            getClass().getClassLoader().getResource("scenes/citizen_game.fxml"))
             );
             
             setView(root);
@@ -39,7 +39,7 @@ public class Main extends Application {
     }
     
     public static void setView(Parent root) {
-        setWindowDraggable(root);
+        //setWindowDraggable(root);
         stage.setScene(new Scene(root));
     }
     
