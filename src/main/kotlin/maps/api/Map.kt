@@ -1,13 +1,12 @@
 package maps.api
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect
+import com.fasterxml.jackson.annotation.JsonIgnore
 import common.enums.CellType
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.floor
 
-// todo: ograniczenia na budynkach
-// todo: walidacja komórek
-// todo: generowanie
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 class Map constructor() : ITrackable() {
 
@@ -20,13 +19,15 @@ class Map constructor() : ITrackable() {
         }
     }
 
+    @JsonIgnore
     val objects = ArrayList<MapObject>()
-//    var terrainTypes: TerrainTypesRegistry? = null
+    val objectsGuidList = ArrayList<UUID>()
     var size: Int = 0
     private set
     var guid: UUID
     var name: String? = null
     private lateinit var cells: Array<Array<Cell>> // is lateinit safe here ?
+    private var objectsMetadata = ArrayList<MapObjectMetadata>()
 
     init{
         guid = UUID.fromString("00000000-0000-0000-0000-000000000000")
@@ -38,20 +39,26 @@ class Map constructor() : ITrackable() {
 
     fun remove(obj: MapObject){
         iterate(obj) { i,j ->
-            cells[i][j].placedObject = null
-            obj.cells.remove(cells[i][j])
+            cells[i][j].placedObjectMetadata = null
         }
+        val metadata = objectsMetadata.find { x -> x.mapObjectGuid == obj.guid }
+        objectsMetadata.remove(metadata)
+        objects.remove(obj)
+        objectsGuidList.remove(obj.guid)
         state = State.MODIFIED
     }
 
     fun place(x: Int, y: Int, obj: MapObject){
         if(!validate(x,y, obj)) throw Exception("Validation failed") // todo more detailed msg
         // todo check for bounds
+        val metadata = MapObjectMetadata(obj.guid,x,y, obj)
         iterate(obj) { i, j ->
-            cells[x+i][y+j].placedObject = obj
-            obj.cells.add(cells[x+i][y+j]) // todo remove ?
+            cells[x+i][y+j].placedObjectMetadata = metadata
+            metadata.cells.add(cells[x+i][y+j])
         }
         objects.add(obj)
+        objectsMetadata.add(metadata)
+        objectsGuidList.add(obj.guid)
         state = State.MODIFIED
     }
 
@@ -61,7 +68,7 @@ class Map constructor() : ITrackable() {
                 val cell = cells[x+i][y+j]
                 when {
                     cell.lockedByAdmin -> return false
-                    cell.placedObject != null -> return false
+                    cell.placedObjectMetadata != null -> return false
                     cell.type != obj.allowedTerrainType -> return false
                 }
             }

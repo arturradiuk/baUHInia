@@ -1,5 +1,6 @@
 package maps.api.services
 
+import database.IAdminData
 import maps.api.ITrackable
 import maps.api.Map
 import maps.api.State
@@ -16,6 +17,8 @@ class MapsService(
     var tracked = ArrayList<ITrackable>()
     private val defaultMapSize = 50;
 
+    var adminData: IAdminData? = null
+
     override fun emptyMap(): Map{
         return Map.empty(defaultMapSize);
     }
@@ -26,6 +29,7 @@ class MapsService(
 
     override fun saveMap(map: Map) {
         if(map.state == State.UNCHANGED) return
+        setState(map, State.UNCHANGED)
         if(tracked.contains(map))
             mapsProvider.replace(map) // replacing
 
@@ -33,14 +37,24 @@ class MapsService(
             map.guid = UUID.randomUUID()
             mapsProvider.add(map) // adding new
         }
-        setState(map, State.UNCHANGED)
     }
 
     override fun getMap(id: UUID): Map? {
         val map = mapsProvider.get(id) ?: return null
         tracked.add(map)
         setState(map, State.UNCHANGED)
-        return map;
+
+        // read obj from db
+//        if(adminData != null)
+//            val objects = map.objectsGuidList.map {  }
+
+//        map.iterate{
+//            cell, i, j ->
+//            if(cell.placedObjectMetadata != null){
+//
+//            }
+//        }
+        return map
     }
 
     override fun deleteMap(map: Map) {

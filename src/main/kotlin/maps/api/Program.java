@@ -34,7 +34,7 @@ public class Program {
 
         // kotlin lambdas must return Unit.INSTANCE in java
         // iterating over map
-        loadedMap.iterate((cell, x, y) -> Unit.INSTANCE);
+//        loadedMap.iterate((cell, x, y) -> Unit.INSTANCE);
 
         // uncommented because it throws sometimes
 //        var obj = new MapObject("Monopolowy", UUID.randomUUID(), 3, 4, 100, ObjectType.CONCRETE);
