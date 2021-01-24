@@ -1,6 +1,7 @@
 package maps.api.services
 
 import database.IAdminData
+import database.IMapObject
 import maps.api.ITrackable
 import maps.api.Map
 import maps.api.State
@@ -17,7 +18,7 @@ class MapsService(
     var tracked = ArrayList<ITrackable>()
     private val defaultMapSize = 50;
 
-    var adminData: IAdminData? = null
+    var mapObjectManager: IMapObject? = null
 
     override fun emptyMap(): Map{
         return Map.empty(defaultMapSize);
@@ -45,15 +46,12 @@ class MapsService(
         setState(map, State.UNCHANGED)
 
         // read obj from db
-//        if(adminData != null)
-//            val objects = map.objectsGuidList.map {  }
-
-//        map.iterate{
-//            cell, i, j ->
-//            if(cell.placedObjectMetadata != null){
-//
-//            }
-//        }
+        if(mapObjectManager != null) {
+            val objects = mapObjectManager?.getMapObjectsForUuids(map.objectsGuidList)
+            for(metadata in map.objectsMetadata){
+                metadata.mapObject = objects?.find { x -> x.guid == metadata.mapObjectGuid }!!
+            }
+        }
         return map
     }
 
