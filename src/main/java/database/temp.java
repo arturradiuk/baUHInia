@@ -3,11 +3,13 @@ package database;
 import common.enums.CellType;
 import common.enums.ObjectType;
 import database.managers.AdminManager;
+import database.managers.ClientManager;
 import database.managers.MapObjectManager;
 import database.model.User;
 import maps.api.Map;
 import maps.api.MapObject;
 import org.joda.time.DateTime;
+//import org.joda.time.DateTime;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -33,13 +35,20 @@ public class temp {
 //        map.setUserId(1);
 //        map.setName("first map");
 
-//        AdminManager adminManager = new AdminManager();
-//        List<Map> maps = adminManager.getMaps();
+        IAdminData iam = new AdminManager();
+        List<Map> maps = iam.getMaps();
         IMapObject imo = new MapObjectManager();
-        MapObject mp = imo.getObjectByUuid(UUID.fromString("3b1d0275-d75e-4982-b687-83d3506aa19c"));
-        System.out.println(mp);
+        MapObject mp = imo.getObjectByUuid(UUID.fromString("cc3a8647-6872-45e4-95ff-4d4e8958c222"));
+        IClientData ico = new ClientManager();
+//        maps.get(1).setGuid(UUID.fromString("cc3a8647-6872-45e4-95ff-4d4e8958c223"));
+        ico.removeMapForTheUser(maps.get(3), 2);
+
+//        List<MapObject> mapObjectList = iam.getObjects();
+//        System.out.println(ico.getAllObjects());
 //        for (int i = 0; i < mapObjectList.size(); i++) {
 //            mapObjectList.get(i).setGuid(UUID.randomUUID());
+//            System.out.println(mapObjectList.get(i));
+//
 //            adminManager.addObject(mapObjectList.get(i));
 //        }
 
