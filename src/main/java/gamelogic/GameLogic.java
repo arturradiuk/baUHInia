@@ -8,7 +8,7 @@ import java.util.UUID;
 import gamelogic.placeholderdata.*;
 
 public class GameLogic implements IGameLogic {
-    Map mapObject;
+    Map map;
     int userID;
     IMapsService mapsService;
     IUserData userData;
@@ -26,24 +26,24 @@ public class GameLogic implements IGameLogic {
 
     @Override
     public void moveObject(Point from, Point to) {
-        MapObject objectToMove = mapObject.get(from.x,from.y).placedObjectMetadata.getMapObject();
+        MapObject objectToMove = map.get(from.x,from.y).placedObjectMetadata.getMapObject();
         if(objectToMove == null)
         {
             return;
         }
-        if(mapObject.validate(to.x,to.y,objectToMove)){
-            mapObject.remove(objectToMove);
-            mapObject.place(to.x,to.y,objectToMove);
+        if(map.validate(to.x,to.y,objectToMove)){
+            map.remove(objectToMove);
+            map.place(to.x,to.y,objectToMove);
         }
     }
 
     @Override
     public void removeObject(Point point) {
-        MapObject objectToRemove = mapObject.get(point.x,point.y).placedObjectMetadata.getMapObject();
+        MapObject objectToRemove = map.get(point.x,point.y).placedObjectMetadata.getMapObject();
         if(objectToRemove == null){
             return;
         }
-        mapObject.remove(objectToRemove);
+        map.remove(objectToRemove);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class GameLogic implements IGameLogic {
 
     @Override
     public Map returnMap() {
-        return mapObject;
+        return map;
     }
 
     @Override
@@ -73,14 +73,21 @@ public class GameLogic implements IGameLogic {
 
     @Override
     public void loadExistingUserMap(UUID mapID) {
-        mapObject = mapsService.getMap(mapID);
+        map = mapsService.getMap(mapID);
 
     }
 
-    //TODO No mapservice map generation function implemented?
+
     @Override
     public void createNewUserMap(UUID templateMapID) {
+        map = mapsService.fromTemplate(templateMapID);
+        clientData.addMapForTheUser(map,userID);
+        mapsService.saveMap(map);
 
 
+    }
+    @Override
+    public void saveMap(){
+        mapsService.saveMap(map);
     }
 }
