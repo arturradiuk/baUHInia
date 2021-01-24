@@ -18,6 +18,9 @@ public class GameLogic implements IGameLogic {
     public GameLogic(int userID) {
         this.userID = userID;
         mapsService = new MapsService();
+        simulation = new Simulation();
+        clientData = new ClientManager();
+
     }
 
     @Override

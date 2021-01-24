@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import gamelogic.placeholderdata.Map;
 import gamelogic.placeholderdata.MapObject;
-import gamelogic.placeholderdata.Cell;
 
 public interface IGameLogic {
 
