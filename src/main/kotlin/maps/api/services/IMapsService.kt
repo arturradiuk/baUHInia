@@ -9,4 +9,5 @@ interface IMapsService {
     fun deleteMap(map: Map)
     fun generateMap(): Map
     fun emptyMap(): Map
+    fun fromTemplate(guid: UUID): Map?
 }
