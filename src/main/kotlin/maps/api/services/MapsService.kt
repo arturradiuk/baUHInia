@@ -1,6 +1,5 @@
 package maps.api.services
 
-import database.IAdminData
 import database.IMapObject
 import maps.api.ITrackable
 import maps.api.Map
