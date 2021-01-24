@@ -64,7 +64,7 @@ class Map constructor() : ITrackable() {
 
     private fun validate(x: Int, y: Int, obj: MapObject): Boolean {
         for (i in 0 until obj.width)
-            for (j in 0 until obj.height) {
+            for (j in 0 until obj.length) {
                 val cell = cells[x + i][y + j]
                 when {
                     cell.lockedByAdmin -> return false
@@ -77,7 +77,7 @@ class Map constructor() : ITrackable() {
 
     private fun iterate(obj: MapObject, action: (i: Int, j: Int) -> Unit) {
         for (i in 0 until obj.width)
-            for (j in 0 until obj.height)
+            for (j in 0 until obj.length)
                 action(i, j)
     }
 
