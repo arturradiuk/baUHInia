@@ -3,6 +3,7 @@ package database.managers;
 import common.enums.CellType;
 import common.enums.ObjectType;
 import database.Connector;
+import database.DataBaseException;
 import database.IMapObject;
 import database.model.User;
 import maps.api.Map;
@@ -76,7 +77,7 @@ public class MapObjectManager implements IMapObject {
 
 
     @Override
-    public List<MapObject> getAllObjects() {
+    public List<MapObject> getAllObjects() throws DataBaseException {
         String sqlQueryGetAllObjects = "select * from objects_templates;";
 
         ResultSet resultSet;
@@ -96,8 +97,7 @@ public class MapObjectManager implements IMapObject {
             return mapObjects;
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
+            throw new DataBaseException(throwables);
         }
 
     }

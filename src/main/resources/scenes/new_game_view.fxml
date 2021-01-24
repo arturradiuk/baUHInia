@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #f0e2d0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameGUI.NewGameController">
+   <children>
+      <ScrollPane fx:id="map_list_view" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #f0e2d0;" >
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="998.0" style="-fx-background-color: #f0e2d0;">
+               <children>
+                  <Button layoutX="475.0" layoutY="93.0" onMouseClicked="#loadMap" mnemonicParsing="false" text="Button" />
+               </children></AnchorPane>
+        </content>
+      </ScrollPane>
+       <fx:include fx:id="simulation_view" source="/scenes/simulation_view.fxml" visible="false" managed="false"/>
+   </children>
+
+</AnchorPane>

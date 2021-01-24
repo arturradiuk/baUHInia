@@ -2,6 +2,7 @@ package database.managers;
 
 
 import database.Connector;
+import database.DataBaseException;
 import database.IAdminData;
 import maps.api.Map;
 import maps.api.MapObject;
@@ -25,7 +26,7 @@ public class AdminManager implements IAdminData {
     }
 
     @Override
-    public List<MapObject> getObjects() {
+    public List<MapObject> getObjects() throws DataBaseException {
         return new MapObjectManager().getAllObjects();
     }
 
@@ -180,6 +181,11 @@ public class AdminManager implements IAdminData {
     }
 
     @Override
+    public MapObject getObject(UUID mapObjectID) throws DataBaseException {
+        return null;
+    }
+
+    @Override
     public List<Map> getMaps() {
         String sqlQuery = "select * from maps_metadata";
 
@@ -208,6 +214,11 @@ public class AdminManager implements IAdminData {
             return null;
         }
 
+    }
+
+    @Override
+    public Map getMap(UUID mapID) throws DataBaseException {
+        return null;
     }
 
 }
