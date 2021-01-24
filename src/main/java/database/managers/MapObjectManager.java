@@ -96,7 +96,7 @@ public class MapObjectManager implements IMapObject {
             }
             return mapObjects;
 
-        } catch (SQLException throwables) {
+        } catch (SQLException  throwables ) {
             throw new DataBaseException(throwables);
         }
 

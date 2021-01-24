@@ -12,5 +12,5 @@ public interface IClientData {
     void updateMapForTheUser(Map mapObject, int userId);
     void removeMapForTheUser(Map mapObject, int userId);
     List<Map> getAllMaps();
-    List<MapObject> getAllObjects();
+    List<MapObject> getAllObjects() throws DataBaseException;
 }
