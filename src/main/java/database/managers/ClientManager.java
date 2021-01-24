@@ -1,6 +1,7 @@
 package database.managers;
 
 import database.Connector;
+import database.DataBaseException;
 import database.IClientData;
 import maps.api.Map;
 import maps.api.MapObject;
@@ -154,7 +155,7 @@ public class ClientManager implements IClientData  {
     }
 
     @Override
-    public List<MapObject> getAllObjects() {
+    public List<MapObject> getAllObjects() throws DataBaseException {
         return new MapObjectManager().getAllObjects();
     }
 }
