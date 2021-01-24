@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IAdminData {
-    List<MapObject> getObjects();
+    List<MapObject> getObjects() throws DataBaseException;
 
     public void addObject(MapObject obj);
 
@@ -19,7 +19,7 @@ public interface IAdminData {
     void updateObject(UUID objectID, MapObject obj);
 
 
-    List<Map> getMaps();
+    List<Map> getMaps() throws DataBaseException;
 
     // in DB map table looks like:
     // Map (id, modify_datetime, creationDT, user_id?)
