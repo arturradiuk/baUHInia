@@ -13,6 +13,13 @@
         <maven.compiler.target>11</maven.compiler.target>
         <kotlin.version>1.4.21</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+
+        <!--        properties necessary for database connection-->
+        <db.user>bauhiniauser@iobauhiniaserver</db.user>
+        <db.password>passwordforthebauhiniauser</db.password>
+        <db.location>jdbc:postgresql://iobauhiniaserver.postgres.database.azure.com:5432</db.location>
+        <db.dbname>bauhiniadb</db.dbname>
+        <db.ssl>false</db.ssl>
     </properties>
 
     <repositories>
@@ -178,6 +185,12 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
 

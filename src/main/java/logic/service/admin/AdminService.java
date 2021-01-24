@@ -3,6 +3,8 @@ package logic.service.admin;
 import common.enums.ObjectType;
 import database.IAdminData;
 import database.DataBaseException;
+import database.managers.AdminManager;
+import maps.api.services.FilesystemMapsProvider;
 import maps.api.services.MapsService;
 import maps.api.Cell;
 import common.enums.CellType;
@@ -10,6 +12,7 @@ import maps.api.Map;
 import maps.api.MapObject;
 import org.joda.time.DateTime;
 
+import java.sql.SQLException;
 import java.util.*;
 
 
@@ -25,6 +28,11 @@ public class AdminService implements IAdminLogic {
 
     // Maps Component Access
     private MapsService mapsService;
+
+    public AdminService() {
+        this.adminDataBase = new AdminManager();
+        this.mapsService = new MapsService(new FilesystemMapsProvider("file"));
+    }
 
     @Override
     public void createNewMapTemplate() {
@@ -58,14 +66,18 @@ public class AdminService implements IAdminLogic {
 
     @Override
     public List<MapObject> getAllObjects() throws AdminException {
+        List<MapObject> objects = null;
         try {
-            return adminDataBase.getObjects();
+            objects = adminDataBase.getObjects();
         } catch (DataBaseException ex) {
             if (ex.getMessage().equals(DataBaseException.NOT_FOUND)) {
                 throw new AdminException(ex);
             }
+                throw new AdminException(ex);
+        } catch (Exception ex) {
+            throw new AdminException(ex);
         }
-        return null;
+        return objects;
     }
 
     @Override
