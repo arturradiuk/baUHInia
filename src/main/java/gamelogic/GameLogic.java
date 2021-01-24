@@ -38,7 +38,7 @@ public class GameLogic implements IGameLogic {
 
     @Override
     public void moveObject(Point from, Point to) {
-        MapObject objectToMove = map.get(from.x,from.y).getPlacedObject();
+        MapObject objectToMove = map.get(from.x,from.y).getPlacedObjectMetadata().getMapObject();
         if(objectToMove == null)
         {
             return;
@@ -51,7 +51,7 @@ public class GameLogic implements IGameLogic {
 
     @Override
     public void removeObject(Point point) {
-        MapObject objectToRemove = map.get(point.x,point.y).getPlacedObject();
+        MapObject objectToRemove = map.get(point.x,point.y).getPlacedObjectMetadata().getMapObject();
         if(objectToRemove == null){
             return;
         }

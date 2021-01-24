@@ -4,5 +4,6 @@ enum class CellType {
     None,
     Road,
     Green,
-    Building
+    Building,
+    Concrete
 }
