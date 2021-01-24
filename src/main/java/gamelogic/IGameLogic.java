@@ -1,5 +1,8 @@
 package gamelogic;
 
+import maps.api.Map;
+import maps.api.MapObject;
+
 import java.awt.*;
 import java.util.List;
 import java.util.UUID;
