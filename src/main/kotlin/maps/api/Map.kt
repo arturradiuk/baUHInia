@@ -33,7 +33,7 @@ class Map constructor() : ITrackable() {
     var guid: UUID
     var name: String? = null
     private lateinit var cells: Array<Array<Cell>> // is lateinit safe here ?
-    private var objectsMetadata = ArrayList<MapObjectMetadata>()
+    var objectsMetadata = ArrayList<MapObjectMetadata>()
 
     init {
         guid = UUID.fromString("00000000-0000-0000-0000-000000000000")

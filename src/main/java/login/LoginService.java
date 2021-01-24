@@ -1,8 +1,8 @@
 package login;
 
-import database.AccountManager;
 import database.Connector;
 import database.IAccountData;
+import database.managers.AccountManager;
 import database.model.User;
 import login.exceptions.IncorrectDataException;
 import login.exceptions.UserNotFoundException;
