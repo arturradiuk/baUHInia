@@ -10,7 +10,7 @@ public class MapsService implements IMapsService {
     }
 
     @Override
-    public void saveMap() {
+    public void saveMap(Map map) {
 
     }
 }

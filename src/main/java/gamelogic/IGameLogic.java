@@ -16,9 +16,9 @@ public interface IGameLogic {
     ArrayList<ArrayList<Integer>> returnHeatMap();
     Map returnMap();
     MapObject returnMapItem(UUID itemID);
-    List<Map> returnExistingUserMaps(UUID userID);
+    List<Map> returnExistingUserMaps();
     List<Map> returnAvailableUserMaps();
-    void loadExistingUserMap(UUID userID, UUID mapID);
+    void loadExistingUserMap(UUID mapID);
     void createNewUserMap(UUID mapID);
 
 

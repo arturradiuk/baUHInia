@@ -9,12 +9,13 @@ import gamelogic.placeholderdata.*;
 
 public class GameLogic implements IGameLogic {
     Map mapObject;
-    UUID userID;
+    int userID;
     IMapsService mapsService;
     IUserData userData;
     ISimulation simulation;
+    IClientData clientData;
 
-    public GameLogic(UUID userID) {
+    public GameLogic(int userID) {
         this.userID = userID;
         mapsService = new MapsService();
     }
@@ -55,30 +56,31 @@ public class GameLogic implements IGameLogic {
         return mapObject;
     }
 
-
-    //TODO Database connection required for methods below
     @Override
     public MapObject returnMapItem(UUID itemID) {
         return null;
     }
 
     @Override
-    public List<Map> returnExistingUserMaps(UUID userID) {
-        return null;
+    public List<Map> returnExistingUserMaps() {
+        return clientData.getAllMapsForTheUser(userID);
     }
 
     @Override
     public List<Map> returnAvailableUserMaps() {
-        return null;
+        return clientData.getAllMaps();
     }
 
     @Override
-    public void loadExistingUserMap(UUID userID, UUID mapID) {
+    public void loadExistingUserMap(UUID mapID) {
+        mapsService.getMap(mapID);
 
     }
 
+    //TODO No mapservice map generation function implemented?
     @Override
-    public void createNewUserMap(UUID mapID) {
+    public void createNewUserMap(UUID templateMapID) {
+
 
     }
 }
