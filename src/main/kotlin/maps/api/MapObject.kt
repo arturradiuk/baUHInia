@@ -10,7 +10,7 @@ import kotlin.collections.ArrayList
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "guid")
 class MapObject (
         val name: String,
-        val guid: UUID = UUID.randomUUID(),
+        var guid: UUID = UUID.randomUUID(),
         val width: Int, // x dim
         val length: Int, // y dim
         val height: Int,
