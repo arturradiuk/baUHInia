@@ -1,7 +1,7 @@
 package database;
 
 
-import maps.api.CellType;
+import common.enums.CellType;
 import maps.api.Map;
 import maps.api.MapObject;
 import org.joda.time.DateTime;
@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface IAdminData {
     List<MapObject> getObjects();
 
-    void addObject(String name, CellType type,int length,int width,int height);
+    public void addObject(MapObject obj);
 
     void removeObject(UUID objectID) throws DataBaseException;
 
