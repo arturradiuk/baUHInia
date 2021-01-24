@@ -68,7 +68,7 @@ class Map constructor() : ITrackable() {
         state = State.MODIFIED
     }
 
-    private fun validate(x: Int, y: Int, obj: MapObject): Boolean {
+    fun validate(x: Int, y: Int, obj: MapObject): Boolean {
         for (i in 0 until obj.width)
             for (j in 0 until obj.height) {
                 val cell = cells[x + i][y + j]
