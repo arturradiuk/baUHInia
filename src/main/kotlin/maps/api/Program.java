@@ -4,6 +4,7 @@ package maps.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.kotlin.KotlinModule;
 import common.enums.ObjectType;
+import ioc.ServiceContainer;
 import kotlin.Unit;
 import maps.api.services.FilesystemMapsProvider;
 import maps.api.services.MapsService;
@@ -17,6 +18,9 @@ import java.util.UUID;
 public class Program {
     public static void main(String[] args) throws IOException {
         var service = new MapsService(new FilesystemMapsProvider("F:\\root"));
+        // injecting MapObjectManager
+        service.setMapObjectManager(ServiceContainer.getMapObjectManager());
+
         var map = service.generateMap();
         if(map.getState() == State.CREATED) System.out.println("Good #1");
 
@@ -34,7 +38,7 @@ public class Program {
 
         // kotlin lambdas must return Unit.INSTANCE in java
         // iterating over map
-        loadedMap.iterate((cell, x, y) -> Unit.INSTANCE);
+//        loadedMap.iterate((cell, x, y) -> Unit.INSTANCE);
 
         // uncommented because it throws sometimes
 //        var obj = new MapObject("Monopolowy", UUID.randomUUID(), 3, 4, 100, ObjectType.CONCRETE);
