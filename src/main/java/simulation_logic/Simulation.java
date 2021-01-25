@@ -4,6 +4,7 @@ package simulation_logic;
 import maps.api.Cell;
 import maps.api.Map;
 import maps.api.MapObject;
+import maps.api.services.FilesystemMapsProvider;
 import maps.api.services.IMapsService;
 import maps.api.services.MapsService;
 import java.lang.Math;
@@ -23,7 +24,7 @@ public class Simulation implements ISimulation {
 
     public Simulation(UUID ID) {
         this.ID = ID;
-        mapService= new MapsService();
+        mapService= new MapsService(new FilesystemMapsProvider("src/main/resources"));
     }
 
     public UUID getIDSimulation() {
