@@ -27,13 +27,22 @@ public class GameLogic implements IGameLogic {
     public GameLogic(int userID) {
         this.userID = userID;
         mapsService = new MapsService(new FilesystemMapsProvider("src/main/resources"));
-        simulation = new Simulation();
+        simulation = new Simulation(UUID.randomUUID());
         clientData = new ClientManager();
 
     }
 
     @Override
-    public void placeObject(Point point, UUID mapItemID) {
+    public void placeObject(Point point, UUID mapItemID) throws DataBaseException {
+        List<MapObject> mapObjects = clientData.getAllObjects();
+        for(MapObject mapObject: mapObjects)
+        {
+            if(mapObject.getGuid() == mapItemID)
+            {
+                map.place(point.x,point.y,mapObject);
+                return;
+            }
+        }
     }
 
     @Override
@@ -60,7 +69,7 @@ public class GameLogic implements IGameLogic {
 
     @Override
     public ArrayList<ArrayList<Integer>> returnHeatMap() {
-        return simulation.runSimulation();
+        return simulation.runSimulation(map.getGuid());
     }
 
     @Override
@@ -69,7 +78,7 @@ public class GameLogic implements IGameLogic {
     }
 
     @Override
-    public java.util.List<MapObject> returnAvailableObjects(UUID itemID) throws DataBaseException {
+    public java.util.List<MapObject> returnAvailableObjects() throws DataBaseException {
         return clientData.getAllObjects();
     }
 
@@ -106,5 +115,14 @@ public class GameLogic implements IGameLogic {
     @Override
     public void removeUserMap(UUID mapID) {
         clientData.removeMapForTheUser(map, userID);
+    }
+
+    @Override
+    public int getTotalPrice(){
+        int totalPrice = 0;
+        for (MapObject i :map.getObjects()){
+            totalPrice += i.getPrice();
+        }
+        return totalPrice;
     }
 }
