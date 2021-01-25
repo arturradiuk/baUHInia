@@ -1,12 +1,13 @@
 package simulation_logic;
 
+import maps.api.Map;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
 
 public interface ISimulation {
 public UUID getIDSimulation();
-public String getAlgorithmSimulation();
-public void setAlgorithmSimulation(String algorithm);
-public ArrayList<ArrayList<Integer>> runSimulation();
+public void updateHeatSimulationFactor(double newValue);
+public ArrayList<ArrayList<Double>> runSimulation(Map map);
 }
