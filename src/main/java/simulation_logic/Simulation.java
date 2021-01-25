@@ -1,13 +1,11 @@
 package simulation_logic;
 
-import logic.service.IMapService;
-import logic.service.MapManager;
+
 import maps.api.Cell;
 import maps.api.Map;
 import maps.api.MapObject;
 import maps.api.services.IMapsService;
 import maps.api.services.MapsService;
-
 import java.lang.Math;
 import java.util.ArrayList;
 
@@ -52,8 +50,8 @@ public class Simulation implements ISimulation {
                 return value;
             case "Road":
                 albedo=0.2;
-                L_shadow= cell.getPlacedObject().getHeight()*(sin_L_shadow/cos_L_shadow)*sin(165-90);
-                SW_in=S_d*((cell.getPlacedObject().getWidth()-L_shadow)/cell.getPlacedObject().getWidth())*(1-albedo)+S_q*F*(1-albedo);
+                L_shadow= cell.getPlacedObjectMetadata().getMapObject().getHeight()*(sin_L_shadow/cos_L_shadow)*sin(165-90);
+                SW_in=S_d*((cell.getPlacedObjectMetadata().getMapObject().getWidth()-L_shadow)/cell.getPlacedObjectMetadata().getMapObject().getWidth())*(1-albedo)+S_q*F*(1-albedo);
                 LW_in=emisity*(L_d*F+emisity*pow(5.67,-8)*pow(T_asphalt,4)*F-pow(5.67,-8)*pow(T_asphalt,4));
                 LW_out=(1-emisity)*L_d*F*F+(1-emisity)*emisity*pow(5.67,-8)*pow(T_asphalt,4)*F*F+emisity*(1-emisity)*pow(5.67,-8)*pow(T_asphalt,4)*F*F;
                 R_ni=SW_in*(1-albedo)+LW_in-LW_out;
@@ -64,8 +62,8 @@ public class Simulation implements ISimulation {
                 albedo=0.3;
                 emisity=0.95;
                 LE_i=0.8;
-                L_shadow= cell.getPlacedObject().getHeight()*(sin_L_shadow/cos_L_shadow)*sin(165-90);
-                SW_in=S_d*((cell.getPlacedObject().getWidth()-L_shadow)/cell.getPlacedObject().getWidth())*(1-albedo)+S_q*F*(1-albedo);
+                L_shadow= cell.getPlacedObjectMetadata().getMapObject().getHeight()*(sin_L_shadow/cos_L_shadow)*sin(165-90);
+                SW_in=S_d*((cell.getPlacedObjectMetadata().getMapObject().getWidth()-L_shadow)/cell.getPlacedObjectMetadata().getMapObject().getWidth())*(1-albedo)+S_q*F*(1-albedo);
                 LW_in=emisity*(L_d*F+emisity*pow(5.67,-8)*pow(T_grass,4)*F-pow(5.67,-8)*pow(T_grass,4));
                 LW_out=(1-emisity)*L_d*F*F+(1-emisity)*emisity*pow(5.67,-8)*pow(T_grass,4)*F*F+emisity*(1-emisity)*pow(5.67,-8)*pow(T_grass,4)*F*F;
                 R_ni=SW_in*(1-albedo)+LW_in-LW_out;
@@ -74,8 +72,8 @@ public class Simulation implements ISimulation {
                 return value;
             case "Building":
                 albedo=0.2;
-                L_shadow= cell.getPlacedObject().getHeight()*(sin_L_shadow/cos_L_shadow)*sin(165-90);
-                SW_in=S_d*(L_shadow/2*cell.getPlacedObject().getHeight())*(1-albedo)+S_q*F*(1-albedo);
+                L_shadow= cell.getPlacedObjectMetadata().getMapObject().getHeight()*(sin_L_shadow/cos_L_shadow)*sin(165-90);
+                SW_in=S_d*(L_shadow/2*cell.getPlacedObjectMetadata().getMapObject().getHeight())*(1-albedo)+S_q*F*(1-albedo);
                 LW_in=emisity*(L_d*F+emisity*pow(5.67,-8)*pow(T_concrete,4)*F)+emisity*pow(5.67,-8)*pow(T_concrete,4)*F-pow(5.67,-8)*pow(T_concrete,4);
                 LW_out=emisity*((1-emisity)*L_d*F*F+(1-emisity)*emisity*pow(5.67,-8)*pow(T_concrete,4)*F*F+(1-emisity)*L_d*F*F-(1-emisity)*emisity*pow(5.67,-8)*pow(T_concrete,4)*F*F);
                 LW_in+=emisity*(L_d-pow(5.67,-8)*pow(T_concrete,4));
