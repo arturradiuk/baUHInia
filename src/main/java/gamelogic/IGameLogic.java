@@ -35,4 +35,6 @@ public interface IGameLogic {
 
     void removeUserMap(UUID mapID);
 
+    int getTotalPrice();
+
 }

@@ -107,4 +107,13 @@ public class GameLogic implements IGameLogic {
     public void removeUserMap(UUID mapID) {
         clientData.removeMapForTheUser(map, userID);
     }
+
+    @Override
+    public int getTotalPrice(){
+        int totalPrice = 0;
+        for (MapObject i :map.getObjects()){
+            totalPrice += i.getPrice();
+        }
+        return totalPrice;
+    }
 }
