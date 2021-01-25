@@ -1,5 +1,6 @@
 package gameGUI;
 
+import common.enums.CellType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,10 +19,23 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import logic.service.ObjectsManager;
 
+import maps.api.Cell;
+import maps.api.Map;
+import maps.api.State;
+import maps.api.services.FilesystemMapsProvider;
+import maps.api.services.IMapsService;
+import maps.api.services.MapsService;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.net.URL;
 import java.util.*;
 
+import static common.enums.CellType.*;
+
 public class SimulationController implements Initializable {
+
+    private IMapsService mapsService;
 
     @FXML
     private VBox vbox;
@@ -38,29 +52,22 @@ public class SimulationController implements Initializable {
     private final ObservableList<Button> buttons = FXCollections.observableArrayList();
     private ObjectsManager objectsManager;
     private double orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
-    private String[] colors = {"#00CCFF", "#66FF99"};
+    private String[] colors = {"#62AD53", "#8F8F8F", "#80682E"};
+
+    private Map map;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        mapsService = new MapsService(new FilesystemMapsProvider("D:\\root"));
         objectsManager = new ObjectsManager();
+
         Button bu = new Button("Obiekt");
         //grid.add(bu,0,0);
-        for(int i=0; i<30; i++) {
-            for(int j=0; j<30; j++) {
-                Rectangle rec = new Rectangle();
-                rec.setFill(Paint.valueOf(colors[i%2]));
-                rec.setWidth(20);
-                rec.setHeight(20);
-                rec.setStroke(Color.BLACK);
-                rec.setStrokeWidth(0.15);
-                rec.setId("map" + i + j);
-                grid.add(rec,i,j);
-            }
-        }
+
         //grid.add(rec,0,0);
 
-        List<Map<String, String>> test = objectsManager.getAllObjectsInfo();
-        for(int i=0; i<test.size()+1; i++) {
+        //List<Map<String, String>> test = objectsManager.getAllObjectsInfo();
+        for(int i=0; i<1; i++) {
             Button b = new Button("Obiekt " + (i+1));
             b.setCursor(Cursor.HAND);
             b.setOnAction(new EventHandler<ActionEvent>() {
@@ -74,7 +81,65 @@ public class SimulationController implements Initializable {
         }
         anchorScroll.setPrefHeight(30*38+5+10*28);
         vbox.getChildren().addAll(buttons);
+        map = mapsService.generateMap();
+        if(map.getState() == State.CREATED) System.out.println("Good #1");
 
+        map.setName("Nazwa dla mapy");
+
+        // jakaś edycja
+        //mapsService.saveMap(map);
+        genMap2();
+
+    }
+
+    private void genMap2(){
+        for(int i=0; i<50; i++) {
+            for(int j=0; j<50; j++) {
+                Cell cell = map.get(i, j);
+                CellType type = cell.getType();
+                System.out.println(type);
+                Rectangle rec = new Rectangle();
+                Paint paint;
+                switch (type){
+                    case Green:
+                        paint = Paint.valueOf(colors[0]);
+                        break;
+                    case Road:
+                        paint = Paint.valueOf(colors[1]);
+                        break;
+                    case Building:
+                        paint = Paint.valueOf(colors[2]);
+                        break;
+                    default:
+                        paint = Paint.valueOf("#000000");
+                        break;
+                }
+                rec.setFill(paint);
+                rec.setWidth(12);
+                rec.setHeight(12);
+                rec.setStroke(Color.BLACK);
+                rec.setStrokeWidth(0.15);
+                rec.setId("map" + i + j);
+                grid.add(rec,i,j);
+            }
+        }
+    }
+
+
+
+    private void genMap(){
+        for(int i=0; i<30; i++) {
+            for(int j=0; j<30; j++) {
+                Rectangle rec = new Rectangle();
+                rec.setFill(Paint.valueOf(colors[i%2]));
+                rec.setWidth(20);
+                rec.setHeight(20);
+                rec.setStroke(Color.BLACK);
+                rec.setStrokeWidth(0.15);
+                rec.setId("map" + i + j);
+                grid.add(rec,i,j);
+            }
+        }
     }
 
     EventHandler<MouseEvent> circleOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
