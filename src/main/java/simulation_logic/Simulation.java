@@ -1,8 +1,13 @@
 package simulation_logic;
 
+import logic.service.IMapService;
+import logic.service.MapManager;
 import maps.api.Cell;
 import maps.api.Map;
 import maps.api.MapObject;
+import maps.api.services.IMapsService;
+import maps.api.services.MapsService;
+
 import java.lang.Math;
 import java.util.ArrayList;
 
@@ -16,9 +21,11 @@ public class Simulation implements ISimulation {
     private double T_concrete=33.62;
     private double T_grass=25.37;
     private double T_default= 21.0;
+    IMapsService mapService;
 
     public Simulation(UUID ID) {
         this.ID = ID;
+        mapService= new MapsService();
     }
 
     public UUID getIDSimulation() {
@@ -41,7 +48,7 @@ public class Simulation implements ISimulation {
         sin_L_shadow=sqrt(1-cos_L_shadow*cos_L_shadow);
         switch (type){
             case "None":
-                value = 37.27;
+                value = 37;
                 return value;
             case "Road":
                 albedo=0.2;
@@ -83,17 +90,17 @@ public class Simulation implements ISimulation {
 
     }
 
-    public ArrayList<ArrayList<Double>> runSimulation(Map map) {
-        ArrayList<ArrayList<Double>> heat_val = null;
+    public ArrayList<ArrayList<Integer>> runSimulation(UUID map_uuid) {
+        ArrayList<ArrayList<Integer>> heat_val = null;
         for(int i=0;i<100;i++)
         {
-            heat_val.add(new ArrayList<Double>());
+            heat_val.add(new ArrayList<Integer>());
             for(int j=0;j<100;j++)
             {
-                if(map.get(i,j).getType().toString()=="None") heat_val.get(i).add(simulate("None",map.get(i,j)));
-                if(map.get(i,j).getType().toString()=="Road") heat_val.get(i).add(simulate("Road",map.get(i,j)));
-                if(map.get(i,j).getType().toString()=="Green") heat_val.get(i).add(simulate("Green",map.get(i,j)));
-                if(map.get(i,j).getType().toString()=="Building") heat_val.get(i).add(simulate("Building",map.get(i,j)));
+                if(mapService.getMap(map_uuid).get(i,j).getType().toString()=="None") heat_val.get(i).add((int) simulate("None",mapService.getMap(map_uuid).get(i,j)));
+                if(mapService.getMap(map_uuid).get(i,j).getType().toString()=="Road") heat_val.get(i).add((int) simulate("Road",mapService.getMap(map_uuid).get(i,j)));
+                if(mapService.getMap(map_uuid).get(i,j).getType().toString()=="Green") heat_val.get(i).add((int) simulate("Green",mapService.getMap(map_uuid).get(i,j)));
+                if(mapService.getMap(map_uuid).get(i,j).getType().toString()=="Building") heat_val.get(i).add((int) simulate("Building",mapService.getMap(map_uuid).get(i,j)));
 
             }
         }
