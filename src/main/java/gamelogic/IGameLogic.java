@@ -21,7 +21,7 @@ public interface IGameLogic {
 
     Map returnMap();  // Needs to be imported from maps component
 
-    List<MapObject> returnAvailableObjects(UUID itemID) throws DataBaseException;  // Needs to be imported from maps component
+    List<MapObject> returnAvailableObjects() throws DataBaseException;  // Needs to be imported from maps component
 
     List<Map> returnExistingUserMaps();  // Needs to be imported from maps component
 
@@ -34,5 +34,7 @@ public interface IGameLogic {
     void saveMap();
 
     void removeUserMap(UUID mapID);
+
+    int getTotalPrice();
 
 }
