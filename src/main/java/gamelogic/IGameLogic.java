@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface IGameLogic {
 
-    void placeObject(Point point, UUID mapItemID);
+    void placeObject(Point point, UUID mapItemID) throws DataBaseException;
 
     void moveObject(Point from, Point to);
 
