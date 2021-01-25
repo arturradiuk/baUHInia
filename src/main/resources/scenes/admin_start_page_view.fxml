@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRYB ADMINISTRACJI" textAlignment="CENTER" wrappingWidth="1000.0">
+            <font>
+                <Font name="Roboto Light" size="24.0" />
+            </font>
+        </Text>
+        <Text layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Witaj w grze baUHInia" textAlignment="CENTER" wrappingWidth="1000.0">
+            <font>
+                <Font name="Roboto Light" size="41.0" />
+            </font>
+        </Text>
+        <Text layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aby dodać, edytować lub usunąć mapę użyj Managera map" textAlignment="CENTER" wrappingWidth="1000.0">
+            <font>
+                <Font name="Roboto Light" size="24.0" />
+            </font>
+        </Text>
+        <Text layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aby dodać, edytować lub usunąć obiekt użyj Managera obiektów" textAlignment="CENTER" wrappingWidth="1000.0">
+            <font>
+                <Font name="Roboto Light" size="24.0" />
+            </font>
+        </Text>
+
+        <Text layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aby wyświetlić mapy utworzone przez użytkowników kliknij Przeglądaj mapy" textAlignment="CENTER" wrappingWidth="1000.0">
+            <font>
+                <Font name="Roboto Light" size="24.0" />
+            </font>
+        </Text>
+
+
+
+    </children>
+</AnchorPane>

@@ -26,7 +26,7 @@
            </font>
        </Text>
 
-      <Text layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aby rozpocząć grę wybierz jedną z dostępnych map na panelu bocznym." textAlignment="CENTER" wrappingWidth="1000.0">
+      <Text layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aby rozpocząć grę wybierz jedną z dostępnych map klikając nowa gra lub wczytaj grę" textAlignment="CENTER" wrappingWidth="1000.0">
           <font>
               <Font name="Roboto Light" size="24.0" />
           </font>
