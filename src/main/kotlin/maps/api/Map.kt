@@ -113,7 +113,7 @@ class Map constructor() : ITrackable() {
                 val factor = floor((noise.turbulence(i.toDouble() / GRID_SIZE, j.toDouble() / GRID_SIZE, 0.0, size.toDouble()) + 1) * 127).toInt()
                 when{
                     factor < 85 -> CellType.Road
-                    factor < 125 -> CellType.Building
+                    factor < 125 -> CellType.Concrete
                     else -> CellType.Green
                 }
             }
