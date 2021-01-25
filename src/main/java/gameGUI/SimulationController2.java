@@ -7,20 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import logic.service.admin.AdminException;
 import logic.service.admin.AdminService;
 import maps.api.Cell;
@@ -32,9 +28,12 @@ import maps.api.services.IMapsService;
 import maps.api.services.MapsService;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.UUID;
 
-public class SimulationController implements Initializable {
+public class SimulationController2 implements Initializable {
 
     @FXML
     private VBox vbox;
@@ -49,10 +48,10 @@ public class SimulationController implements Initializable {
     private GridPane grid;
 
     private final ObservableList<Button> buttons = FXCollections.observableArrayList();
-    private final ObservableList<StackPane> stackPanes = FXCollections.observableArrayList();
     private AdminService adminService;
     private IMapsService mapsService;
     private Map map;
+    private UUID currentMap;
     private double orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
     private String[] colors = {"#62AD53", "#8F8F8F", "#80682E"};
 
@@ -61,69 +60,42 @@ public class SimulationController implements Initializable {
         mapsService = new MapsService(new FilesystemMapsProvider("D:\\root"));
         adminService = new AdminService();
                 //grid.add(rec,0,0);
-
+        System.out.println(currentMap);
         List<MapObject> test = null;
         try {
             test = adminService.getAllObjects();
         } catch (AdminException e) {
             e.printStackTrace();
         }
-        for(int i=0; i<test.size(); i++) {
-            System.out.println("objects/" + test.get(i).getGuid() + ".png");
-            StackPane stackPane = new StackPane();
-            stackPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
-            stackPane.setPadding((new Insets(10, 10, 10, 10)));
-            stackPane.setPrefSize(100,100);
-            BorderPane borderPane = new BorderPane();
-            borderPane.setPadding((new Insets(10, 10, 10, 10)));
-            borderPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
-            borderPane.setPrefSize(20,40);
-            borderPane.setCursor(Cursor.HAND);
-            VBox myvbox = new VBox();
-            Label dimensions = new Label("Width: " + test.get(i).getWidth() + ", length: " + test.get(i).getWidth() + ", height: " + test.get(i).getHeight());
-            Label objectType = new Label("Object Type: " + test.get(i).getType());
-            Label allowedTerrainType = new Label("Allowed Terrain Type: " + test.get(i).getAllowedTerrainType());
-            Label priceAndHeatFactor = new Label("Price: " + test.get(i).getPrice() + ", Heat Factor: " + test.get(i).getHeatFactor());
+        for(int i=0; i<test.size()+1; i++) {
+            Button b = new Button("Obiekt " + (i+1));
+            b.setCursor(Cursor.HAND);
+            b.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    addObject();
+                }
+            });
 
-            myvbox.getChildren().addAll(dimensions, objectType, allowedTerrainType, priceAndHeatFactor);
-            Text title = new Text(test.get(i).getName());
-            //Text t = new Text("info:\nThis is very nice circle\nPower over 9k");
-
-            try {
-                Image image;
-                System.out.println("objects/" + test.get(i).getGuid() + ".png");
-                image = new Image("objects/" + test.get(i).getGuid() + ".png");
-                ImageView pic = new ImageView();
-                pic.setFitWidth(30);
-                pic.setFitHeight(30);
-                pic.setImage(image);
-                borderPane.setCenter(pic);
-                borderPane.setOnMouseClicked(actionEvent -> addObject(image));
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            borderPane.setTop(title);
-            borderPane.setBottom(myvbox);
-            BorderPane.setAlignment(myvbox, Pos.CENTER);
-            BorderPane.setAlignment(title, Pos.CENTER);
-
-            stackPane.getChildren().add(borderPane);
-            stackPanes.add(stackPane);
+            buttons.add(b);
         }
         anchorScroll.setPrefHeight(30*38+5+10*28);
-        vbox.getChildren().addAll(stackPanes);
+        vbox.getChildren().addAll(buttons);
 
-        map = mapsService.generateMap();
-        if(map.getState() == State.CREATED) System.out.println("Good #1");
+        //map = mapsService.generateMap();
+        map = mapsService.getMap(currentMap);
+        //if(map.getState() == State.CREATED) System.out.println("Good #1");
 
-        map.setName("Nazwa dla mapy");
+        //map.setName("Nazwa dla mapy");
 
         // jakaś edycja
         //mapsService.saveMap(map);
-        genMap2();
+        //genMap2();
 
+    }
+    public void setCurrentMap(UUID id) {
+        currentMap = id;
+        System.out.println("Setter:" + currentMap);
     }
 
     private void genMap2(){
@@ -131,7 +103,7 @@ public class SimulationController implements Initializable {
             for(int j=0; j<50; j++) {
                 Cell cell = map.get(i, j);
                 CellType type = cell.getType();
-                //System.out.println(type);
+                System.out.println(type);
 
                 Rectangle rec = new Rectangle();
                 Paint paint;
@@ -182,8 +154,8 @@ public class SimulationController implements Initializable {
         public void handle(MouseEvent mouseEvent) {
             orgSceneX = mouseEvent.getSceneX();
             orgSceneY = mouseEvent.getSceneY();
-            orgTranslateX = ((ImageView)(mouseEvent.getSource())).getTranslateX();
-            orgTranslateY = ((ImageView)(mouseEvent.getSource())).getTranslateY();
+            orgTranslateX = ((Circle)(mouseEvent.getSource())).getTranslateX();
+            orgTranslateY = ((Circle)(mouseEvent.getSource())).getTranslateY();
         }
     };
 
@@ -196,10 +168,10 @@ public class SimulationController implements Initializable {
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
             if(mouseEvent.getSceneX()>200 && mouseEvent.getSceneX()<800){
-                ((ImageView)(mouseEvent.getSource())).setTranslateX(newTranslateX);
+                ((Circle)(mouseEvent.getSource())).setTranslateX(newTranslateX);
             }
             if(mouseEvent.getSceneY()>0 && mouseEvent.getSceneY()<600){
-                ((ImageView)(mouseEvent.getSource())).setTranslateY(newTranslateY);
+                ((Circle)(mouseEvent.getSource())).setTranslateY(newTranslateY);
             }
         }
     };
@@ -207,7 +179,7 @@ public class SimulationController implements Initializable {
     EventHandler<MouseEvent> circleOnMouseReleasedEventHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            ImageView circ = (ImageView)(mouseEvent.getSource());
+            Circle circ = (Circle)(mouseEvent.getSource());
             int nodeX = (int) mouseEvent.getSceneX() - 190;
             int nodeY = (int) mouseEvent.getSceneY();
             nodeX = nodeX/20;
@@ -226,8 +198,8 @@ public class SimulationController implements Initializable {
             }
             Rectangle rec = (Rectangle) grid.lookup("#map" + nodeX + nodeY);
             System.out.println(rec.getFill());
-            //System.out.println(Paint.valueOf("#66FF99"));
-            if(rec.getFill().equals(Paint.valueOf("#62AD53"))) {
+            System.out.println(Paint.valueOf("#66FF99"));
+            if(rec.getFill().equals(Paint.valueOf("#66FF99"))) {
                 grid.getChildren().remove(circ);
                 circ.setTranslateX(0);
                 circ.setTranslateY(0);
@@ -261,28 +233,30 @@ public class SimulationController implements Initializable {
             System.out.println(mouseEvent.getSceneY() );
 
             //double offsetX = mouseEvent.getSceneX() - orgSceneX;
-            // double offsetY = mouseEvent.getSceneY() - orgSceneY;
+           // double offsetY = mouseEvent.getSceneY() - orgSceneY;
 
-            // double newTranslateX = orgTranslateX + offsetX;
-            // double newTranslateY = orgTranslateY + offsetY;
+           // double newTranslateX = orgTranslateX + offsetX;
+           // double newTranslateY = orgTranslateY + offsetY;
             //if(newTranslateX>0 && newTranslateX<580){
-            //     ((Circle)(mouseEvent.getSource())).setTranslateX(newTranslateX);
-            // }
+           //     ((Circle)(mouseEvent.getSource())).setTranslateX(newTranslateX);
+           // }
 
-            // ((Circle)(mouseEvent.getSource())).setTranslateY(newTranslateY);
+           // ((Circle)(mouseEvent.getSource())).setTranslateY(newTranslateY);
         }
     };
 
-    public void addObject(Image image) {
-        ImageView pic = new ImageView();
-        pic.setFitWidth(20);
-        pic.setFitHeight(20);
-        pic.setImage(image);
-        pic.setCursor(Cursor.OPEN_HAND);
-        pic.setOnMousePressed(circleOnMousePressedEventHandler);
-        pic.setOnMouseDragged(circleOnMouseDraggedEventHandler);
-        pic.setOnMouseReleased(circleOnMouseReleasedEventHandler);
-        grid.add(pic,0,0);
+    public void addObject() {
+        Circle circle = new Circle();
+        circle.setRadius(10);
+        //circle.setCenterX(200);
+        //circle.setCenterY(200);
+        //mainPane.getChildren().add(circle);
+        //grid.getChildren().add(circle);
+        grid.add(circle,0,0);
+        circle.setCursor(Cursor.OPEN_HAND);
+        circle.setOnMousePressed(circleOnMousePressedEventHandler);
+        circle.setOnMouseDragged(circleOnMouseDraggedEventHandler);
+        circle.setOnMouseReleased(circleOnMouseReleasedEventHandler);
     }
 
     public void simulate() {

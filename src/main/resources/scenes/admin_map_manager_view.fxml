@@ -10,7 +10,7 @@
    <bottom>
       <AnchorPane prefHeight="53.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="444.0" layoutY="14.0" mnemonicParsing="false" text="Dodaj nową mapę" />
+            <Button onMouseClicked="#addNewMap" layoutX="444.0" layoutY="14.0" mnemonicParsing="false" text="Dodaj nową mapę" />
          </children>
       </AnchorPane>
    </bottom>

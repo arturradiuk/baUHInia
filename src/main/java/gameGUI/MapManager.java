@@ -47,4 +47,10 @@ public class MapManager implements IMapsService{
     public Map emptyMap() {
         return null;
     }
+
+    @Nullable
+    @Override
+    public Map fromTemplate(@NotNull UUID guid) {
+        return null;
+    }
 }

@@ -133,6 +133,7 @@ public class AdminService implements IAdminLogic {
         newMapObject.setAllowedTerrainType(allowedTerrainType);
         newMapObject.setPrice(price);
         newMapObject.setHeatFactor(heatFactor);
+        System.out.println("Saving");
         // todo can it throw an exception?
         adminDataBase.addObject(newMapObject);
     }
