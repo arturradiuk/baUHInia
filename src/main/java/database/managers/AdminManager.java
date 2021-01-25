@@ -32,7 +32,7 @@ public class AdminManager implements IAdminData {
 
     @Override
     public void addObject(MapObject obj) {
-        String sqlQuery = "insert into objects_templates (id, name, price, heat_factor, length, width, height, terrain_type, object_type)\n" +
+        String sqlQuery = "insert into objects_templates (id, name, price, heat_factor, length, width, height, terrain_type, object_type)" +
                 "values (?,?,?,?,?,?,?,?,?)";
         try (Connection connection = this.connector.getConnection()) {
 
@@ -45,7 +45,7 @@ public class AdminManager implements IAdminData {
             ps.setInt(6, obj.getWidth());
             ps.setInt(7, obj.getHeight());
             ps.setString(8, obj.getAllowedTerrainType().toString());
-            ps.setString(9, obj.getAllowedTerrainType().toString());
+            ps.setString(9, obj.getType().toString());
             ps.execute();
 
         } catch (SQLException throwables) {
