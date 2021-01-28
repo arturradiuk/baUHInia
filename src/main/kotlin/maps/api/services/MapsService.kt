@@ -1,6 +1,7 @@
 package maps.api.services
 
 import database.IMapObject
+import login.LoginService
 import maps.api.ITrackable
 import maps.api.Map
 import maps.api.State
@@ -72,6 +73,18 @@ class MapsService(
             it.isAccessible = true
             it as KMutableProperty<*>
             it.setter.call(map, state)
+        }
+    }
+
+    companion object{
+        private var instance: MapsService? = null
+
+
+        fun getInstance(): MapsService {
+            if (instance == null) {
+                instance = MapsService(FilesystemMapsProvider("C:\\maps"))
+            }
+            return instance!!
         }
     }
 }
