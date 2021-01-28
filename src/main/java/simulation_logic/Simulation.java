@@ -24,7 +24,7 @@ public class Simulation implements ISimulation {
 
     public Simulation(UUID ID) {
         this.ID = ID;
-        mapService= new MapsService(new FilesystemMapsProvider("src/main/resources"));
+        mapService= MapsService.Companion.getInstance();
     }
 
     public UUID getIDSimulation() {
