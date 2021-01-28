@@ -36,7 +36,8 @@ class Map constructor() : ITrackable() {
     var objectsMetadata = ArrayList<MapObjectMetadata>()
 
     init {
-        guid = UUID.fromString("00000000-0000-0000-0000-000000000000")
+//        guid = UUID.fromString("00000000-0000-0000-0000-000000000000")
+        guid = UUID.randomUUID()
     }
 
     operator fun get(i: Int, j: Int): Cell {

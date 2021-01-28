@@ -35,14 +35,14 @@ class MapsService(
             mapsProvider.replace(map) // replacing
 
         else {
-            map.guid = UUID.randomUUID()
+//            map.guid = UUID.randomUUID()
             mapsProvider.add(map) // adding new
         }
     }
 
     override fun fromTemplate(guid: UUID): Map? {
         val map = mapsProvider.get(guid)
-        map?.guid = UUID.fromString("00000000-0000-0000-0000-000000000000")
+        map?.guid = UUID.randomUUID();
         return map
     }
 
