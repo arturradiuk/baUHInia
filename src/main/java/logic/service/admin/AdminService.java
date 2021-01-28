@@ -4,6 +4,8 @@ import common.enums.ObjectType;
 import database.IAdminData;
 import database.DataBaseException;
 import database.managers.AdminManager;
+import login.LoginService;
+import login.UserType;
 import maps.api.services.FilesystemMapsProvider;
 import maps.api.services.MapsService;
 import maps.api.Cell;
@@ -29,13 +31,19 @@ public class AdminService implements IAdminLogic {
     // Maps Component Access
     private MapsService mapsService;
 
+    //Login component Access
+    private LoginService loginService;
+
     public AdminService() {
         this.adminDataBase = new AdminManager();
-        this.mapsService = new MapsService(new FilesystemMapsProvider("file"));
+        this.mapsService = MapsService.Companion.getInstance();
+        this.loginService = LoginService.getInstance();
     }
 
     @Override
-    public void createNewMapTemplate() {
+    public void createNewMapTemplate() throws AdminException {
+        if(loginService.getCurrentUserType() != UserType.Administrator)
+            throw new AdminException(AdminException.NOT_ALLOWED);
         Map newMap = mapsService.generateMap();
         DateTime creationTime = DateTime.now();
         newMap.setCreated(creationTime);
@@ -82,6 +90,8 @@ public class AdminService implements IAdminLogic {
 
     @Override
     public void removeMap(UUID mapID) throws AdminException {
+        if(loginService.getCurrentUserType() != UserType.Administrator)
+            throw new AdminException(AdminException.NOT_ALLOWED);
         try {
             Map deletedMap = adminDataBase.getMap(mapID);
             adminDataBase.removeMap(mapID);
@@ -127,7 +137,9 @@ public class AdminService implements IAdminLogic {
     public void addNewMapObject(String name, int width, int length, int height,
                                 ObjectType type, CellType allowedTerrainType,
                                 int price, double heatFactor) throws AdminException {
-        // todo change MapObject constructor
+
+        if(loginService.getCurrentUserType() != UserType.Administrator)
+            throw new AdminException(AdminException.NOT_ALLOWED);
         MapObject newMapObject =
                 new MapObject(name, UUID.randomUUID(), width, length, height, type);
         newMapObject.setAllowedTerrainType(allowedTerrainType);
@@ -139,6 +151,8 @@ public class AdminService implements IAdminLogic {
 
     @Override
     public void removeMapObject(UUID mapObjectID) throws AdminException {
+        if(loginService.getCurrentUserType() != UserType.Administrator)
+            throw new AdminException(AdminException.NOT_ALLOWED);
         try {
             adminDataBase.removeObject(mapObjectID);
         } catch (DataBaseException ex) {
@@ -153,6 +167,8 @@ public class AdminService implements IAdminLogic {
     public void updateMapObject(UUID mapObjectID, String name, int height,
                                 ObjectType type, CellType allowedTerrainType,
                                 int price, double heatFactor) throws AdminException {
+        if(loginService.getCurrentUserType() != UserType.Administrator)
+            throw new AdminException(AdminException.NOT_ALLOWED);
         try {
             MapObject updatedMapObject = adminDataBase.getObject(mapObjectID);
             updatedMapObject.setName(name);
@@ -173,6 +189,8 @@ public class AdminService implements IAdminLogic {
 
     @Override
     public void switchLockCell(UUID mapID, int cellX, int cellY) throws AdminException {
+        if(loginService.getCurrentUserType() != UserType.Administrator)
+            throw new AdminException(AdminException.NOT_ALLOWED);
         Map updatedMap = mapsService.getMap(mapID);
         try {
             Cell modifiedCell = updatedMap.get(cellX, cellY);
@@ -188,6 +206,8 @@ public class AdminService implements IAdminLogic {
 
     @Override
     public void updateCellType(UUID mapID, int cellX, int cellY, CellType cellType) throws AdminException {
+        if(loginService.getCurrentUserType() != UserType.Administrator)
+            throw new AdminException(AdminException.NOT_ALLOWED);
         Map updatedMap = mapsService.getMap(mapID);
         if (null != updatedMap.getUserId()) {
             throw new AdminException(AdminException.NOT_ALLOWED);
