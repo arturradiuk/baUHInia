@@ -9,6 +9,7 @@ import kotlin.Unit;
 import maps.api.services.FilesystemMapsProvider;
 import maps.api.services.MapsService;
 import maps.api.utils.GuidKt;
+import org.joda.time.DateTime;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,6 +26,7 @@ public class Program {
         if(map.getState() == State.CREATED) System.out.println("Good #1");
 
         map.setName("Nazwa dla mapy");
+        map.setCreated(new DateTime());
 
         // jakaś edycja
         service.saveMap(map);
