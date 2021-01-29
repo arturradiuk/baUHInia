@@ -38,6 +38,7 @@ public class Program {
         if(loadedMap.getSize() == map.getSize()) System.out.println("Good #5");
         if(loadedMap.getName().equals(map.getName())) System.out.println("Good #6");
 
+        service.deleteMap(map);
         // kotlin lambdas must return Unit.INSTANCE in java
         // iterating over map
 //        loadedMap.iterate((cell, x, y) -> Unit.INSTANCE);

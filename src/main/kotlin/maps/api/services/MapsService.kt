@@ -37,6 +37,7 @@ class MapsService(
         else {
 //            map.guid = UUID.randomUUID()
             mapsProvider.add(map) // adding new
+            tracked.add(map)
         }
     }
 
