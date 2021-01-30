@@ -31,7 +31,7 @@ public class AdminService implements IAdminLogic {
 
     public AdminService() {
         this.adminDataBase = new AdminManager();
-        this.mapsService = new MapsService(new FilesystemMapsProvider("file"));
+        this.mapsService = new MapsService(new FilesystemMapsProvider(".\\resources\\maps"));
     }
 
     @Override
@@ -40,6 +40,7 @@ public class AdminService implements IAdminLogic {
         DateTime creationTime = DateTime.now();
         newMap.setCreated(creationTime);
         newMap.setModified(creationTime);
+        newMap.setName("test");
         // todo Catch exception from DataBase?
         adminDataBase.addMap(newMap);
         mapsService.saveMap(newMap);
@@ -83,7 +84,7 @@ public class AdminService implements IAdminLogic {
     @Override
     public void removeMap(UUID mapID) throws AdminException {
         try {
-            Map deletedMap = adminDataBase.getMap(mapID);
+            Map deletedMap = mapsService.getMap(mapID);
             adminDataBase.removeMap(mapID);
             mapsService.deleteMap(deletedMap);
         } catch (DataBaseException ex) {
@@ -133,7 +134,7 @@ public class AdminService implements IAdminLogic {
         newMapObject.setAllowedTerrainType(allowedTerrainType);
         newMapObject.setPrice(price);
         newMapObject.setHeatFactor(heatFactor);
-        System.out.println("Saving");
+        //System.out.println("Saving");
         // todo can it throw an exception?
         adminDataBase.addObject(newMapObject);
     }
@@ -196,6 +197,9 @@ public class AdminService implements IAdminLogic {
         try {
             Cell modifiedCell = updatedMap.get(cellX, cellY);
             modifiedCell.setType(cellType);
+            updatedMap.setModified(DateTime.now());
+            adminDataBase.updateMap(mapID, updatedMap);
+            mapsService.saveMap(updatedMap);
         } catch (NullPointerException ex) {
             throw new AdminException("Cell [" + cellX + ';' + cellY + "] " + AdminException.NOT_EXIST);
         }

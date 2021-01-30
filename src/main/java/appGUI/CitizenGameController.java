@@ -19,7 +19,10 @@ public class CitizenGameController implements Initializable {
     private AnchorPane game_view;
 
     @FXML
-    private AnchorPane new_game_view;
+    private BorderPane new_game_view;
+
+    @FXML
+    private BorderPane load_game_view;
 
 
     @Override
@@ -29,19 +32,33 @@ public class CitizenGameController implements Initializable {
 
     @FXML
     public void newGame() {
-        game_view.setVisible(false);
-        game_view.setManaged(false);
+        hideAllViews();
         new_game_view.setVisible(true);
         new_game_view.setManaged(true);
 
     }
 
-
-
     @FXML
     public void importMap() {
+        hideAllViews();
+        load_game_view.setVisible(true);
+        load_game_view.setManaged(true);
 
     }
+
+
+    public void hideAllViews() {
+        game_view.setVisible(false);
+        game_view.setManaged(false);
+        new_game_view.setVisible(false);
+        new_game_view.setManaged(false);
+        load_game_view.setVisible(false);
+        load_game_view.setManaged(false);
+    }
+
+
+
+
 
     @FXML
     public void saveMap() {

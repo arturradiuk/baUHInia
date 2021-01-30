@@ -68,6 +68,7 @@ public class MapObjectManager implements IMapObject {
         String terrainType = resultSet.getString(8);
         String objectType = resultSet.getString(9);
         System.out.println(UUID.fromString(guid));
+        System.out.println(resultSet.getString(8) + " " + resultSet.getString(9));
         MapObject mapObject = new MapObject(name, UUID.fromString(guid), width, length, height, ObjectType.valueOf(objectType));
         mapObject.setPrice((int) price);
         mapObject.setHeatFactor((int) heatFactor);

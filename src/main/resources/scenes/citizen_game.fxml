@@ -58,7 +58,8 @@
     <left>
         <AnchorPane prefHeight="900.0" prefWidth="1000.0" style="-fx-background-color: #f0e2d0;" BorderPane.alignment="CENTER">
             <fx:include fx:id="game_view" source="/scenes/citizen_start_page_view.fxml" />
-            <fx:include fx:id="new_game_view" source="/scenes/new_game_view.fxml" visible="false" managed="false"/>
+            <fx:include fx:id="new_game_view" source="/scenes/citizen_new_game_view.fxml" visible="false" managed="false"/>
+            <fx:include fx:id="load_game_view" source="/scenes/citizen_load_game_view.fxml" visible="false" managed="false"/>
 
         </AnchorPane>
     </left>

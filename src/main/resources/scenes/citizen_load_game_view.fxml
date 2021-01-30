@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #f0e2d0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameGUI.clientControllers.LoadGameController">
+    <center>
+        <ScrollPane style="-fx-background-color: #f0e2d0;" BorderPane.alignment="CENTER">
+            <content>
+                <AnchorPane fx:id="listScroll" minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="985.0" style="-fx-background-color: #f0e2d0;">
+                    <children>
+                        <VBox fx:id="listVBox" layoutX="141.0" prefHeight="550.0" prefWidth="703.0" spacing="2.0" style="-fx-background-color: #d4d4d4;" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

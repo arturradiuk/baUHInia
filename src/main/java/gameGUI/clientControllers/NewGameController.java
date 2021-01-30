@@ -1,6 +1,7 @@
-package gameGUI.adminControllers;
-
+package gameGUI.clientControllers;
+import appGUI.CitizenGameController;
 import gameGUI.SimulationController2;
+import gameGUI.adminControllers.AdminManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,8 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -25,25 +25,21 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
-public class UserMapsController implements Initializable {
+public class NewGameController implements Initializable {
 
     @FXML
     private VBox listVBox;
     @FXML
     private AnchorPane listScroll;
 
-    private AdminManager adminManager;
-
+    private ClientManager clientManager;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        adminManager = new AdminManager();
+        clientManager = new ClientManager();
         List<Map> test = null;
-        try {
-            test = adminManager.getAllMaps();
-        } catch (AdminException e) {
-            e.printStackTrace();
-        }
+        test = clientManager.returnAvailableUserMaps();
+
         //System.out.println(test.size());
         int size = test.size();
         ArrayList<BorderPane> objectPanes = new ArrayList<>();
@@ -62,7 +58,7 @@ public class UserMapsController implements Initializable {
                     loader.setController(controller2);
                     Parent root = loader.load();
                     Stage stage = new Stage();
-                    stage.setTitle("User map");
+                    stage.setTitle("Map");
                     stage.setScene(new Scene(root, 1000, 600));
 
                     //loader.setController(controller2);
@@ -105,6 +101,7 @@ public class UserMapsController implements Initializable {
         } else listScroll.setPrefHeight(length);
         listVBox.setPrefHeight(length);
         listVBox.getChildren().addAll(objectPanes);
+
 
     }
 }

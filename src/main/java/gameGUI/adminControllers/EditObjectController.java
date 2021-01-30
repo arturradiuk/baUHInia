@@ -1,13 +1,18 @@
 package gameGUI.adminControllers;
 
+import common.enums.CellType;
+import common.enums.ObjectType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import logic.service.admin.AdminException;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,15 +21,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class EditObjectController implements Initializable {
+
     @FXML
-    public BorderPane boarderPane;
-    @FXML
-    public TextField saveField;
+    public TextField nameField;
     @FXML
     public TextField widthField;
     @FXML
@@ -32,138 +37,71 @@ public class EditObjectController implements Initializable {
     @FXML
     public TextField heightField;
     @FXML
-    public TextField objectTypeField;
+    public ChoiceBox<ObjectType> objectTypeList;
     @FXML
-    public TextField allowedTypeField;
+    public ChoiceBox<CellType> allowedTypeList;
     @FXML
     public TextField priceField;
     @FXML
     public TextField heatFactorField;
+    @FXML
+    public Button saveBtn;
 
-
-//    public EditObjectController(File file, int width, int length, int height, String type, String allowedTerrainType, int price, double heatFactor) {
-//        this.file = file;
-//        this.width = width;
-//        this.length = length;
-//        this.height = height;
-//        this.type = type;
-//        this.allowedTerrainType = allowedTerrainType;
-//        this.price = price;
-//        this.heatFactor = heatFactor;
-//
-//        widthField.setText(file.getAbsolutePath());
-//        widthField.setText(String.valueOf(width));
-//        widthField.setText(String.valueOf(length));
-//        widthField.setText(String.valueOf(height));
-//        widthField.setText(type);
-//        widthField.setText(allowedTerrainType);
-//        widthField.setText(String.valueOf(price));
-//        widthField.setText(String.valueOf(heatFactor));
-//    }
-
-    //File file;
+    UUID id;
+    String name;
     int width;
     int length;
     int height;
-    String type;                    //ObjectType
-    String allowedTerrainType;      //CellType
+    ObjectType type;
+    CellType allowedTerrainType;
     int price;
     double heatFactor;
+    private AdminManager adminManager;
 
+    public void setAdminManager(AdminManager adminManager) {
+        this.adminManager = adminManager;
+    }
 
-    //public void setFile(File file) {
-        //this.file = file;
-   // }
+    public EditObjectController(UUID id, String name, int width, int length, int height, CellType allowedTerrainType, ObjectType objectType, int price, double heatFactor) {
 
-    public void setWidth(int width) {
+        this.id = id;
+        this.name = name;
         this.width = width;
-    }
-
-    public void setLength(int length) {
         this.length = length;
-    }
-
-    public void setHeight(int height) {
         this.height = height;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setAllowedTerrainType(String allowedTerrainType) {
+        this.type = objectType;
         this.allowedTerrainType = allowedTerrainType;
-    }
-
-    public void setPrice(int price) {
         this.price = price;
-    }
-
-    public void setHeatFactor(double heatFactor) {
         this.heatFactor = heatFactor;
-    }
+
+   }
 
 
-
-    public void browse() {
-
-        final FileChooser fileChooser = new FileChooser();
-        Stage stage = (Stage) boarderPane.getScene().getWindow();
-        //file = fileChooser.showOpenDialog(stage);
-        //if(file != null) {
-        //    saveField.setText(file.getAbsolutePath());
-        //}
-    }
-/*
-    public void saveToFile() throws IOException {
-        File fileName;
-        if(file.exists() && ImageIO.read(file) != null){
-            BufferedImage img = null;
-            try {
-                img = ImageIO.read(new File(file.getAbsolutePath()));
-            } catch (IOException e) {
-                System.out.println("Read error for " + file.getPath() +
-                        ": " + e.getMessage());
-            }
-            fileName = new File("D:\\root\\"+file.getName());
-            try {
-                ImageIO.write(img, "jpg", fileName);
-            } catch(IOException e) {
-                System.out.println("Write error for " + file.getPath() +
-                        ": " + e.getMessage());
-            }
-        }
-    }
-*/
-    public void saveObject(){
+    public void saveObject() throws AdminException {
         width = parseInt(widthField.getText());
         length = parseInt(lengthField.getText());
         height = parseInt(heightField.getText());
-        type = objectTypeField.getText();
-        allowedTerrainType = allowedTypeField.getText();
+        type = objectTypeList.getSelectionModel().getSelectedItem();
+        allowedTerrainType = allowedTypeList.getSelectionModel().getSelectedItem();
         price = parseInt(priceField.getText());
         heatFactor = parseDouble(heatFactorField.getText());
+        adminManager.updateMapObject(id, name, height, type, allowedTerrainType, price, heatFactor);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        this.file =  new File("C:\\Users\\szers\\Desktop\\baUHInia\\src\\main\\resources\\images\\png.png");
-//        this.width = 10;
-//        this.length = 10;
-//        this.height = 10;
-//        this.type = "type";
-//        this.allowedTerrainType = "allowedTerrainType";
-//        this.price = 111;
-//        this.heatFactor = 1.44;
+        objectTypeList.getItems().setAll(ObjectType.values());
+        allowedTypeList.getItems().setAll(CellType.values());
 
-        //saveField.setText(file.getAbsolutePath());
-        /*
+        nameField.setText(name);
         widthField.setText(String.valueOf(width));
         lengthField.setText(String.valueOf(length));
         heightField.setText(String.valueOf(height));
-        objectTypeField.setText(type);
-        allowedTypeField.setText(allowedTerrainType);
+        objectTypeList.getSelectionModel().select(type);
+        allowedTypeList.getSelectionModel().select(allowedTerrainType);
         priceField.setText(String.valueOf(price));
-        heatFactorField.setText(String.valueOf(heatFactor));*/
+        heatFactorField.setText(String.valueOf(heatFactor));
+
+
     }
 }

@@ -42,6 +42,7 @@ public class AdminManager implements IAdminLogic {
 
     @Override
     public void removeMap(UUID mapID) throws AdminException {
+        adminService.removeMap(mapID);
 
     }
 
@@ -62,16 +63,16 @@ public class AdminManager implements IAdminLogic {
 
     @Override
     public void updateMapObject(UUID mapObjectID, String name, int height, ObjectType type, CellType allowedTerrainType, int price, double heatFactor) throws AdminException {
-
+        adminService.updateMapObject(mapObjectID, name, height, type, allowedTerrainType, price, heatFactor);
     }
 
     @Override
     public void switchLockCell(UUID mapID, int cellX, int cellY) throws AdminException {
-
+        adminService.switchLockCell(mapID, cellX, cellY);
     }
 
     @Override
     public void updateCellType(UUID mapID, int cellX, int cellY, CellType cellType) throws AdminException {
-
+        adminService.updateCellType(mapID, cellX, cellY, cellType);
     }
 }

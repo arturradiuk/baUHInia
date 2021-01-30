@@ -1,31 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="1000" stylesheets="/scenes/simulation_view.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <left>
-      <TitledPane fx:id="leftControls" alignment="CENTER" animated="false" collapsible="false" contentDisplay="TOP" maxHeight="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600" prefWidth="200.0" text="Obiekty" textFill="#f0e2d0" BorderPane.alignment="TOP_LEFT">
-         <content>
-            <ScrollPane>
-              <content>
-                <AnchorPane fx:id="anchorScroll" minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="184.0">
-                     <children>
-                        <VBox fx:id="vbox" alignment="TOP_CENTER" layoutX="-1.0" prefHeight="607.0" prefWidth="179.0" spacing="10.0">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding></VBox>
-                     </children></AnchorPane>
-              </content>
-            </ScrollPane>
-         </content>
-      </TitledPane>
-   </left>
    <center>
       <AnchorPane fx:id="mainPane" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -139,19 +118,29 @@
          </children></AnchorPane>
    </center>
    <right>
-      <AnchorPane prefHeight="600.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
          <children>
-            <ColorPicker layoutY="146.0" />
-            <Button mnemonicParsing="false" onMouseClicked="#simulate" style="-fx-background-color: #70af85; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Symuluj" textAlignment="CENTER" textFill="#f0e2d0">
+            <Button layoutX="33.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#switchLockCell" style="-fx-background-color: #70af85; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Przełącz blokadę " textAlignment="CENTER" textFill="#f0e2d0">
                <font>
                   <Font name="Roboto Light" size="16.0" />
                </font>
             </Button>
-             <Button layoutY="100.0" mnemonicParsing="false" onMouseClicked="#resetSimulation" style="-fx-background-color: #70af85; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Tryb edycji" textAlignment="CENTER" textFill="#f0e2d0">
+             <Button layoutX="31.0" layoutY="247.0" mnemonicParsing="false" onMouseClicked="#updateCellType" prefHeight="34.0" prefWidth="149.0" style="-fx-background-color: #70af85; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Zmień podłoże" textAlignment="CENTER" textFill="#f0e2d0">
                  <font>
                      <Font name="Roboto Light" size="16.0" />
                  </font>
              </Button>
+            <Label layoutX="28.0" layoutY="150.0" prefHeight="40.0" prefWidth="155.0" text="Wybrany punkt:">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label fx:id="locationBox" layoutX="182.0" layoutY="124.0" prefHeight="92.0" prefWidth="155.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="cellTypeList" layoutX="31.0" layoutY="204.0" prefWidth="150.0" />
          </children>
       </AnchorPane>
    </right>

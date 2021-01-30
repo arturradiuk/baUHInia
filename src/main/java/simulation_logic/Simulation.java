@@ -24,7 +24,7 @@ public class Simulation implements ISimulation {
 
     public Simulation(UUID ID) {
         this.ID = ID;
-        mapService= new MapsService(new FilesystemMapsProvider("src/main/resources"));
+        mapService= new MapsService(new FilesystemMapsProvider(".\\resources\\maps"));
     }
 
     public UUID getIDSimulation() {
@@ -90,16 +90,16 @@ public class Simulation implements ISimulation {
     }
 
     public ArrayList<ArrayList<Integer>> runSimulation(UUID map_uuid) {
-        ArrayList<ArrayList<Integer>> heat_val = null;
-        for(int i=0;i<100;i++)
+        ArrayList<ArrayList<Integer>> heat_val = new ArrayList<>();
+        for(int i=0;i<50;i++)
         {
             heat_val.add(new ArrayList<Integer>());
-            for(int j=0;j<100;j++)
+            for(int j=0;j<50;j++)
             {
-                if(mapService.getMap(map_uuid).get(i,j).getType().toString()=="None") heat_val.get(i).add((int) simulate("None",mapService.getMap(map_uuid).get(i,j)));
-                if(mapService.getMap(map_uuid).get(i,j).getType().toString()=="Road") heat_val.get(i).add((int) simulate("Road",mapService.getMap(map_uuid).get(i,j)));
-                if(mapService.getMap(map_uuid).get(i,j).getType().toString()=="Green") heat_val.get(i).add((int) simulate("Green",mapService.getMap(map_uuid).get(i,j)));
-                if(mapService.getMap(map_uuid).get(i,j).getType().toString()=="Building") heat_val.get(i).add((int) simulate("Building",mapService.getMap(map_uuid).get(i,j)));
+                if(mapService.getMap(map_uuid).get(i, j).getType().toString().equals("None")) heat_val.get(i).add((int) simulate("None",mapService.getMap(map_uuid).get(i,j)));
+                if(mapService.getMap(map_uuid).get(i, j).getType().toString().equals("Road")) heat_val.get(i).add((int) simulate("Road",mapService.getMap(map_uuid).get(i,j)));
+                if(mapService.getMap(map_uuid).get(i, j).getType().toString().equals("Green")) heat_val.get(i).add((int) simulate("Green",mapService.getMap(map_uuid).get(i,j)));
+                if(mapService.getMap(map_uuid).get(i, j).getType().toString().equals("Building")) heat_val.get(i).add((int) simulate("Building",mapService.getMap(map_uuid).get(i,j)));
 
             }
         }

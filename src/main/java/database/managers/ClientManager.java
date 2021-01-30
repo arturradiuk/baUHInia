@@ -35,6 +35,7 @@ public class ClientManager implements IClientData  {
 
             ps.setTimestamp(4, new Timestamp(map.getCreated().toDate().getTime()));
 
+
             ps.setInt(5, userId);
 
             ps.execute();

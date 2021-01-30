@@ -32,58 +32,58 @@
          <children>
             <GridPane fx:id="grid" prefHeight="555.0" prefWidth="808.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0" />
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                 <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
 
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="1.0" prefWidth="12.0" maxWidth="20.0"/>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="1.0" prefWidth="12.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="1.0" prefHeight="12.0" vgrow="SOMETIMES" />
@@ -149,13 +149,12 @@
    <right>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ColorPicker layoutY="146.0" />
-            <Button mnemonicParsing="false" style="-fx-background-color: #70af85; -fx-border-color: #f0e2d0; -fx-border-width: 0;" onMouseClicked="#simulate" text="Symuluj" textAlignment="CENTER" textFill="#f0e2d0">
+            <Button mnemonicParsing="false" onMouseClicked="#simulate" style="-fx-background-color: #70af85; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Symuluj" textAlignment="CENTER" textFill="#f0e2d0">
                <font>
                   <Font name="Roboto Light" size="16.0" />
                </font>
             </Button>
-             <Button layoutY="100.0" mnemonicParsing="false" style="-fx-background-color: #70af85; -fx-border-color: #f0e2d0; -fx-border-width: 0;" onMouseClicked="#resetSimulation" text="Tryb edycji" textAlignment="CENTER" textFill="#f0e2d0">
+             <Button layoutY="100.0" mnemonicParsing="false" onMouseClicked="#resetSimulation" style="-fx-background-color: #70af85; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Tryb edycji" textAlignment="CENTER" textFill="#f0e2d0">
                  <font>
                      <Font name="Roboto Light" size="16.0" />
                  </font>

@@ -1,5 +1,4 @@
-package gameGUI.adminControllers;
-
+package gameGUI.clientControllers;
 import gameGUI.SimulationController2;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import logic.service.admin.AdminException;
 import maps.api.Map;
 
 import java.io.IOException;
@@ -25,34 +21,32 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
-public class UserMapsController implements Initializable {
+public class LoadGameController implements Initializable {
 
     @FXML
     private VBox listVBox;
     @FXML
     private AnchorPane listScroll;
 
-    private AdminManager adminManager;
-
+    private ClientManager clientManager;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        adminManager = new AdminManager();
+        clientManager = new ClientManager();
         List<Map> test = null;
-        try {
-            test = adminManager.getAllMaps();
-        } catch (AdminException e) {
-            e.printStackTrace();
-        }
+        test = clientManager.returnExistingUserMaps();
+
         //System.out.println(test.size());
-        int size = test.size();
+        int size = 0;
+        if(test!=null)
+            size = test.size();
         ArrayList<BorderPane> objectPanes = new ArrayList<>();
         for(int i=0; i<size; i++) {
             BorderPane borderPane = new BorderPane();
             borderPane.setPadding((new Insets(10, 10, 10, 10)));
             borderPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
             HBox hbox = new HBox();
-            Button showMapBtn = new Button("Zobacz mapę");
+            Button showMapBtn = new Button("Graj dalej");
             UUID id = test.get(i).getGuid();
             showMapBtn.setOnMouseClicked(actionEvent -> {
                 try {
@@ -105,6 +99,7 @@ public class UserMapsController implements Initializable {
         } else listScroll.setPrefHeight(length);
         listVBox.setPrefHeight(length);
         listVBox.getChildren().addAll(objectPanes);
+
 
     }
 }

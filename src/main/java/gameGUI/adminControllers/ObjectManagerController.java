@@ -1,6 +1,7 @@
 package gameGUI.adminControllers;
 
-import gameGUI.SimulationController2;
+import common.enums.CellType;
+import common.enums.ObjectType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,11 +36,19 @@ public class ObjectManagerController implements Initializable {
     private AnchorPane listScroll;
 
     private AdminManager adminManager;
+    private List<MapObject> test = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         adminManager = new AdminManager();
-        List<MapObject> test = null;
+        initList();
+
+
+    }
+
+    public void initList() {
+        test = null;
+        listVBox.getChildren().clear();
         try {
             test = adminManager.getAllObjects();
         } catch (AdminException e) {
@@ -53,18 +62,29 @@ public class ObjectManagerController implements Initializable {
             BorderPane borderPane = new BorderPane();
             borderPane.setPadding((new Insets(10, 10, 10, 10)));
             borderPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
+            String name = test.get(i).getName();
+            UUID guid = test.get(i).getGuid();
+            int height = test.get(i).getHeight();
+            int width = test.get(i).getWidth();
+            int length = test.get(i).getLength();
+            CellType cellType = test.get(i).getAllowedTerrainType();
+            ObjectType objType = test.get(i).getType();
+            int price = test.get(i).getPrice();
+            double heatFactor = test.get(i).getHeatFactor();
             HBox hbox = new HBox();
             Button editBtn = new Button("Edytuj");
             editBtn.setOnMouseClicked(actionEvent -> {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/edit_object.fxml"));
-                    EditObjectController editObjectController = new EditObjectController();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/admin_edit_object.fxml"));
+                    EditObjectController editObjectController = new EditObjectController(guid, name,width,length,height,cellType,objType,price,heatFactor);
+                    editObjectController.setAdminManager(adminManager);
+                    //editObjectController.setName(name);
                     //controller2.setCurrentMap(id);
                     loader.setController(editObjectController);
                     Parent root = loader.load();
                     Stage stage = new Stage();
                     stage.setTitle("User map");
-                    stage.setScene(new Scene(root, 500, 300));
+                    stage.setScene(new Scene(root, 700, 300));
 
                     //loader.setController(controller2);
 
@@ -76,14 +96,14 @@ public class ObjectManagerController implements Initializable {
             });
 
             Button deleteBtn = new Button("Usuń");
-            String name = test.get(i).getName();
-            UUID guid = test.get(i).getGuid();
+
             deleteBtn.setOnMouseClicked(actionEvent -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + name + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
                 alert.showAndWait();
                 if (alert.getResult() == ButtonType.YES) {
                     try {
                         adminManager.removeMapObject(guid);
+                        initList();
                     } catch (AdminException e) {
                         e.printStackTrace();
                     }
@@ -106,8 +126,11 @@ public class ObjectManagerController implements Initializable {
             vbox.getChildren().addAll(guidAndName, dimensions, objectType, allowedTerrainType, priceAndHeatFactor);
             try {
                 Image image;
-                System.out.println("objects/" + test.get(i).getGuid() + ".png");
-                image = new Image("objects/" + test.get(i).getGuid() + ".png");
+                //System.out.println("objects/" + test.get(i).getGuid() + ".png");
+                //System.out.println(String.valueOf(this.getClass().getResource(".\\resources\\objects" + test.get(i).getName() + ".png")));
+                //System.out.println(".\\resources\\objects"+ test.get(i).getName() + ".png");
+                File fileName = new File(".\\resources\\objects\\"+ test.get(i).getName() + ".png");
+                image = new Image(fileName.toURI().toString());
                 ImageView pic = new ImageView();
                 pic.setFitWidth(120);
                 pic.setFitHeight(120);
@@ -140,12 +163,11 @@ public class ObjectManagerController implements Initializable {
         //listScroll.setPrefHeight(200);
         listVBox.setPrefHeight(length);
         listVBox.getChildren().addAll(objectPanes);
-
     }
 
     public void addNewObject() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/save_object.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/admin_add_object.fxml"));
             SaveObjectController saveObjectController = new SaveObjectController();
             saveObjectController.setAdminManager(adminManager);
             loader.setController(saveObjectController);
@@ -156,7 +178,8 @@ public class ObjectManagerController implements Initializable {
 
             //loader.setController(controller2);
 
-            stage.show();
+            stage.showAndWait();
+            initList();
         }
         catch (IOException e) {
             e.printStackTrace();

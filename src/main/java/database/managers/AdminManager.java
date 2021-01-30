@@ -124,7 +124,14 @@ public class AdminManager implements IAdminData {
 
             ps.setTimestamp(4, new Timestamp(map.getCreated().toDate().getTime()));
 
-            ps.setInt(5, map.getUserId());
+            if ( map.getUserId() == null) {
+                ps.setNull(5, java.sql.Types.INTEGER);
+            }
+            else {
+                ps.setInt(5,  map.getUserId());
+            }
+
+            //ps.setInt(5, map.getUserId());
 
             ps.execute();
 
@@ -169,7 +176,15 @@ public class AdminManager implements IAdminData {
             ps.setString(2, map.getName());
             ps.setTimestamp(3, new Timestamp(map.getModified().toDate().getTime()));
             ps.setTimestamp(4, new Timestamp(map.getCreated().toDate().getTime()));
-            ps.setInt(5, map.getUserId());
+
+            if ( map.getUserId() == null) {
+                ps.setNull(5, java.sql.Types.INTEGER);
+            }
+            else {
+                ps.setInt(5,  map.getUserId());
+            }
+
+            //ps.setInt(5, map.getUserId());
             ps.setString(6, mapID.toString());
 
             ps.execute();
@@ -204,7 +219,7 @@ public class AdminManager implements IAdminData {
                 map.setName(resultSet.getString(2));
                 map.setModified(new DateTime(resultSet.getTimestamp(3).getTime()));
                 map.setCreated(new DateTime(resultSet.getTimestamp(4).getTime()));
-                map.setUserId(resultSet.getInt(5));
+                map.setUserId((Integer) resultSet.getObject(5));
                 maps.add(map);
             }
             return maps;

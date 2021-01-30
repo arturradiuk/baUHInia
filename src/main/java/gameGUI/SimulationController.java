@@ -58,7 +58,7 @@ public class SimulationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mapsService = new MapsService(new FilesystemMapsProvider("D:\\root"));
+        mapsService = new MapsService(new FilesystemMapsProvider("C:\\bauhinia"));
         adminService = new AdminService();
                 //grid.add(rec,0,0);
 

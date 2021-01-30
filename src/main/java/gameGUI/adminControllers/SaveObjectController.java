@@ -2,6 +2,7 @@ package gameGUI.adminControllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -47,6 +48,9 @@ public class SaveObjectController implements Initializable {
     @FXML
     public ChoiceBox<CellType> allowedTypeList;
 
+    @FXML
+    public Button saveBtn;
+
 
     private AdminManager adminManager;
 
@@ -85,9 +89,9 @@ public class SaveObjectController implements Initializable {
                 System.out.println("Read error for " + file.getPath() +
                         ": " + e.getMessage());
             }
-            fileName = new File("D:\\root\\"+file.getName());
+            fileName = new File(".\\resources\\objects\\"+ name + ".png");
             try {
-                ImageIO.write(img, "jpg", fileName);
+                ImageIO.write(img, "png", fileName);
             } catch(IOException e) {
                 System.out.println("Write error for " + file.getPath() +
                         ": " + e.getMessage());
@@ -95,7 +99,7 @@ public class SaveObjectController implements Initializable {
         }
     }
 
-    public void saveObject() throws AdminException {
+    public void saveObject() throws AdminException, IOException {
         name = nameField.getText();
         width = parseInt(widthField.getText());
         length = parseInt(lengthField.getText());
@@ -105,7 +109,10 @@ public class SaveObjectController implements Initializable {
         //System.out.println(type + " " + cell);
         price = parseInt(priceField.getText());
         heatFactor = parseDouble(heatFactorField.getText());
-        //adminManager.addNewMapObject(name, width, length, height, type1, cell, price, heatFactor);
+        adminManager.addNewMapObject(name, width, length, height, type, cell, price, heatFactor);
+        saveToFile();
+        Stage stage = (Stage) saveBtn.getScene().getWindow();
+        stage.close();
     }
 
     @Override
