@@ -68,7 +68,7 @@ public class GameLogic implements IGameLogic {
     }
 
     @Override
-    public ArrayList<ArrayList<Integer>> returnHeatMap() {
+    public ArrayList<ArrayList<Double>> returnHeatMap() {
         return simulation.runSimulation(map.getGuid());
     }
 
