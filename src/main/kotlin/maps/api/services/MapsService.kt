@@ -1,6 +1,7 @@
 package maps.api.services
 
 import database.IMapObject
+import login.LoginService
 import maps.api.ITrackable
 import maps.api.Map
 import maps.api.State
@@ -34,14 +35,15 @@ class MapsService(
             mapsProvider.replace(map) // replacing
 
         else {
-            map.guid = UUID.randomUUID()
+//            map.guid = UUID.randomUUID()
             mapsProvider.add(map) // adding new
+            tracked.add(map)
         }
     }
 
     override fun fromTemplate(guid: UUID): Map? {
         val map = mapsProvider.get(guid)
-        map?.guid = UUID.fromString("00000000-0000-0000-0000-000000000000")
+        map?.guid = UUID.randomUUID();
         return map
     }
 
@@ -72,6 +74,18 @@ class MapsService(
             it.isAccessible = true
             it as KMutableProperty<*>
             it.setter.call(map, state)
+        }
+    }
+
+    companion object{
+        private var instance: MapsService? = null
+
+
+        fun getInstance(): MapsService {
+            if (instance == null) {
+                instance = MapsService(FilesystemMapsProvider("C:\\maps"))
+            }
+            return instance!!
         }
     }
 }

@@ -26,7 +26,7 @@ public class GameLogic implements IGameLogic {
 
     public GameLogic(int userID) {
         this.userID = userID;
-        mapsService = new MapsService(new FilesystemMapsProvider(".\\resources\\maps"));
+        mapsService = new MapsService(new FilesystemMapsProvider("src/main/resources"));
         simulation = new Simulation(UUID.randomUUID());
         clientData = new ClientManager();
 
@@ -68,8 +68,7 @@ public class GameLogic implements IGameLogic {
     }
 
     @Override
-    public ArrayList<ArrayList<Integer>> returnHeatMap() {
-        System.out.println(map.getGuid());
+    public ArrayList<ArrayList<Double>> returnHeatMap() {
         return simulation.runSimulation(map.getGuid());
     }
 
@@ -102,12 +101,9 @@ public class GameLogic implements IGameLogic {
 
     @Override
     public void createNewUserMap(UUID templateMapID) {
-        System.out.println(templateMapID);
         map = mapsService.fromTemplate(templateMapID);
-        System.out.println(map);
         clientData.addMapForTheUser(map,userID);
         mapsService.saveMap(map);
-
 
 
     }

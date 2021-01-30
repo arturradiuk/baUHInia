@@ -1,6 +1,7 @@
 package maps.api.services
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.joda.JodaModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import maps.api.Map
 import maps.api.MapInfo
@@ -18,6 +19,7 @@ class FilesystemMapsProvider(rootPath: String) : IFilesystemMapsProvider {
     private val regex = Regex("^([a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12})\\.json")
     private val serializer: ObjectMapper = ObjectMapper().apply {
         registerModule(KotlinModule())
+        registerModule(JodaModule())
     }
 
     override fun add(map: Map) {

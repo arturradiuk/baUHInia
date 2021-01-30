@@ -17,7 +17,7 @@ public interface IGameLogic {
 
     void removeObject(Point point);
 
-    ArrayList<ArrayList<Integer>> returnHeatMap();
+    ArrayList<ArrayList<Double>> returnHeatMap();
 
     Map returnMap();  // Needs to be imported from maps component
 
