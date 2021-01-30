@@ -10,5 +10,4 @@ public interface ISimulation {
     public void updateHeatSimulationFactor(double newValue);
 
     public ArrayList<ArrayList<Double>> runSimulation(UUID Map_UUID);
-    /*public ArrayList<ArrayList<Double>> runSimulation(Map map);*/
 }
