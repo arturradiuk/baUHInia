@@ -116,22 +116,4 @@ public class Simulation implements ISimulation {
         }
         return heat_val;
     }
-/*    public ArrayList<ArrayList<Double>> runSimulation(Map map) {
-        ArrayList<ArrayList<Double>> heat_val = new ArrayList<>();
-        for(int i=0;i<50;i++)
-        {
-            heat_val.add(new ArrayList<Double>());
-            for(int j=0;j<50;j++)
-            {
-
-                if(map.get(i,j).getType().toString()=="Road") heat_val.get(i).add( simulate("Road",map.get(i,j)));
-                else if(map.get(i,j).getType().toString()=="Green") heat_val.get(i).add( simulate("Green",map.get(i,j)));
-                else if(map.get(i,j).getType().toString()=="Building") heat_val.get(i).add( simulate("Building",map.get(i,j)));
-                else if(map.get(i,j).getType().toString()=="Concrete") heat_val.get(i).add( simulate("Building",map.get(i,j)));
-                else if(map.get(i,j).getType().toString()=="None") heat_val.get(i).add(( simulate("None",map.get(i,j))));
-                else heat_val.get(i).add(32.0);
-            }
-        }
-        return heat_val;
-    }*/
 }
