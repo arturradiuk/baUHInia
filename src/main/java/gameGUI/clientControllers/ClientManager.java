@@ -19,6 +19,10 @@ public class ClientManager implements IGameLogic {
         this.gameLogic = new GameLogic(3);
     }
 
+    public Map getMap() {
+        return gameLogic.getMap();
+    }
+
     @Override
     public void placeObject(Point point, UUID mapItemID) throws DataBaseException {
         gameLogic.placeObject(point, mapItemID);
@@ -35,7 +39,7 @@ public class ClientManager implements IGameLogic {
     }
 
     @Override
-    public ArrayList<ArrayList<Integer>> returnHeatMap() {
+    public ArrayList<ArrayList<Double>> returnHeatMap() {
         return gameLogic.returnHeatMap();
     }
 
@@ -61,7 +65,6 @@ public class ClientManager implements IGameLogic {
 
     @Override
     public void loadExistingUserMap(UUID mapID) {
-
     }
 
     @Override

@@ -2,6 +2,7 @@ package simulation_logic;
 
 
 import maps.api.Cell;
+import maps.api.services.FilesystemMapsProvider;
 import maps.api.services.IMapsService;
 import maps.api.services.MapsService;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Simulation implements ISimulation {
 
     public Simulation(UUID ID) {
         this.ID = ID;
-        mapService = MapsService.Companion.getInstance();
+        mapService = new MapsService(new FilesystemMapsProvider(".\\resources\\maps"));
     }
 
     public UUID getIDSimulation() {
@@ -98,9 +99,9 @@ public class Simulation implements ISimulation {
 
     public ArrayList<ArrayList<Double>> runSimulation(UUID map_uuid) {
         ArrayList<ArrayList<Double>> heat_val = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             heat_val.add(new ArrayList<Double>());
-            for (int j = 0; j < 100; j++) {
+            for (int j = 0; j < 50; j++) {
                 if (mapService.getMap(map_uuid).get(i, j).getType().toString() == "None")
                     heat_val.get(i).add(simulate("None", mapService.getMap(map_uuid).get(i, j)));
                 else if (mapService.getMap(map_uuid).get(i, j).getType().toString() == "Road")

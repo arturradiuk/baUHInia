@@ -48,13 +48,15 @@ public class NewGameController implements Initializable {
             borderPane.setPadding((new Insets(10, 10, 10, 10)));
             borderPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
             HBox hbox = new HBox();
-            Button showMapBtn = new Button("Zobacz mapę");
+            Button showMapBtn = new Button("Nowa gra");
             UUID id = test.get(i).getGuid();
             showMapBtn.setOnMouseClicked(actionEvent -> {
                 try {
+                    clientManager.createNewUserMap(id);
+                    UUID newID = clientManager.getMap().getGuid();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/simulation_view2.fxml"));
                     SimulationController2 controller2 = new SimulationController2();
-                    controller2.setCurrentMap(id);
+                    controller2.setCurrentMap(newID);
                     loader.setController(controller2);
                     Parent root = loader.load();
                     Stage stage = new Stage();

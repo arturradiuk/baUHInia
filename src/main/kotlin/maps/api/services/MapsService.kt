@@ -83,7 +83,7 @@ class MapsService(
 
         fun getInstance(): MapsService {
             if (instance == null) {
-                instance = MapsService(FilesystemMapsProvider("C:\\maps"))
+                instance = MapsService(FilesystemMapsProvider(".\\resources\\maps"))
             }
             return instance!!
         }

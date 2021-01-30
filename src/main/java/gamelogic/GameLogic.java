@@ -26,10 +26,14 @@ public class GameLogic implements IGameLogic {
 
     public GameLogic(int userID) {
         this.userID = userID;
-        mapsService = new MapsService(new FilesystemMapsProvider("src/main/resources"));
+        mapsService = new MapsService(new FilesystemMapsProvider(".\\resources\\maps"));
         simulation = new Simulation(UUID.randomUUID());
         clientData = new ClientManager();
 
+    }
+
+    public Map getMap() {
+        return map;
     }
 
     @Override
