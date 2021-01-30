@@ -43,7 +43,11 @@ class MapsService(
 
     override fun fromTemplate(guid: UUID): Map? {
         val map = mapsProvider.get(guid)
-        map?.guid = UUID.randomUUID();
+        map?.guid = UUID.randomUUID()
+        if (map != null) {
+            setState(map, State.CREATED)
+            saveMap(map)
+        }
         return map
     }
 
