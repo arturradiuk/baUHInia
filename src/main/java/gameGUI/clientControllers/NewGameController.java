@@ -57,6 +57,7 @@ public class NewGameController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/simulation_view2.fxml"));
                     SimulationController2 controller2 = new SimulationController2();
                     controller2.setCurrentMap(newID);
+                    controller2.setClientManager(clientManager);
                     loader.setController(controller2);
                     Parent root = loader.load();
                     Stage stage = new Stage();

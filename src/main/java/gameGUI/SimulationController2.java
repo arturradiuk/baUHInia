@@ -64,13 +64,17 @@ public class SimulationController2 implements Initializable {
     private double orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
     private String[] colors = {"#62AD53", "#8F8F8F", "#80682E"};
 
+    public void setClientManager(ClientManager clientManager) {
+        this.clientManager = clientManager;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mapsService = new MapsService(new FilesystemMapsProvider(".\\resources\\maps"));
-        clientManager = new ClientManager();
+        //clientManager = new ClientManager();
                 //grid.add(rec,0,0);
         System.out.println(currentMap);
-        clientManager.createNewUserMap(currentMap);
+        //clientManager.createNewUserMap(currentMap);
         List<MapObject> test = null;
         try {
             test = clientManager.returnAvailableObjects();
