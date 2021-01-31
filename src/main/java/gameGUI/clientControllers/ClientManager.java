@@ -55,7 +55,7 @@ public class ClientManager implements IGameLogic {
 
     @Override
     public List<Map> returnExistingUserMaps() {
-        return null;
+        return gameLogic.returnExistingUserMaps();
     }
 
     @Override

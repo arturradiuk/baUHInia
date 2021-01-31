@@ -294,10 +294,6 @@ public class SimulationController2 implements Initializable {
     public void addObject(Image image, int i, int j) {
         try {
             clientManager.placeObject(new Point(i,j), currentObjectID);
-        } catch (DataBaseException e) {
-            e.printStackTrace();
-        }
-        finally {
             ImageView pic = new ImageView();
             int base = 12;
             int multiple = 3;
@@ -311,6 +307,11 @@ public class SimulationController2 implements Initializable {
             //pic.setOnMouseDragged(circleOnMouseDraggedEventHandler);
             //pic.setOnMouseReleased(circleOnMouseReleasedEventHandler);
             grid.add(pic,i,j);
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
+        finally {
+
         }
 
     }

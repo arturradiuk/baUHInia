@@ -41,7 +41,7 @@ public class GameLogic implements IGameLogic {
         List<MapObject> mapObjects = clientData.getAllObjects();
         for(MapObject mapObject: mapObjects)
         {
-            if(mapObject.getGuid() == mapItemID)
+            if(mapObject.getGuid().equals(mapItemID))
             {
                 map.place(point.x,point.y,mapObject);
                 return;
