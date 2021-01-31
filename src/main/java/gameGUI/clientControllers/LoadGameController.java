@@ -1,5 +1,5 @@
 package gameGUI.clientControllers;
-import gameGUI.SimulationController2;
+import gameGUI.SimulationController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -50,8 +50,8 @@ public class LoadGameController implements Initializable {
             UUID id = test.get(i).getGuid();
             showMapBtn.setOnMouseClicked(actionEvent -> {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/simulation_view2.fxml"));
-                    SimulationController2 controller2 = new SimulationController2();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/simulation_view.fxml"));
+                    SimulationController controller2 = new SimulationController();
                     controller2.setCurrentMap(id);
                     controller2.setClientManager(clientManager);
                     loader.setController(controller2);
@@ -76,15 +76,14 @@ public class LoadGameController implements Initializable {
             hbox.getChildren().addAll(showMapBtn);
 
             VBox vbox = new VBox();
-            vbox.setPadding((new Insets(15, 0, 0, 20)));
-            Label guidAndName = new Label("GUID: " + test.get(i).getGuid() + ", Name: " + test.get(i).getName());
-            Label dates = new Label("Created: " + test.get(i).getCreated() + ", Modified: " + test.get(i).getModified());
-            Label mapSize = new Label("Size: " + test.get(i).getSize());
+            vbox.setPadding((new Insets(15, 0, 20, 20)));
+            Label guidAndName = new Label("GUID: " + test.get(i).getGuid() + ", Nazwa: " + test.get(i).getName());
+            Label dates = new Label("Stworzona: " + test.get(i).getCreated() + ", Zmieniona: " + test.get(i).getModified());
+            Label mapSize = new Label("Rozmiar: " + test.get(i).getSize());
             Label userID = new Label("User ID: " + test.get(i).getUserId());
-            Label priceAndHeatFactor = new Label("Objects: " + test.get(i).getObjects() + ", State: " + test.get(i).getState());
+            Label priceAndHeatFactor = new Label("Obiekty: " + test.get(i).getObjects() + ", Stan: " + test.get(i).getState());
 
             vbox.getChildren().addAll(guidAndName, dates, mapSize, userID, priceAndHeatFactor);
-
             borderPane.setCenter(vbox);
             borderPane.setRight(hbox);
             BorderPane.setAlignment(hbox, Pos.CENTER);

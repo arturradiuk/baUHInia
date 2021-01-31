@@ -1,6 +1,5 @@
 package gameGUI.adminControllers;
 
-import gameGUI.SimulationController2;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,14 +11,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import logic.service.admin.AdminException;
 import maps.api.Map;
-import maps.api.MapObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -108,12 +104,13 @@ public class MapManagerController implements Initializable {
             hbox.getChildren().addAll(editBtn, deleteBtn);
 
             VBox vbox = new VBox();
-            vbox.setPadding((new Insets(15, 0, 0, 20)));
-            Label guidAndName = new Label("GUID: " + test.get(i).getGuid() + ", Name: " + test.get(i).getName());
-            Label dates = new Label("Created: " + test.get(i).getCreated() + ", Modified: " + test.get(i).getModified());
-            Label mapSize = new Label("Size: " + test.get(i).getSize());
+            vbox.setPadding((new Insets(15, 0, 20, 20)));
+
+            Label guidAndName = new Label("GUID: " + test.get(i).getGuid() + ", Nazwa: " + test.get(i).getName());
+            Label dates = new Label("Stworzona: " + test.get(i).getCreated() + ", Zmieniona: " + test.get(i).getModified());
+            Label mapSize = new Label("Rozmiar: " + test.get(i).getSize());
             Label userID = new Label("User ID: " + test.get(i).getUserId());
-            Label priceAndHeatFactor = new Label("Objects: " + test.get(i).getObjects() + ", State: " + test.get(i).getState());
+            Label priceAndHeatFactor = new Label("Obiekty: " + test.get(i).getObjects() + ", Stan: " + test.get(i).getState());
 
             vbox.getChildren().addAll(guidAndName, dates, mapSize, userID, priceAndHeatFactor);
 

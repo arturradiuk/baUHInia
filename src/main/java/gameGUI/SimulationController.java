@@ -1,6 +1,9 @@
 package gameGUI;
 
 import common.enums.CellType;
+import database.DataBaseException;
+import gameGUI.clientControllers.ClientManager;
+import gamelogic.GameLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,8 +34,12 @@ import maps.api.services.FilesystemMapsProvider;
 import maps.api.services.IMapsService;
 import maps.api.services.MapsService;
 
+import java.awt.*;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class SimulationController implements Initializable {
 
@@ -48,24 +55,31 @@ public class SimulationController implements Initializable {
     @FXML
     private GridPane grid;
 
-    private final ObservableList<Button> buttons = FXCollections.observableArrayList();
     private final ObservableList<StackPane> stackPanes = FXCollections.observableArrayList();
-    private AdminService adminService;
+    private ClientManager clientManager;
     private IMapsService mapsService;
     private Map map;
+    private UUID currentMap, currentObjectID;
+    private MapObject currentObject;
+    private Image currentImage;
     private double orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
     private String[] colors = {"#62AD53", "#8F8F8F", "#80682E"};
 
+    public void setClientManager(ClientManager clientManager) {
+        this.clientManager = clientManager;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mapsService = new MapsService(new FilesystemMapsProvider("C:\\bauhinia"));
-        adminService = new AdminService();
+        mapsService = new MapsService(new FilesystemMapsProvider(".\\resources\\maps"));
+        //clientManager = new ClientManager();
                 //grid.add(rec,0,0);
-
+        System.out.println(currentMap);
+        //clientManager.createNewUserMap(currentMap);
         List<MapObject> test = null;
         try {
-            test = adminService.getAllObjects();
-        } catch (AdminException e) {
+            test = clientManager.returnAvailableObjects();
+        } catch (DataBaseException e) {
             e.printStackTrace();
         }
         for(int i=0; i<test.size(); i++) {
@@ -98,7 +112,14 @@ public class SimulationController implements Initializable {
                 pic.setFitHeight(30);
                 pic.setImage(image);
                 borderPane.setCenter(pic);
-                borderPane.setOnMouseClicked(actionEvent -> addObject(image));
+                UUID id = test.get(i).getGuid();
+                MapObject finalTest = test.get(i);
+                borderPane.setOnMouseClicked(actionEvent -> {
+                        currentImage = image;
+                        currentObjectID = id;
+                        currentObject = finalTest;
+                    }
+                );
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -115,15 +136,20 @@ public class SimulationController implements Initializable {
         anchorScroll.setPrefHeight(30*38+5+10*28);
         vbox.getChildren().addAll(stackPanes);
 
-        map = mapsService.generateMap();
-        if(map.getState() == State.CREATED) System.out.println("Good #1");
+        //map = mapsService.generateMap();
+        map = mapsService.getMap(currentMap);
+        //if(map.getState() == State.CREATED) System.out.println("Good #1");
 
-        map.setName("Nazwa dla mapy");
+        //map.setName("Nazwa dla mapy");
 
         // jakaś edycja
         //mapsService.saveMap(map);
         genMap2();
 
+    }
+    public void setCurrentMap(UUID id) {
+        currentMap = id;
+        System.out.println("Setter:" + currentMap);
     }
 
     private void genMap2(){
@@ -131,7 +157,7 @@ public class SimulationController implements Initializable {
             for(int j=0; j<50; j++) {
                 Cell cell = map.get(i, j);
                 CellType type = cell.getType();
-                //System.out.println(type);
+                System.out.println(type);
 
                 Rectangle rec = new Rectangle();
                 Paint paint;
@@ -142,7 +168,7 @@ public class SimulationController implements Initializable {
                     case Road:
                         paint = Paint.valueOf(colors[1]);
                         break;
-                    case Building:
+                    case Concrete:
                         paint = Paint.valueOf(colors[2]);
                         break;
                     default:
@@ -155,35 +181,30 @@ public class SimulationController implements Initializable {
                 rec.setStroke(Color.BLACK);
                 rec.setStrokeWidth(0.15);
                 rec.setId("map" + i + j);
+                int finalI = i;
+                int finalJ = j;
+                rec.setOnMouseClicked(e -> {
+                    System.out.printf("Mouse enetered cell [%d, %d]%n", finalI, finalJ);
+                    if(currentImage!=null)
+                        addObject(currentImage, finalI, finalJ);
+                    //locationBox.setText("x: " + finalI + ", y: " + finalJ);
+                    //currentCellX = finalI;
+                    //currentCellY = finalJ;
+                });
                 grid.add(rec,i,j);
             }
         }
     }
 
 
-
-    private void genMap(){
-        for(int i=0; i<30; i++) {
-            for(int j=0; j<30; j++) {
-                Rectangle rec = new Rectangle();
-                rec.setFill(Paint.valueOf(colors[i%2]));
-                rec.setWidth(20);
-                rec.setHeight(20);
-                rec.setStroke(Color.BLACK);
-                rec.setStrokeWidth(0.15);
-                rec.setId("map" + i + j);
-                grid.add(rec,i,j);
-            }
-        }
-    }
 
     EventHandler<MouseEvent> circleOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
             orgSceneX = mouseEvent.getSceneX();
             orgSceneY = mouseEvent.getSceneY();
-            orgTranslateX = ((ImageView)(mouseEvent.getSource())).getTranslateX();
-            orgTranslateY = ((ImageView)(mouseEvent.getSource())).getTranslateY();
+            orgTranslateX = ((Circle)(mouseEvent.getSource())).getTranslateX();
+            orgTranslateY = ((Circle)(mouseEvent.getSource())).getTranslateY();
         }
     };
 
@@ -196,10 +217,10 @@ public class SimulationController implements Initializable {
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
             if(mouseEvent.getSceneX()>200 && mouseEvent.getSceneX()<800){
-                ((ImageView)(mouseEvent.getSource())).setTranslateX(newTranslateX);
+                ((Circle)(mouseEvent.getSource())).setTranslateX(newTranslateX);
             }
             if(mouseEvent.getSceneY()>0 && mouseEvent.getSceneY()<600){
-                ((ImageView)(mouseEvent.getSource())).setTranslateY(newTranslateY);
+                ((Circle)(mouseEvent.getSource())).setTranslateY(newTranslateY);
             }
         }
     };
@@ -207,7 +228,7 @@ public class SimulationController implements Initializable {
     EventHandler<MouseEvent> circleOnMouseReleasedEventHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            ImageView circ = (ImageView)(mouseEvent.getSource());
+            Circle circ = (Circle)(mouseEvent.getSource());
             int nodeX = (int) mouseEvent.getSceneX() - 190;
             int nodeY = (int) mouseEvent.getSceneY();
             nodeX = nodeX/20;
@@ -226,8 +247,8 @@ public class SimulationController implements Initializable {
             }
             Rectangle rec = (Rectangle) grid.lookup("#map" + nodeX + nodeY);
             System.out.println(rec.getFill());
-            //System.out.println(Paint.valueOf("#66FF99"));
-            if(rec.getFill().equals(Paint.valueOf("#62AD53"))) {
+            System.out.println(Paint.valueOf("#66FF99"));
+            if(rec.getFill().equals(Paint.valueOf("#66FF99"))) {
                 grid.getChildren().remove(circ);
                 circ.setTranslateX(0);
                 circ.setTranslateY(0);
@@ -261,41 +282,81 @@ public class SimulationController implements Initializable {
             System.out.println(mouseEvent.getSceneY() );
 
             //double offsetX = mouseEvent.getSceneX() - orgSceneX;
-            // double offsetY = mouseEvent.getSceneY() - orgSceneY;
+           // double offsetY = mouseEvent.getSceneY() - orgSceneY;
 
-            // double newTranslateX = orgTranslateX + offsetX;
-            // double newTranslateY = orgTranslateY + offsetY;
+           // double newTranslateX = orgTranslateX + offsetX;
+           // double newTranslateY = orgTranslateY + offsetY;
             //if(newTranslateX>0 && newTranslateX<580){
-            //     ((Circle)(mouseEvent.getSource())).setTranslateX(newTranslateX);
-            // }
+           //     ((Circle)(mouseEvent.getSource())).setTranslateX(newTranslateX);
+           // }
 
-            // ((Circle)(mouseEvent.getSource())).setTranslateY(newTranslateY);
+           // ((Circle)(mouseEvent.getSource())).setTranslateY(newTranslateY);
         }
     };
 
-    public void addObject(Image image) {
-        ImageView pic = new ImageView();
-        pic.setFitWidth(20);
-        pic.setFitHeight(20);
-        pic.setImage(image);
-        pic.setCursor(Cursor.OPEN_HAND);
-        pic.setOnMousePressed(circleOnMousePressedEventHandler);
-        pic.setOnMouseDragged(circleOnMouseDraggedEventHandler);
-        pic.setOnMouseReleased(circleOnMouseReleasedEventHandler);
-        grid.add(pic,0,0);
+    public void addObject(Image image, int i, int j) {
+        try {
+            clientManager.placeObject(new Point(i,j), currentObjectID);
+            ImageView pic = new ImageView();
+            int base = 12;
+            int multipleX = currentObject.getWidth();
+            int multipleY = currentObject.getLength();
+            pic.setTranslateY(6 * (multipleY - 1));
+            pic.setFitWidth(multipleX * base);
+            pic.setFitHeight(multipleY * base);
+            pic.setImage(image);
+            pic.setCursor(Cursor.OPEN_HAND);
+            pic.setOnMouseClicked(e -> removeObject(pic, i, j) );
+            //pic.setOnMousePressed(circleOnMousePressedEventHandler);
+            //pic.setOnMouseDragged(circleOnMouseDraggedEventHandler);
+            //pic.setOnMouseReleased(circleOnMouseReleasedEventHandler);
+            grid.add(pic,i,j);
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
+        finally {
+
+        }
+
+    }
+
+    public void removeObject(ImageView imageView, int i, int j) {
+        try {
+            clientManager.removeObject(new Point(i,j));
+            grid.getChildren().remove(imageView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void simulate() {
+        ArrayList<ArrayList<Double>> sim;
+        sim = clientManager.returnHeatMap();
+
+        System.out.println(sim);
+
         resetSimulation();
-        ArrayList<Circle> circles = getObjects();
         for(int i=0; i<50; i++) {
             for(int j=0; j<50; j++) {
                 Rectangle rec = new Rectangle();
-                rec.setFill(Color.RED);
+
+                double r = sim.get(i).get(j) * 5.1;
+                double g = 255 - r;
+                System.out.println(r + " " + g);
+                if(r > 255)
+                    r = 255;
+                if(r < 0)
+                    r = 0;
+                if(g > 255)
+                    g = 255;
+                if(g < 0)
+                    g = 0;
+                rec.setFill(Color.rgb((int) r,(int) g,0));
                 rec.setId("rec" + i + j);
                 rec.setWidth(12);
                 rec.setHeight(12);
-                rec.setOpacity(0.4);
+                rec.setOpacity(0.8);
                 grid.add(rec,i,j);
             }
         }
@@ -310,17 +371,11 @@ public class SimulationController implements Initializable {
         }
     }
 
-    public ArrayList<Circle> getObjects() {
-        ArrayList<Circle> circles = new ArrayList<>();
-
-        for(int i=0; i<30; i++) {
-            for(int j=0; j<30; j++) {
-                Rectangle rec = (Rectangle) grid.lookup("#rec" + i + j);
-                grid.getChildren().remove(rec);
-            }
-        }
-        return circles;
+    public void save() {
+        clientManager.saveMap();
+        System.out.println("Saving");
     }
+
 
 
 

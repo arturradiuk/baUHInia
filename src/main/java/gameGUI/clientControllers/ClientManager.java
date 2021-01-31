@@ -74,7 +74,7 @@ public class ClientManager implements IGameLogic {
 
     @Override
     public void saveMap() {
-
+        gameLogic.saveMap();
     }
 
     @Override

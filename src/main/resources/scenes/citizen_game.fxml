@@ -40,11 +40,6 @@
                                 <Font name="Roboto Light" size="22.0" />
                             </font>
                         </Button>
-                        <Button fx:id="saveBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#saveMap" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Zapisz" textAlignment="CENTER" textFill="#f0e2d0">
-                            <font>
-                                <Font name="Roboto Light" size="22.0" />
-                            </font>
-                        </Button>
                         <Button fx:id="logOffBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logOff" prefHeight="45.0" prefWidth="149.0" style="-fx-background-color: transparent; -fx-border-color: #f0e2d0; -fx-border-width: 0;" text="Wyloguj się" textAlignment="CENTER" textFill="#f0e2d0">
                             <font>
                                 <Font name="Roboto Light" size="22.0" />
