@@ -65,6 +65,9 @@ public class Simulation implements ISimulation {
                     C = 6.15 + 4.18 * U_s;
                     sin_L_shadow = sqrt(1 - cos_L_shadow * cos_L_shadow);
                     LE_i = 1.4;
+                    System.out.println(cell.getPlacedObjectMetadata());
+                    System.out.println(cell.getPlacedObjectMetadata().getMapObject());
+                    System.out.println(cell.getPlacedObjectMetadata().getMapObject().getHeight());
                     L_shadow = cell.getPlacedObjectMetadata().getMapObject().getHeight() * (sin_L_shadow / cos_L_shadow) * sin(165 - 90);
                     SW_in = S_d * ((cell.getPlacedObjectMetadata().getMapObject().getWidth() - L_shadow) / cell.getPlacedObjectMetadata().getMapObject().getWidth()) * (1 - albedo) + S_q * F * (1 - albedo);
                     LW_in = (1 - emisity) * (L_d * F + emisity * 5.67 * pow(10, -8) * pow(T_grass, 4) * F - 5.67 * pow(10, -8) * pow(T_grass, 4));
@@ -106,6 +109,7 @@ public class Simulation implements ISimulation {
             heat_val.add(new ArrayList<Double>());
             for (int j = 0; j < 50; j++) {
                 cel = mapService.getMap(map_uuid).get(i,j);
+
 
                  if (cel.getType().toString() == "Green")
                     heat_val.get(i).add(simulate("Green", cel));

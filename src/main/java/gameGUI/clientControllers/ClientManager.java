@@ -5,6 +5,7 @@ import gamelogic.GameLogic;
 import gamelogic.IGameLogic;
 import maps.api.Map;
 import maps.api.MapObject;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,10 +18,6 @@ public class ClientManager implements IGameLogic {
 
     public ClientManager() {
         this.gameLogic = new GameLogic(3);
-    }
-
-    public Map getMap() {
-        return gameLogic.getMap();
     }
 
     @Override
@@ -45,7 +42,7 @@ public class ClientManager implements IGameLogic {
 
     @Override
     public Map returnMap() {
-        return null;
+        return gameLogic.returnMap();
     }
 
     @Override
@@ -65,6 +62,7 @@ public class ClientManager implements IGameLogic {
 
     @Override
     public void loadExistingUserMap(UUID mapID) {
+        gameLogic.loadExistingUserMap(mapID);
     }
 
     @Override

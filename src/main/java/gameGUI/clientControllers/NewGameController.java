@@ -49,7 +49,7 @@ public class NewGameController implements Initializable {
             showMapBtn.setOnMouseClicked(actionEvent -> {
                 try {
                     clientManager.createNewUserMap(id);
-                    UUID newID = clientManager.getMap().getGuid();
+                    UUID newID = clientManager.returnMap().getGuid();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/simulation_view.fxml"));
                     SimulationController controller2 = new SimulationController();
                     controller2.setCurrentMap(newID);

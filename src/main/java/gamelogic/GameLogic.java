@@ -32,10 +32,6 @@ public class GameLogic implements IGameLogic {
 
     }
 
-    public Map getMap() {
-        return map;
-    }
-
     @Override
     public void placeObject(Point point, UUID mapItemID) throws DataBaseException {
         List<MapObject> mapObjects = clientData.getAllObjects();
