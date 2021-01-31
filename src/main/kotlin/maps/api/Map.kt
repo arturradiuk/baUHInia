@@ -45,10 +45,10 @@ class Map constructor() : ITrackable() {
     }
 
     fun remove(obj: MapObject) {
+        val metadata = objectsMetadata.find { x -> x.mapObjectGuid == obj.guid } ?: return
         iterate(obj) { i, j ->
-            cells[i][j].placedObjectMetadata = null
+            cells[metadata.x+i][metadata.y+j].placedObjectMetadata = null
         }
-        val metadata = objectsMetadata.find { x -> x.mapObjectGuid == obj.guid }
         objectsMetadata.remove(metadata)
         objects.remove(obj)
         objectsGuidList.remove(obj.guid)
