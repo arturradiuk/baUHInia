@@ -10,10 +10,10 @@ class MapObjectMetadata (
         val mapObjectGuid: UUID,
         val x: Int,
         val y: Int,
-        mapObject: MapObject
+        mapObject: MapObject?
         ){
     @JsonIgnore
-    var mapObject: MapObject = mapObject
+    var mapObject: MapObject? = mapObject
 
     // todo to remove
     var cells = ArrayList<Cell>()
