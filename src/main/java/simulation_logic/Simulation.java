@@ -65,6 +65,7 @@ public class Simulation implements ISimulation {
                     C = 6.15 + 4.18 * U_s;
                     sin_L_shadow = sqrt(1 - cos_L_shadow * cos_L_shadow);
                     LE_i = 1.4;
+                    System.out.println(cell.getPlacedObjectMetadata().getMapObject().getHeight());
                     L_shadow = cell.getPlacedObjectMetadata().getMapObject().getHeight() * (sin_L_shadow / cos_L_shadow) * sin(165 - 90);
                     SW_in = S_d * ((cell.getPlacedObjectMetadata().getMapObject().getWidth() - L_shadow) / cell.getPlacedObjectMetadata().getMapObject().getWidth()) * (1 - albedo) + S_q * F * (1 - albedo);
                     LW_in = (1 - emisity) * (L_d * F + emisity * 5.67 * pow(10, -8) * pow(T_grass, 4) * F - 5.67 * pow(10, -8) * pow(T_grass, 4));
@@ -108,14 +109,13 @@ public class Simulation implements ISimulation {
             for (int j = 0; j < 50; j++) {
                 cel = map.get(i,j);
 
-
-                 if (cel.getType().toString() == "Green")
+                 if (cel.getType().toString().equals("Green"))
                     heat_val.get(i).add(simulate("Green", cel));
-                 else if (cel.getType().toString() == "Road")
+                 else if (cel.getType().toString().equals("Road"))
                     heat_val.get(i).add(simulate("Road", cel));
-                 else if (cel.getType().toString() == "Concrete")
+                 else if (cel.getType().toString().equals("Concrete"))
                     heat_val.get(i).add(simulate("Building", cel));
-                 else if (cel.getType().toString() == "Building")
+                 else if (cel.getType().toString().equals("Building"))
                     heat_val.get(i).add(simulate("Building", cel));
                 else
                      heat_val.get(i).add(30.0);

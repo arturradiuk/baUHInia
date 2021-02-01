@@ -17,7 +17,7 @@ public class ClientManager implements IGameLogic {
     private final GameLogic gameLogic;
 
     public ClientManager() {
-        this.gameLogic = new GameLogic(3);
+        this.gameLogic = new GameLogic(2);
     }
 
     @Override

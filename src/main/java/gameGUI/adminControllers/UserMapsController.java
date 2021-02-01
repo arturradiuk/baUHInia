@@ -1,6 +1,7 @@
 package gameGUI.adminControllers;
 
 import gameGUI.SimulationController;
+import gameGUI.clientControllers.ClientManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -56,6 +57,8 @@ public class UserMapsController implements Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/simulation_view.fxml"));
                     SimulationController controller2 = new SimulationController();
+                    controller2.setClientManager(new ClientManager());
+                    controller2.setMapID(id);
                     loader.setController(controller2);
                     Parent root = loader.load();
                     Stage stage = new Stage();

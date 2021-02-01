@@ -58,12 +58,18 @@ public class SimulationController implements Initializable {
 
     private final ObservableList<StackPane> stackPanes = FXCollections.observableArrayList();
     private ClientManager clientManager;
-    //private IMapsService mapsService;
+    private IMapsService mapsService;
     private Map map;
+    private UUID mapID;
+
+    public void setMapID(UUID mapID) {
+        this.mapID = mapID;
+    }
+
     private UUID currentObjectID;
     private MapObject currentObject;
     private Image currentImage;
-    private double orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
+
     private String[] colors = {"#62AD53", "#8F8F8F", "#80682E"};
 
     public void setClientManager(ClientManager clientManager) {
@@ -72,6 +78,7 @@ public class SimulationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        mapsService = new MapsService(new FilesystemMapsProvider(".\\resources\\maps"));
 
         List<MapObject> test = null;
         try {
@@ -154,8 +161,11 @@ public class SimulationController implements Initializable {
 
         }
 
+        if(mapID != null)
+            map = mapsService.getMap(mapID);
+        else
+            map = clientManager.returnMap();
 
-        map = clientManager.returnMap();
         genMap2();
         loadObjects();
         System.out.println(map.getObjects());
@@ -266,6 +276,7 @@ public class SimulationController implements Initializable {
     }
 
     public void simulate() {
+        save();
         ArrayList<ArrayList<Double>> sim;
         sim = clientManager.returnHeatMap();
 
