@@ -52,7 +52,6 @@ public class LoadGameController implements Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/simulation_view.fxml"));
                     SimulationController controller2 = new SimulationController();
-                    controller2.setCurrentMap(id);
                     clientManager.loadExistingUserMap(id);
                     System.out.println(id);
                     controller2.setClientManager(clientManager);
