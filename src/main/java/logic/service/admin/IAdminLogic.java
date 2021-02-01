@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public interface IAdminLogic {
 
-    void createNewMapTemplate();
+    void createNewMapTemplate() throws AdminException;
     List<Map> getMapTemplates() throws AdminException;
     List<Map> getAllMaps() throws AdminException;
     List<MapObject> getAllObjects() throws AdminException;
