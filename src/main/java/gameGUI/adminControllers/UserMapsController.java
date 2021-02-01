@@ -56,7 +56,6 @@ public class UserMapsController implements Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/simulation_view.fxml"));
                     SimulationController controller2 = new SimulationController();
-                    controller2.setCurrentMap(id);
                     loader.setController(controller2);
                     Parent root = loader.load();
                     Stage stage = new Stage();

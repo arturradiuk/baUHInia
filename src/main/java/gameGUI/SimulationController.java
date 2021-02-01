@@ -60,7 +60,7 @@ public class SimulationController implements Initializable {
     private ClientManager clientManager;
     //private IMapsService mapsService;
     private Map map;
-    private UUID currentMap, currentObjectID;
+    private UUID currentObjectID;
     private MapObject currentObject;
     private Image currentImage;
     private double orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
@@ -72,87 +72,97 @@ public class SimulationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //mapsService = new MapsService(new FilesystemMapsProvider(".\\resources\\maps"));
-        //clientManager = new ClientManager();
-                //grid.add(rec,0,0);
-        System.out.println(currentMap);
-        //clientManager.createNewUserMap(currentMap);
+
         List<MapObject> test = null;
         try {
             test = clientManager.returnAvailableObjects();
+
+            for(int i=0; i<test.size(); i++) {
+                System.out.println("objects/" + test.get(i).getGuid() + ".png");
+                StackPane stackPane = new StackPane();
+                stackPane.setId("pane" + i);
+                stackPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
+                stackPane.setPadding((new Insets(3, 3, 3, 3)));
+                stackPane.setPrefSize(100,170);
+                BorderPane borderPane = new BorderPane();
+                borderPane.setPadding((new Insets(10, 10, 10, 10)));
+                borderPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
+                borderPane.setPrefSize(20,40);
+                borderPane.setCursor(Cursor.HAND);
+                VBox myvbox = new VBox();
+                Label width = new Label("Szerokość: " + test.get(i).getWidth());
+                Label length = new Label("Długość: " + test.get(i).getWidth());
+                Label height = new Label("Wysokość: " + test.get(i).getHeight());
+                Label objectType = new Label("Typ obiektu: " + test.get(i).getType());
+                Label allowedTerrainType = new Label("Podłoże: " + test.get(i).getAllowedTerrainType());
+                Label price = new Label("Cena: " + test.get(i).getPrice());
+                Label heatFactor = new Label("Współczynnik ciepła: " + test.get(i).getHeatFactor());
+
+                myvbox.getChildren().addAll(width, length, height, objectType, allowedTerrainType, price, heatFactor);
+                Text title = new Text(test.get(i).getName());
+
+                try {
+                    Image image;
+                    //System.out.println(".\\resources\\objects\\" + test.get(i).getGuid() + ".png");
+                    File fileName = new File(".\\resources\\objects\\"+ test.get(i).getName() + ".png");
+                    image = new Image(fileName.toURI().toString());
+                    ImageView pic = new ImageView();
+                    pic.setFitWidth(30);
+                    pic.setFitHeight(30);
+                    pic.setImage(image);
+                    borderPane.setCenter(pic);
+                    UUID id = test.get(i).getGuid();
+                    MapObject finalTest = test.get(i);
+                    borderPane.setOnMouseClicked(actionEvent -> {
+                                for(int j=0; j<stackPanes.size(); j++) {
+                                    StackPane pane = (StackPane) vbox.lookup("#pane" + j);
+                                    pane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
+                                }
+                                stackPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#000000"), CornerRadii.EMPTY, Insets.EMPTY)));
+                                currentImage = image;
+                                currentObjectID = id;
+                                currentObject = finalTest;
+                            }
+                    );
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                borderPane.setTop(title);
+                borderPane.setBottom(myvbox);
+                BorderPane.setAlignment(myvbox, Pos.CENTER);
+                BorderPane.setAlignment(title, Pos.CENTER);
+
+                stackPane.getChildren().add(borderPane);
+                stackPanes.add(stackPane);
+                //if(test.get(i).getGuid().equals(map.getObjectsMetadata().get(0).getMapObjectGuid()))
+                    //System.out.println(test.get(i).getGuid());
+            }
+            int i = test.size();
+            int length = i*(13+165+13+2);
+
+            if(length < 545) {
+                anchorScroll.setPrefHeight(546);
+            } else anchorScroll.setPrefHeight(length);
+
+
+            vbox.getChildren().addAll(stackPanes);
         } catch (DataBaseException e) {
             e.printStackTrace();
+
+
         }
-        for(int i=0; i<test.size(); i++) {
-            System.out.println("objects/" + test.get(i).getGuid() + ".png");
-            StackPane stackPane = new StackPane();
-            stackPane.setId("pane" + i);
-            stackPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
-            stackPane.setPadding((new Insets(3, 3, 3, 3)));
-            stackPane.setPrefSize(100,100);
-            BorderPane borderPane = new BorderPane();
-            borderPane.setPadding((new Insets(10, 10, 10, 10)));
-            borderPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
-            borderPane.setPrefSize(20,40);
-            borderPane.setCursor(Cursor.HAND);
-            VBox myvbox = new VBox();
-            Label width = new Label("Szerokość: " + test.get(i).getWidth());
-            Label length = new Label("Długość: " + test.get(i).getWidth());
-            Label height = new Label("Wysokość: " + test.get(i).getHeight());
-            Label objectType = new Label("Typ obiektu: " + test.get(i).getType());
-            Label allowedTerrainType = new Label("Podłoże: " + test.get(i).getAllowedTerrainType());
-            Label price = new Label("Cena: " + test.get(i).getPrice());
-            Label heatFactor = new Label("Współczynnik ciepła: " + test.get(i).getHeatFactor());
 
-            myvbox.getChildren().addAll(width, length, height, objectType, allowedTerrainType, price, heatFactor);
-            Text title = new Text(test.get(i).getName());
-
-            try {
-                Image image;
-                //System.out.println(".\\resources\\objects\\" + test.get(i).getGuid() + ".png");
-                File fileName = new File(".\\resources\\objects\\"+ test.get(i).getName() + ".png");
-                image = new Image(fileName.toURI().toString());
-                ImageView pic = new ImageView();
-                pic.setFitWidth(30);
-                pic.setFitHeight(30);
-                pic.setImage(image);
-                borderPane.setCenter(pic);
-                UUID id = test.get(i).getGuid();
-                MapObject finalTest = test.get(i);
-                borderPane.setOnMouseClicked(actionEvent -> {
-                        for(int j=0; j<stackPanes.size(); j++) {
-                            StackPane pane = (StackPane) vbox.lookup("#pane" + j);
-                            pane.setBackground(new Background(new BackgroundFill(Color.valueOf("#f0e2d0"), CornerRadii.EMPTY, Insets.EMPTY)));
-                        }
-                        stackPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#000000"), CornerRadii.EMPTY, Insets.EMPTY)));
-                        currentImage = image;
-                        currentObjectID = id;
-                        currentObject = finalTest;
-                    }
-                );
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            borderPane.setTop(title);
-            borderPane.setBottom(myvbox);
-            BorderPane.setAlignment(myvbox, Pos.CENTER);
-            BorderPane.setAlignment(title, Pos.CENTER);
-
-            stackPane.getChildren().add(borderPane);
-            stackPanes.add(stackPane);
-        }
-        anchorScroll.setPrefHeight(30*38+5+10*28);
-        vbox.getChildren().addAll(stackPanes);
 
         map = clientManager.returnMap();
         genMap2();
+        System.out.println(map.getObjects());
+        System.out.println(map.getObjectsGuidList());
+        //System.out.println(clientManager.);
+        //System.out.println(map.getObjectsMetadata().get(0).getX());
+        //System.out.println(map.getObjectsMetadata().get(0).getY());
 
-    }
-    public void setCurrentMap(UUID id) {
-        currentMap = id;
-        System.out.println("Setter:" + currentMap);
     }
 
     private void genMap2(){
@@ -199,10 +209,30 @@ public class SimulationController implements Initializable {
         }
     }
 
+    private void loadObjects(){
+        for(int i=0; i<map.getObjectsMetadata().size(); i++) {
+            int cellX = map.getObjectsMetadata().get(i).getX();
+            int cellY = map.getObjectsMetadata().get(i).getY();
+            File fileName = new File(".\\resources\\objects\\"+ map.getObjectsMetadata().get(i).getMapObject().getName() + ".png");
+            Image imageLocal = new Image(fileName.toURI().toString());
+            ImageView pic = new ImageView();
+            int base = 12;
+            int multipleX = map.getObjectsMetadata().get(i).getMapObject().getWidth();
+            int multipleY = map.getObjectsMetadata().get(i).getMapObject().getLength();
+            pic.setTranslateY(6 * (multipleY - 1));
+            pic.setFitWidth(multipleX * base);
+            pic.setFitHeight(multipleY * base);
+            pic.setImage(imageLocal);
+            pic.setOnMouseClicked(e -> removeObject(pic, cellX, cellY) );
+            grid.add(pic,cellX,cellY);
+        }
+    }
+
 
     public void addObject(Image image, int i, int j) {
         try {
             clientManager.placeObject(new Point(i,j), currentObjectID);
+
             ImageView pic = new ImageView();
             int base = 12;
             int multipleX = currentObject.getWidth();
