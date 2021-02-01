@@ -157,6 +157,7 @@ public class SimulationController implements Initializable {
 
         map = clientManager.returnMap();
         genMap2();
+        loadObjects();
         System.out.println(map.getObjects());
         System.out.println(map.getObjectsGuidList());
         //System.out.println(clientManager.);
