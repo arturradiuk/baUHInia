@@ -132,7 +132,7 @@ public class MapManagerController implements Initializable {
     }
 
     @FXML
-    public void addNewMap() {
+    public void addNewMap() throws AdminException {
         adminManager.createNewMapTemplate();
         initList();
     }
