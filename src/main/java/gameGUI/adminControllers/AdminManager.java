@@ -21,7 +21,7 @@ public class AdminManager implements IAdminLogic {
     }
 
     @Override
-    public void createNewMapTemplate() {
+    public void createNewMapTemplate() throws AdminException {
         adminService.createNewMapTemplate();
     }
 
