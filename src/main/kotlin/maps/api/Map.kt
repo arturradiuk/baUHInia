@@ -26,7 +26,7 @@ class Map constructor() : ITrackable() {
     }
 
     @JsonIgnore
-    val objects = ArrayList<MapObject>()
+    var objects = ArrayList<MapObject>()
     val objectsGuidList = ArrayList<UUID>()
     var size: Int = 0
         private set

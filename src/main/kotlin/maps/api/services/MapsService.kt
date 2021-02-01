@@ -71,6 +71,7 @@ class MapsService(
             for(metadata in map.objectsMetadata){
                 metadata.mapObject = objects?.find { x -> x.guid == metadata.mapObjectGuid }!!
             }
+            map.objects = ArrayList(objects)
         }
         return map
     }
