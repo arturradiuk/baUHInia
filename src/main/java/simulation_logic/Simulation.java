@@ -101,11 +101,12 @@ public class Simulation implements ISimulation {
 
     public ArrayList<ArrayList<Double>> runSimulation(UUID map_uuid) {
         ArrayList<ArrayList<Double>> heat_val = new ArrayList<>();
+        var map = mapService.getMap(map_uuid);
         Cell cel = null;
         for (int i = 0; i < 50; i++) {
             heat_val.add(new ArrayList<Double>());
             for (int j = 0; j < 50; j++) {
-                cel = mapService.getMap(map_uuid).get(i,j);
+                cel = map.get(i,j);
 
 
                  if (cel.getType().toString() == "Green")
