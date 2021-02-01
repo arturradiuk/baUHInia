@@ -1,6 +1,7 @@
 package maps.api.services
 
 import database.IMapObject
+import ioc.ServiceContainer
 import login.LoginService
 import maps.api.ITrackable
 import maps.api.Map
@@ -18,7 +19,7 @@ class MapsService(
     var tracked = ArrayList<ITrackable>()
     private val defaultMapSize = 50;
 
-    var mapObjectManager: IMapObject? = null
+    var mapObjectManager: IMapObject? = ServiceContainer.getMapObjectManager()
 
     override fun emptyMap(): Map{
         return Map.empty(defaultMapSize);
@@ -44,7 +45,15 @@ class MapsService(
     override fun fromTemplate(guid: UUID): Map? {
         val map = mapsProvider.get(guid)
         map?.guid = UUID.randomUUID()
+
         if (map != null) {
+            // read obj from db
+            if(mapObjectManager != null) {
+                val objects = mapObjectManager?.getMapObjectsForUuids(map.objectsGuidList)
+                for(metadata in map.objectsMetadata){
+                    metadata.mapObject = objects?.find { x -> x.guid == metadata.mapObjectGuid }!!
+                }
+            }
             setState(map, State.CREATED)
             saveMap(map)
         }
